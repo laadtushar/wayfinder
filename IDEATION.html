@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Wayfinder — Galaxy XR ideation</title>
+<style>
+  :root{--bg:#0f1419;--panel:#171c24;--panel2:#1d242e;--ink:#e6edf3;--mut:#9aa7b4;
+    --line:#2a3340;--accent:#4f9cf9;--green:#2ecc71;--amber:#f1c40f;--purple:#9b6cf0;--red:#e06c75;
+    --sidebar-w:210px;}
+  body.light{--bg:#ffffff;--panel:#f6f8fa;--panel2:#eef1f5;--ink:#1c2530;--mut:#5b6b7c;
+    --line:#d6dee7;--accent:#1f6feb;--green:#1a7f37;--amber:#9a6700;--purple:#6f42c1;--red:#cf222e;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  .sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);overflow-y:auto;
+    background:var(--bg);border-right:1px solid var(--line);z-index:10;padding:20px 0;font-size:13px;}
+  @media(max-width:960px){.sidebar{display:none}}
+  .sidebar-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);
+    font-weight:600;padding:0 16px;margin:0 0 10px;}
+  .toc-item{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;line-height:1.35;
+    border-left:2px solid transparent;transition:all .15s;}
+  .toc-item:hover{color:var(--ink)}
+  .toc-item.active{color:var(--accent);border-left-color:var(--accent)}
+  .wrap{max-width:900px;margin:0 auto 0 var(--sidebar-w);padding:0 28px 80px;}
+  @media(max-width:960px){.wrap{margin-left:0}}
+  header{padding:56px 28px 40px;text-align:center;
+    background:radial-gradient(1200px 400px at 50% -120px,#1c2a3f 0%,var(--bg) 70%);
+    border-bottom:1px solid var(--line);margin-left:var(--sidebar-w);}
+  @media(max-width:960px){header{margin-left:0}}
+  body.light header{background:radial-gradient(1200px 400px at 50% -120px,#e8f0fe 0%,var(--bg) 70%)}
+  header h1{font-size:34px;margin:0 0 8px;letter-spacing:-.5px}
+  header .sub{color:var(--mut);font-size:17px;max-width:680px;margin:0 auto}
+  header .tag{display:inline-block;margin-top:16px;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--accent);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+  h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+    margin:52px 0 4px;display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none;scroll-margin-top:24px}
+  h2 .anchor{opacity:0;font-size:14px;color:var(--mut);text-decoration:none;letter-spacing:0;text-transform:none;flex-shrink:0}
+  h2:hover .anchor{opacity:.7}
+  h2 .caret{margin-left:auto;font-size:11px;color:var(--mut);transition:transform .2s;flex-shrink:0}
+  h2.collapsed .caret{transform:rotate(-90deg)}
+  .section-body.collapsed{display:none}
+  h3{font-size:23px;margin:2px 0 14px;letter-spacing:-.3px}
+  p{color:#d3dce5}.lead{font-size:18px;color:#cfd8e3}
+  body.light p{color:#374151}body.light .lead{color:#374151}
+  a{color:var(--accent)}
+  .tier-head{display:flex;align-items:center;gap:10px;margin:10px 0 4px;flex-wrap:wrap}
+  .tier-head .tagline{color:var(--mut);font-size:15px}
+  .tier-pill{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    padding:4px 12px;border-radius:999px;border:1px solid var(--line)}
+  .t1{color:var(--green);border-color:#1f5132;background:#11231a}
+  .t2{color:var(--amber);border-color:#5a4d12;background:#241f0c}
+  .t3{color:var(--purple);border-color:#42305f;background:#1a1424}
+  .t4{color:var(--mut);border-color:var(--line);background:var(--panel)}
+  body.light .t1{background:#e6f4ea;border-color:#a8d5b0}
+  body.light .t2{background:#fef9e7;border-color:#d4ad5b}
+  body.light .t3{background:#f1e8fd;border-color:#c4a8e8}
+  body.light .t4{background:#f6f8fa}
+  section.tier-1 .item{border-left:3px solid var(--green)}
+  section.tier-2 .item{border-left:3px solid var(--amber)}
+  section.tier-3 .item{border-left:3px solid var(--purple)}
+  section.tier-4 .item{border-left:3px solid var(--line)}
+  .item{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:18px 0}
+  .item h3{margin:0 0 6px;font-size:19px}
+  .item h3 .num{color:var(--mut);font-weight:600;margin-right:6px}
+  .item .meta{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+  .item .why{border-left:3px solid var(--accent);padding:2px 0 2px 12px;margin:12px 0}
+  .item .why p{margin:0}
+  .item .caveat{color:var(--mut);font-size:14.5px;margin:12px 0 0}
+  .item .caveat b{color:var(--ink)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:18px 0}
+  .grid{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}
+  @media(max-width:760px){.g2{grid-template-columns:1fr}}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.5px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--mut);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  tr:last-child td{border-bottom:none}
+  td code,p code,li code,h3 code{background:#0c1117;border:1px solid var(--line);border-radius:6px;
+    padding:1px 6px;font-size:13px;color:#cdd9e5}
+  body.light td code,body.light p code,body.light li code,body.light h3 code{background:#eef1f5;color:#1c2530}
+  pre.code{background:#0c1117;border:1px solid var(--line);border-radius:12px;padding:16px 18px;
+    overflow:auto;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace;color:#cdd9e5;margin:14px 0}
+  body.light pre.code{background:#f8fafc;color:#1c2530}
+  .pill{font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);white-space:nowrap;color:var(--mut)}
+  .ok{color:var(--green);border-color:#1f5132;background:#11231a}
+  .warn{color:var(--amber);border-color:#5a4d12;background:#241f0c}
+  .bad{color:var(--red);border-color:#5a2630;background:#231316}
+  body.light .ok{background:#e6f4ea;border-color:#a8d5b0}
+  body.light .warn{background:#fef9e7;border-color:#d4ad5b}
+  body.light .bad{background:#fde8ea;border-color:#d4898f}
+  #ctrl-bar{position:fixed;top:14px;right:14px;z-index:60;display:flex;gap:8px}
+  .ctrl-btn{cursor:pointer;font:600 12px/1 -apple-system,sans-serif;color:var(--accent);
+    background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 14px;transition:border-color .15s}
+  .ctrl-btn:hover{border-color:var(--accent)}
+  #slide-hud{display:none}
+  .slide-title{display:none}
+  body.present{overflow:hidden}
+  body.present header,body.present .sidebar{display:none!important}
+  body.present .wrap{max-width:none;margin:0!important;padding:0}
+  body.present .slide{display:none;position:fixed;inset:0;overflow:auto;padding:7vh 9vw;
+    flex-direction:column;justify-content:center;background:var(--bg);animation:slidein .22s ease}
+  body.present .slide.current{display:flex}
+  body.present .slide>*{max-width:1100px;margin-left:auto;margin-right:auto;width:100%}
+  body.present .slide h2{margin-top:0}
+  body.present .slide h3{font-size:30px}
+  body.present .slide-title{text-align:center}
+  body.present .slide-title h1{font-size:52px;margin:0 0 14px}
+  body.present .slide-title .sub{font-size:20px}
+  body.present #slide-hud{display:flex;gap:16px;align-items:center;position:fixed;
+    bottom:16px;left:0;right:0;justify-content:center;z-index:60;font:12px/1 ui-monospace,monospace;color:var(--mut)}
+  #slide-hud b{color:var(--ink)}
+  @keyframes slidein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @media print{#ctrl-bar,#slide-hud,.sidebar{display:none!important}}
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease}
+  .reveal.visible{opacity:1;transform:none}
+  body.present .reveal{opacity:1;transform:none}
+  .copyable{cursor:pointer;position:relative}
+  .copyable::after{content:'Copied';position:absolute;top:8px;right:10px;
+    font:600 11px ui-monospace,monospace;color:var(--green);background:#11231a;
+    border:1px solid #1f5132;border-radius:6px;padding:2px 8px;opacity:0;transition:opacity .15s}
+  .copyable.copied::after{opacity:1}
+  footer{color:var(--mut);font-size:13px;text-align:center;margin-top:48px;padding-top:22px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<div id="ctrl-bar">
+  <button class="ctrl-btn" id="theme-btn" onclick="THEME.toggle()" title="Toggle light / dark">&#9680; Theme</button>
+  <button class="ctrl-btn" id="present-btn" onclick="DECK.toggle()">&#9654; Present</button>
+</div>
+<div id="slide-hud">
+  <span><b id="slide-num">1</b> / <b id="slide-tot">1</b></span>
+  <span>&larr; &rarr; / space &middot; Esc exit</span>
+</div>
+
+<nav class="sidebar" id="toc-sidebar" aria-label="Contents">
+  <div class="sidebar-title">Contents</div>
+  <div id="toc-links"></div>
+</nav>
+
+<header>
+  <h1>Wayfinder</h1>
+  <div class="sub">Building an explorable-worlds game on Samsung Galaxy XR. The headset, engine, store, and even on-device photoreal capture already ship. The frontier is the world-generation pipeline and the AI in the world.</div>
+  <div class="tag">Frontier ideation &middot; July 2026</div>
+</header>
+
+<div class="wrap">
+
+  <h2 id="s-fit">Where this sits <a class="anchor" href="#s-fit" title="Copy link">#</a><span class="caret">&#9660;</span></h2>
+  <div class="section-body">
+    <p class="lead">The "what's actually new and useful, validated across sources" document for using SLAM3R-style reconstruction plus Unity/Unreal to build a Star-Trek-flavoured planet-exploration game on Galaxy XR. Split into four tiers by adoption risk. Built from ~40 web searches across seven angles, then an adversarial fact-check over 43 load-bearing claims: 35 confirmed, 8 corrected, 0 false.</p>
+
+    <div class="card">
+      <b>Three reframes that change what you build</b>
+      <p><b>1 &middot; SLAM3R does not run on the headset, and neither does anything in its family.</b> Every feed-forward reconstruction model (SLAM3R, DUSt3R, MASt3R, VGGT, Fast3R) needs a desktop or datacenter GPU with 12&ndash;80 GB of memory. The Galaxy XR runs a mobile chip on a few watts. So SLAM3R is an <i>offline authoring tool</i>: scan on your PC, reconstruct on a desktop/cloud GPU, bake a finished world into the app, and the headset only renders pre-built worlds.</p>
+      <p><b>2 &middot; The platform is the easy part.</b> Galaxy XR is buyable hardware. <a href="https://unity.com/news/unity-powers-launch-titles-for-samsung-galaxy-xr-and-accelerates-the-android-xr-ecosystem-">Unity 6's Android XR support went general availability on Oct 23 2025</a>. On-device Gaussian-splat rendering already ships on this chip class (<a href="https://www.uploadvr.com/niantics-gaussian-splat-scaniverse-is-now-an-app-on-the-quest-store/">Into the Scaniverse</a>). And <a href="https://www.brinkxr.com/">BRINK Traveler</a> plus <a href="https://www.uploadvr.com/android-xr-google-maps-best-galaxy-xr/">Google Maps Immersive View</a> already do "walk real scanned places in XR" natively on Galaxy XR. Your edge must be gameplay, procedural planets, and something nobody else has.</p>
+      <p><b>3 &middot; Two of your three names are legally unsafe.</b> "Strange New Worlds" is an <a href="https://www.startrek.com/en-un/news/fifth-and-final-season-of-strange-new-worlds">active Paramount series title</a>. "Wayfinder" is a <a href="https://trademarks.justia.com/886/48/wayfinder-88648494.html">live US game trademark</a> (Airship Syndicate) in exactly the game-software classes. Keep "Wayfinder" as an internal codename only.</p>
+    </div>
+
+    <p><b>The constraints every idea must respect</b> (the master constraint is the frame budget; several are physical):</p>
+    <table>
+      <tr><th>Constraint</th><th>The number</th><th>What it forces</th></tr>
+      <tr><td>Frame budget</td><td><a href="https://developer.android.com/docs/quality-guidelines/android-xr">72 fps min, 90 fps target</a> (13.8 / 11.1 ms)</td><td>Every world renders inside ~13 ms on a mobile GPU.</td></tr>
+      <tr><td>Render resolution</td><td>&ge;1856&times;2160 per eye</td><td>~8 MP/frame stereo before foveation.</td></tr>
+      <tr><td>On-device splat budget</td><td>~200k&ndash;400k Gaussians/view <span class="pill warn">rule of thumb</span></td><td>A splat "planet" is one room/diorama at a time, not a continuous city. Must benchmark on the device.</td></tr>
+      <tr><td>Locomotion</td><td>No camera rotation over time, no abrupt moves; playable in a 2.0 m radius</td><td>No free smooth-walking. Teleport / snap-turn / world-grab / on-rails from a seated spot. This <i>is</i> your locomotion design.</td></tr>
+      <tr><td>Input</td><td>Hands are default; playable with <b>no controllers</b></td><td>Design around pinch / grab / gaze first.</td></tr>
+      <tr><td>Asset size</td><td><a href="https://developer.android.com/develop/xr/package-and-distribute">30 GB asset packs</a> (vs 4 GB mobile)</td><td>Ship several baked worlds as on-demand downloads.</td></tr>
+      <tr><td>Session length</td><td>Tethered battery ~2&ndash;2.5 hrs</td><td>Short exploration loops, not marathons.</td></tr>
+      <tr><td>Your dev machine</td><td><a href="https://android-developers.googleblog.com/2026/06/what-is-new-android-xr.html">Engine Hub is Windows-only</a>; you're on macOS</td><td>You lose the fastest iterate-on-hardware loop unless you keep a Windows box.</td></tr>
+      <tr><td>Licensing landmine</td><td>Most reconstruction weights are <b>non-commercial</b></td><td>Cannot ship SLAM3R / DUSt3R / MASt3R / Fast3R weights in a paid game. See 1.2.</td></tr>
+    </table>
+  </div>
+
+  <h2 id="s-tier1">Tier 1: Use-today <a class="anchor" href="#s-tier1" title="Copy link">#</a><span class="caret">&#9660;</span></h2>
+  <div class="section-body"><section class="tier-1">
+    <div class="tier-head"><span class="tier-pill t1">Use today</span>
+      <span class="tagline">The shippable spine. A solo dev can build a vertical slice from Tier 1 alone.</span></div>
+
+    <div class="item reveal">
+      <h3><span class="num">1.1</span>Unity 6 (GA) as the engine &mdash; Godot as the free alternative</h3>
+      <div class="meta"><span class="pill">GA Oct 23 2025</span><span class="pill">Unity / Godot MIT</span><span class="pill ok">launch titles shipped on it</span></div>
+      <p>Unity 6's Android XR build target is <a href="https://unity.com/news/unity-powers-launch-titles-for-samsung-galaxy-xr-and-accelerates-the-android-xr-ecosystem-">generally available</a> &mdash; ignore anyone saying "still beta" (only the newest 6.5 polish package is). One OpenXR build also runs on XREAL AURA glasses and, with a rebuild, Meta Quest. The free alternative is <a href="https://godotengine.org/article/godot-xr-update-may-2026/">Godot 4.6.2+</a> with games already live on Google Play.</p>
+      <div class="why"><p><b>Why it matters here:</b> a walkable-planet game needs a mature asset pipeline, the splat/point-cloud tooling in 1.3, foveation, and SpaceWarp &mdash; Unity has all of it and the launch games prove the path. <b>Unreal is a trap</b>: its Android XR support is developer-preview only, and Nanite/Lumen aren't usable on a mobile Snapdragon anyway.</p></div>
+      <pre class="code copyable">Unity 6 LTS + com.unity.xr.androidxr-openxr
+  + Android XR Extensions for Unity (github.com/android/android-xr-unity-package)
+  + XR Plugin Management + AR Foundation
+Render: Universal Render Pipeline on Vulkan (required)
+Input:  XR Interaction Toolkit + XR Hands (hands + eye-gaze, GA)
+Start from Unity's Mixed Reality template.</pre>
+      <p class="caveat"><b>The catch:</b> you do <i>not</i> need PolySpatial for a fully-immersive game (it's for apps that float in the home environment, and its visionOS mode needs a paid Unity licence). Skip it &mdash; plain OpenXR + XRI is simpler and free.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">1.2</span>The offline reconstruction &rarr; clean-mesh pipeline (and the licence minefield)</h3>
+      <div class="meta"><span class="pill">SLAM3R 20+ fps on RTX 4090</span><span class="pill bad">most weights non-commercial</span><span class="pill ok">Open3D = MIT</span></div>
+      <p>This is where SLAM3R lives: capture a real place, reconstruct on a desktop/cloud GPU (<a href="https://github.com/pku-vcl-3dv/slam3r">SLAM3R gives 20+ fps dense point clouds on a 4090</a>), mesh it, decimate and texture, import the static asset into Unity. The net is only step zero &mdash; the headset renders a decimated mesh, not a 20-million-point cloud.</p>
+      <div class="why"><p><b>Why the licence detail is load-bearing:</b> SLAM3R is built on DUSt3R, so its weights inherit a <a href="https://github.com/naver/mast3r/blob/main/CHECKPOINTS_NOTICE">non-commercial licence</a> &mdash; as do MASt3R, MASt3R-SLAM, Fast3R. Prototype freely; you cannot <i>ship</i> a paid game on them. The commercially-clean set: <a href="https://github.com/facebookresearch/vggt">VGGT-1B-Commercial</a>, <a href="https://github.com/microsoft/moge">MoGe / MoGe-2</a> (MIT), and Pi3's <i>code</i> (BSD).</p></div>
+      <pre class="code copyable">capture -&gt; SLAM3R/VGGT (desktop/cloud CUDA GPU) -&gt; point cloud
+  -&gt; Open3D Screened Poisson  (MIT, commercially clean)
+       pcd.estimate_normals(); create_from_point_cloud_poisson()
+  -&gt; decimate ~100k-500k tris (Blender) + xatlas UV + bake texture
+  -&gt; glTF/FBX -&gt; Unity</pre>
+      <p class="caveat"><b>The catch:</b> use <b>Open3D, not MeshLab</b>, in the shipped pipeline &mdash; MeshLab is GPLv3 (copyleft) and drags obligations into your product. NVIDIA NKSR gives more detail but ships under a restrictive research licence.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">1.3</span>On-device Gaussian splatting as the runtime look &mdash; the "diorama per scene" pattern</h3>
+      <div class="meta"><span class="pill">aras-p MIT</span><span class="pill ok">standalone Quest-proven</span><span class="pill">Scaniverse free</span></div>
+      <p>A decimated mesh looks worse than reality. <b>3D Gaussian splatting</b> (store the scene as millions of tiny coloured blobs, render by sorting and blending) both looks better and runs on the mobile chip. Proof on your exact hardware class: <a href="https://voicesofvr.com/1525-niantics-into-the-scaniverse-maps-over-50k-gaussian-splats-from-around-the-world-on-quest-and-webxr/">Into the Scaniverse</a> renders user splats on-device on Quest, no cloud.</p>
+      <div class="why"><p><b>Why it matters here:</b> your renderer is <a href="https://github.com/aras-p/UnityGaussianSplatting">aras-p's UnityGaussianSplatting</a> (MIT, <a href="https://radiancefields.com/gaussian-splatting-unity-plugin-gets-vr-support">VR-tested standalone on Quest 3</a>, needs Vulkan/D3D12). Copy the proven pattern: <b>one bounded splat scene at a time, swapped as you travel</b> &mdash; a diorama per location, respecting the ~200k&ndash;400k-splats-per-view budget.</p></div>
+      <p class="caveat"><b>The catch that shapes gameplay:</b> splats have no collision, don't receive engine lighting, and their lighting is baked in from capture time. Every splat world needs an invisible polygon collision mesh under it, and anything the player touches (creatures, doors, your AI companion) must be a normal mesh actor. <a href="https://www.kiriengine.app/features/mesh-inclusive-3dgs">KIRI's Mesh-Inclusive 3DGS</a> auto-generates that collision mesh. Plan for <b>splat backdrop + mesh actors</b> from day one.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">1.4</span>Procedural planets, the classic way &mdash; the part you fully own</h3>
+      <div class="meta"><span class="pill">free / open</span><span class="pill ok">no licence cost</span><span class="pill">the "new planets" pillar</span></div>
+      <p>Generative AI does not give you a whole planet. Start from <a href="https://github.com/SebLague/Procedural-Planets">Sebastian Lague's Procedural Planets</a>: mesh six terrain faces onto a sphere (the cube-sphere technique real planet games use), stack noise for terrain, shade by elevation. Layer on the <a href="https://www.gdcvault.com/play/1024265/Continuous_World_Generation_in__No_Man_s_Sky_">No Man's Sky recipe</a>: multi-frequency noise (fractal Brownian motion) + domain warping + seed-driven biomes.</p>
+      <div class="why"><p><b>Why it matters here:</b> this is near-infinite varied planets from math without storing them &mdash; the heart of replayability, and the part of Wayfinder you own outright rather than rent.</p></div>
+      <p class="caveat"><b>The catch:</b> it's a technique corpus, not importable code, and VR adds the constraint that terrain chunks must generate inside the frame and thermal budget. For hand-crafted hero regions, <a href="https://quadspinner.com/Gaea/Unreal">Gaea 2</a> gives film-grade erosion &mdash; but it's regional heightfield, not a whole globe.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">1.5</span>Publishing to Google Play &mdash; the concrete path and its gates</h3>
+      <div class="meta"><span class="pill">$25 one-time</span><span class="pill ok">~15% cut on first $1M</span><span class="pill warn">12-tester / 14-day gate</span></div>
+      <p>Pay the <a href="https://support.google.com/googleplay/android-developer/answer/14151465?hl=en">one-time $25 fee</a>, build an Android App Bundle, publish to the <a href="https://android-developers.googleblog.com/2025/10/5-things-you-need-to-know-about.html">dedicated Android XR release track</a>. One manifest line marks it a fully-immersive XR app. Pass the <a href="https://developer.android.com/docs/quality-guidelines/android-xr">quality guidelines</a> (the constraints table).</p>
+      <div class="why"><p><b>Two corrections in your favour:</b> Android XR is <b>exempt</b> from the Aug 31 2026 "target API 36" deadline (with Wear/Auto/TV). And the <a href="https://android-developers.googleblog.com/2026/06/play-expanded-billing.html">June 2026 billing change</a> is ~15% effective on your first $1M &mdash; better than Meta's/Apple's 30%.</p></div>
+      <pre class="code copyable">&lt;uses-feature android:name="android.software.xr.api.openxr"
+              android:required="true" /&gt;</pre>
+      <p class="caveat"><b>The catch:</b> a new personal account must run a closed test with &ge;12 testers for 14 consecutive days before production. Line them up early, or register as an organisation. For friction-free playtests, <a href="https://www.uploadvr.com/samsung-galaxy-xr-has-easy-sideloading-and-open-bootloader/">Galaxy XR sideloads APKs from the browser</a> with no PC and no dev mode.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">1.6</span>The comparables that de-risk the plan &mdash; and the IP green light</h3>
+      <div class="meta"><span class="pill">BRINK + Google Maps ship on Galaxy XR</span><span class="pill ok">Abdin v. CBS = green light</span></div>
+      <p>Two shipping apps prove your loop is buildable here: <a href="https://www.uploadvr.com/brink-traveler-impressions/">BRINK Traveler</a> (58 photogrammetry environments you walk inside) and <a href="https://unity.com/resources/google-maps">Google Maps Immersive View</a> (Unity-powered, ask Gemini about a landmark). Warning from the graveyard: <a href="https://vrpupu.us/2025/10/27/meta-quest-vr-travel-software-guide/">Google Earth VR was abandoned</a> because sightseeing without a game loop doesn't sustain.</p>
+      <div class="why"><p><b>The IP green light:</b> <a href="https://www.finnegan.com/en/insights/blogs/incontestable/star-treks-space-traveling-tardigrades-live-long-and-prosper-after-second-circuit-affirms-non-infringement-of-videogame-copyright.html">Abdin v. CBS</a> affirmed non-infringement over a space-exploration game &mdash; the generic idea "explore strange new worlds" is free. Copy none of the specific expression: no delta insignia, no Enterprise, no warp/phaser/LCARS, no Klingon/Vulcan.</p></div>
+      <p class="caveat"><b>The catch:</b> Paramount enforces hard even against free fan work &mdash; the <a href="https://torrentfreak.com/cbs-shuts-down-stage-9-a-fan-made-recreation-of-the-uss-enterprise-180927/">Stage 9 fan VR Enterprise was killed by cease-and-desist</a>, the closest analog to what you're building. Sell the feeling of discovery; never borrow the furniture. Run a trademark clearance in classes 9 + 41 before any public name. (Not legal advice.)</p>
+    </div>
+  </section></div>
+
+  <h2 id="s-tier2">Tier 2: Use-soon <a class="anchor" href="#s-tier2" title="Copy link">#</a><span class="caret">&#9660;</span></h2>
+  <div class="section-body"><section class="tier-2">
+    <div class="tier-head"><span class="tier-pill t2">Use soon</span>
+      <span class="tagline">Research-mature, build with care. Each carries an early-adopter tax.</span></div>
+
+    <div class="item reveal">
+      <h3><span class="num">2.1</span>Generative world models with <i>exportable</i> assets &mdash; Marble and HY-World 2.0</h3>
+      <div class="meta"><span class="pill">Marble public Nov 12 2025</span><span class="pill">Pro $35/mo = commercial</span><span class="pill ok">HY-World 2.0 Apache 2.0</span></div>
+      <p>The key split is exportable-asset vs closed-stream. <a href="https://www.worldlabs.ai/blog/marble-world-model">World Labs' Marble</a> (Fei-Fei Li's company) turns text/photo/video into a persistent 3D world and <a href="https://techcrunch.com/2025/11/12/fei-fei-lis-world-labs-speeds-up-the-world-model-race-with-marble-its-first-commercial-product/">exports meshes and splats</a> (Pro tier for commercial rights). The open counterpart is <a href="https://github.com/Tencent-Hunyuan/HY-World-2.0">Tencent HY-World 2.0</a> (Apache 2.0), exporting mesh + splats + point cloud + depth + camera params, self-hostable.</p>
+      <div class="why"><p><b>Why it matters here:</b> turn a concept image into an explorable region or a hero landmark. Choose <b>mesh for on-device performance, splats only for fidelity backdrops.</b></p></div>
+      <p class="caveat"><b>The catch:</b> worlds are room/region scale, not planets; Marble's credit model costs real money to iterate; auto-generated topology needs cleanup.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">2.2</span>Single-object generative 3D &mdash; the prop / creature / ship workhorse</h3>
+      <div class="meta"><span class="pill">TRELLIS 2 Dec 2025, MIT</span><span class="pill">Tripo / Rodin / Meshy</span><span class="pill ok">GLB &rarr; Unity</span></div>
+      <p><a href="https://comfyui-wiki.com/en/news/2025-12-18-microsoft-trellis2-3d-generation">Microsoft TRELLIS 2</a> (4B params, MIT) turns one photo into a game-ready GLB in seconds via ComfyUI &mdash; free and unrestricted. Hosted options: Tripo (fastest, includes rigging for creatures), Rodin/Meshy (cleaner topology), all export GLB.</p>
+      <div class="why"><p><b>Why it matters here:</b> populate planets fast &mdash; rocks, plants, artifacts, your original (non-Enterprise) ships, animated creatures via Tripo's rigging.</p></div>
+      <p class="caveat"><b>The catch:</b> one object per generation, not a scene; auto topology needs a decimation/LOD pass for the mobile budget.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">2.3</span>The reconstruction frontier &mdash; VGGT, Fast3R, MASt3R-SLAM</h3>
+      <div class="meta"><span class="pill">VGGT CVPR 2025 Best Paper</span><span class="pill bad">most weights non-commercial</span><span class="pill ok">VGGT-1B-Commercial exists</span></div>
+      <p><a href="https://github.com/facebookresearch/vggt">VGGT</a> (Meta+Oxford) predicts poses, depth, dense point maps in one pass (1.2B params, a scene in under a second) and is the one top model with a commercial checkpoint. <a href="https://fast3r-3d.github.io/">Fast3R</a> does 1,500 images in one pass (non-commercial). <a href="https://edexheim.github.io/mast3r-slam/">MASt3R-SLAM</a> gives poses + geometry from a moving camera (~15 fps on a 4090, non-commercial).</p>
+      <div class="why"><p><b>Why it matters here:</b> VGGT-1B-Commercial is the shippable choice for turning a photo set of a real place into geometry; Fast3R for whole-location photo sweeps.</p></div>
+      <p class="caveat"><b>The catch:</b> VRAM ceilings mean long captures must be tiled; point maps are noisy at depth edges; only VGGT-1B-Commercial is legally shippable.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">2.4</span>The mobile-GPU performance levers &mdash; SpaceWarp and foveation</h3>
+      <div class="meta"><span class="pill">Unity + Android XR Extensions</span><span class="pill ok">eye-tracked foveation</span></div>
+      <p><b>Application SpaceWarp</b> (render at half rate, synthesise the in-between frames) is the biggest single lever for heavy scenes. <b>Dynamic foveated rendering</b> (full detail only where the eye looks) is the second, and how <a href="https://arxiv.org/abs/2505.10144">VRSplat</a> claws back frame budget.</p>
+      <div class="why"><p><b>Why it matters here:</b> these are what make dense reconstructed worlds hold 72&ndash;90 fps on the mobile chip.</p></div>
+      <p class="caveat"><b>The catch:</b> SpaceWarp isn't free quality &mdash; it needs correct motion vectors and depth, and dense geometry with bad motion vectors shows artifacts. Validate on the real device, not the emulator.</p>
+    </div>
+  </section></div>
+
+  <h2 id="s-tier3">Tier 3: Bet-on <a class="anchor" href="#s-tier3" title="Copy link">#</a><span class="caret">&#9660;</span></h2>
+  <div class="section-body"><section class="tier-3">
+    <div class="tier-head"><span class="tier-pill t3">Bet on</span>
+      <span class="tagline">A 12-month moat if you build it. Almost nobody is doing these in a shipping game yet.</span></div>
+
+    <div class="item reveal">
+      <h3><span class="num">3.1</span>A Gemini-powered in-world companion &mdash; your "ship's computer"</h3>
+      <div class="meta"><span class="pill">Gemini Live API</span><span class="pill ok">the single biggest differentiator</span></div>
+      <p><a href="https://developer.android.com/develop/xr/gemini">Gemini is integrated at the OS level of Android XR</a> and reachable via the Gemini Live API &mdash; real-time voice + vision. No prior VR platform had first-party multimodal AI in the system. For Wayfinder: a companion that <b>literally sees what the player sees and reacts</b> &mdash; a science officer that narrates the planet, answers "what is that structure?", logs discoveries.</p>
+      <div class="why"><p><b>Why it matters here:</b> this is what turns "another scanned-world walker" into "the exploration game with a mind in it." Google Maps ships the primitive version; nobody's built it as a game companion.</p></div>
+      <p class="caveat"><b>The catch:</b> the clean path for calling Gemini Live from inside a Unity/Unreal immersive game isn't documented yet (previewed integrations are with ARCore/glasses). You'll pioneer it as a streaming client, and design around latency, per-call cost, and camera-to-cloud privacy. Bet on it anyway.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">3.2</span>Breaking the diorama ceiling &mdash; mesh-bound and LOD splats</h3>
+      <div class="meta"><span class="pill">NanoGS ~Mar 2026</span><span class="pill">Voyager 6.6&times; speedup</span><span class="pill">SqueezeMe on Quest 3</span></div>
+      <p>The Tier 1 pattern caps you at one room per scene. <a href="https://www.cgchannel.com/2026/03/free-plugin-nanogs-puts-nanite-style-gaussian-splatting-in-unreal-engine/">NanoGS</a> brings Nanite-style level-of-detail to splats. <a href="https://arxiv.org/pdf/2506.02774">Voyager</a> does city-scale mobile LOD (6.6&times; speedup, 85% energy savings). Mesh-bound methods (GS-Verse, MeshSplats, KIRI) bind Gaussians to a mesh so physics and collision work. <a href="https://arxiv.org/html/2412.15171v1">SqueezeMe</a> already runs three splat avatars on-device on Quest 3.</p>
+      <div class="why"><p><b>Why it matters here:</b> these map the path from "photo of a room" to "walkable district," and let a splat creature deform or be collided with.</p></div>
+      <p class="caveat"><b>The catch:</b> mostly papers and brand-new plugins, no proven Galaxy XR numbers &mdash; but building tooling around them now is a real lead.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">3.3</span>Cloud-streamed splats &mdash; the escape hatch from the on-device budget</h3>
+      <div class="meta"><span class="pill">Meta Hyperscape Sept 2025</span><span class="pill warn">server cost + always-online</span></div>
+      <p><a href="https://techcrunch.com/2025/09/17/meta-launches-hyperscape-technology-to-turn-real-world-spaces-into-vr/">Meta Hyperscape / Project Avalanche</a> renders whole photoreal splat rooms in the cloud and streams them to the headset as a thin client &mdash; quality no standalone GPU can match, because it isn't rendered locally.</p>
+      <div class="why"><p><b>Why it matters here:</b> it delivers worlds beyond the ~400k-splat on-device ceiling. The bet: it's Meta's closed system, so for you this is a "build your own splat-streaming backend" bet, or wait for a service.</p></div>
+      <p class="caveat"><b>The catch:</b> real server cost, network latency, always-online. A solo dev can't trivially replicate it &mdash; but it proves the on-device budget isn't the final word.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">3.4</span>Next-gen reconstruction &mdash; Pi3 and MapAnything</h3>
+      <div class="meta"><span class="pill">Pi3 ICLR 2026</span><span class="pill ok">Pi3 code = BSD</span><span class="pill">MapAnything Sept 2025</span></div>
+      <p><a href="https://github.com/yyfz/Pi3">Pi3</a> drops the fixed-reference-frame dependence of DUSt3R/VGGT for smoother, more robust output &mdash; and it's the first top model whose <i>code</i> is BSD-3 (commercial-friendly) even though weights are non-commercial. <a href="https://map-anything.github.io/">MapAnything</a> is a universal metric model with swappable backends.</p>
+      <div class="why"><p><b>Why it matters here:</b> for a longer build, higher-quality, more stable reconstructions, with pipeline code you can legally use.</p></div>
+      <p class="caveat"><b>The catch:</b> both are new with rougher tooling than VGGT; Pi3 weights still need commercial licensing or your own training.</p>
+    </div>
+  </section></div>
+
+  <h2 id="s-tier4">Tier 4: Speculative <a class="anchor" href="#s-tier4" title="Copy link">#</a><span class="caret">&#9660;</span></h2>
+  <div class="section-body"><section class="tier-4">
+    <div class="tier-head"><span class="tier-pill t4">Speculative</span>
+      <span class="tagline">Probably 18+ months out. Track it, don't build on it.</span></div>
+
+    <div class="item reveal">
+      <h3><span class="num">4.1</span>Real-time interactive world models (Genie 3 / Project Genie)</h3>
+      <div class="meta"><span class="pill">Project Genie Jan 29 2026</span><span class="pill bad">no export, ~1 min memory</span></div>
+      <p><a href="https://deepmind.google/blog/genie-3-a-new-frontier-for-world-models/">Genie 3</a> generates a navigable photorealistic world frame-by-frame as you move; <a href="https://blog.google/innovation-and-ai/models-and-research/google-deepmind/project-genie/">Project Genie</a> launched to US AI Ultra subscribers.</p>
+      <p class="caveat"><b>Why not yet:</b> 720p at 24 fps, ~1 minute of world consistency then it forgets, no mesh/splat export, cloud-only. A dead end as build material today &mdash; but the day it becomes exportable and persistent, "infinite explorable planets" changes shape. Track it.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">4.2</span>On-device neural reconstruction</h3>
+      <div class="meta"><span class="pill">QuantVGGT, research-only</span></div>
+      <p><a href="https://arxiv.org/abs/2509.21302">QuantVGGT</a> (4-bit VGGT, ~3.7&times; memory reduction) is the first step toward reconstruction on smaller hardware &mdash; but still targets desktop GPUs, research-only.</p>
+      <p class="caveat"><b>Why not yet:</b> the VRAM/power gap to a mobile chip is orders of magnitude. Worth tracking because the day it works, a player could scan their own room into the game live &mdash; a killer feature.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">4.3</span>Interactive-video world models (Odyssey, Decart Oasis)</h3>
+      <div class="meta"><span class="pill bad">closed stream, per-second pricing</span></div>
+      <p><a href="https://decart.ai/">Odyssey-2 and Decart Oasis</a> stream controllable worlds one frame at a time. Same closed-stream limits as Genie 3, and Oasis is scoped to driving simulation.</p>
+      <p class="caveat"><b>Why not yet:</b> no exportable geometry, cloud-only, wrong shape for a standalone game. Track lightly.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3><span class="num">4.4</span>Real-astronomical-data planets</h3>
+      <div class="meta"><span class="pill">Elite Dangerous Stellar Forge</span></div>
+      <p>A frontier <i>content</i> bet: <a href="https://forums.frontier.co.uk/threads/elite-dangerous-cobra-engine-updatable.595765/">Elite Dangerous seeds ~160,000 systems from real star catalogues</a>. Real exoplanet and terrain datasets give authenticity procedural noise can't.</p>
+      <p class="caveat"><b>Why worth knowing:</b> "these are <i>real</i> worlds" is a differentiator no purely-procedural competitor can claim, and the datasets are public &mdash; at the cost of building a data pipeline.</p>
+    </div>
+  </section></div>
+
+  <h2 id="s-stack">One stack <a class="anchor" href="#s-stack" title="Copy link">#</a><span class="caret">&#9660;</span></h2>
+  <div class="section-body">
+    <h3>How they compose</h3>
+    <table>
+      <tr><th>Phase</th><th>Add</th><th>Effort</th><th>Payoff</th></tr>
+      <tr><td>0</td><td>Unity 6 (GA) + OpenXR + XRI; sideload a "hello cube" to the headset</td><td>3&ndash;5 days</td><td>Full toolchain proven on-device; iterate loop working</td></tr>
+      <tr><td>1</td><td>aras-p splatting + one Scaniverse capture as an on-device diorama, KIRI collision mesh under it</td><td>1&ndash;2 weeks</td><td>The core "walk a scanned world" loop, at framerate</td></tr>
+      <tr><td>2</td><td>Gemini Live companion reacting to what you look at</td><td>2&ndash;4 weeks</td><td>The differentiator &mdash; an exploration game with a mind in it</td></tr>
+      <tr><td>3</td><td>Cube-sphere + noise-stack procedural planet, teleport locomotion</td><td>3&ndash;6 weeks</td><td>The "explore new planets" pillar; replayability from a seed</td></tr>
+      <tr><td>4</td><td>Offline SLAM3R &rarr; Open3D-Poisson &rarr; VGGT-Commercial authoring pipeline</td><td>3&ndash;6 weeks</td><td>You control content creation; not renting worlds</td></tr>
+      <tr><td>5</td><td>Marble Pro / HY-World 2.0 hero landmarks; TRELLIS 2 props</td><td>ongoing</td><td>Rich, varied content at speed</td></tr>
+      <tr><td>6</td><td>Publish to the Android XR track; original name cleared in classes 9 + 41</td><td>2&ndash;3 wks + test gate</td><td>Shipped, legally clean, discoverable in the XR store section</td></tr>
+    </table>
+  </div>
+
+  <h2 id="s-first">Build first <a class="anchor" href="#s-first" title="Copy link">#</a><span class="caret">&#9660;</span></h2>
+  <div class="section-body">
+    <div class="card" style="border-left:3px solid var(--green)">
+      <b>If I had one engineer and one month:</b>
+      <p><b>Ship a vertical slice of one bounded, hand-picked scanned real place &mdash; rendered as an on-device Gaussian splat with a collision mesh under it, in Unity 6 (GA), with a Gemini Live companion that reacts to what you look at &mdash; sideloaded onto the Galaxy XR.</b></p>
+      <p>That one slice proves the entire spine end to end with only shippable-today pieces. It replaces three assumptions:</p>
+      <p>&bull; that you need SLAM3R at runtime (you don't &mdash; it's offline authoring, and the slice can start from a Scaniverse capture with no reconstruction at all);<br>
+      &bull; that you need Unreal for fidelity (you don't &mdash; splats out-look decimated meshes on this chip and run standalone);<br>
+      &bull; that a scanned-world walker is enough (it isn't &mdash; Google Earth VR died proving that; the Gemini companion is the game).</p>
+      <p>Procedural planets, your own reconstruction pipeline, and generative worlds are refinements you layer <i>after</i> the loop is proven. The splat-diorama-plus-AI-companion slice tells you in four weeks whether Wayfinder is a game or a tech demo &mdash; and if it lands, no other Galaxy XR exploration app currently has it.</p>
+      <p style="margin-top:14px"><b>Not optional:</b> pick a different public name before building any brand. "Wayfinder" and "Strange New Worlds" are both taken in ways that will cost you. The exploration feeling is yours; those two words aren't.</p>
+    </div>
+  </div>
+
+  <footer>Companion to IDEATION.md &middot; built July 2026 &middot; 35/43 load-bearing claims confirmed, 8 corrected, 0 false</footer>
+</div>
+
+<script>
+const THEME=(function(){
+  let dark=true;
+  function apply(d){
+    document.body.classList.toggle('light',!d);
+    document.getElementById('theme-btn').textContent=(d?'◐ Theme':'☀ Theme');
+  }
+  return {toggle(){dark=!dark;apply(dark);}};
+})();
+(function(){
+  const nav=document.getElementById('toc-links'); if(!nav) return;
+  const h2s=[...document.querySelectorAll('h2[id]')];
+  h2s.forEach(h=>{
+    const a=document.createElement('a');
+    a.className='toc-item';a.href='#'+h.id;
+    a.textContent=[...h.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim();
+    a.addEventListener('click',e=>{e.preventDefault();
+      document.getElementById(h.id).scrollIntoView({behavior:'smooth',block:'start'});
+      history.pushState(null,'','#'+h.id);});
+    nav.appendChild(a);
+  });
+  if(!window.IntersectionObserver) return;
+  const items=[...nav.querySelectorAll('.toc-item')];
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{
+    if(e.isIntersecting)items.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));});
+  },{rootMargin:'-8% 0px -72% 0px',threshold:0});
+  h2s.forEach(h=>obs.observe(h));
+})();
+document.querySelectorAll('h2[id]').forEach(h2=>{
+  h2.addEventListener('click',e=>{
+    if(e.target.classList.contains('anchor')) return;
+    const body=h2.nextElementSibling;
+    if(body&&body.classList.contains('section-body')){
+      h2.classList.toggle('collapsed');body.classList.toggle('collapsed');}
+  });
+});
+document.querySelectorAll('.anchor').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();
+    const url=location.origin+location.pathname+'#'+a.closest('h2').id;
+    navigator.clipboard.writeText(url).then(()=>{const prev=a.textContent;a.textContent='✓';
+      setTimeout(()=>a.textContent=prev,1200);}).catch(()=>{});});
+});
+(function(){
+  if(!window.IntersectionObserver) return;
+  const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+})();
+document.querySelectorAll('.copyable').forEach(pre=>{
+  pre.addEventListener('click',()=>{navigator.clipboard.writeText(pre.innerText).then(()=>{
+    pre.classList.add('copied');setTimeout(()=>pre.classList.remove('copied'),1400);}).catch(()=>{});});
+});
+const DECK=(function(){
+  const wrap=document.querySelector('.wrap'), header=document.querySelector('header');
+  let slides=[],idx=0,built=false;
+  function build(){
+    if(built) return;
+    const title=document.createElement('section');title.className='slide slide-title';title.innerHTML=header.innerHTML;
+    wrap.insertBefore(title,wrap.firstChild);
+    const kids=[...wrap.children].filter(el=>el!==title);let cur=null;
+    kids.forEach(el=>{if(el.tagName==='H2'){cur=document.createElement('section');cur.className='slide';wrap.insertBefore(cur,el);}
+      if(cur) cur.appendChild(el);});
+    slides=[...wrap.querySelectorAll('.slide')];
+    document.getElementById('slide-tot').textContent=slides.length;built=true;
+  }
+  function show(i){idx=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,j)=>s.classList.toggle('current',j===idx));
+    const n=document.getElementById('slide-num');if(n)n.textContent=idx+1;
+    if(slides[idx])slides[idx].scrollTop=0;}
+  function enter(){build();document.body.classList.add('present');document.getElementById('present-btn').innerHTML='&#10005; Exit';show(idx);}
+  function exit(){document.body.classList.remove('present');document.getElementById('present-btn').innerHTML='&#9654; Present';}
+  function toggle(){document.body.classList.contains('present')?exit():enter();}
+  document.addEventListener('keydown',e=>{
+    const typing=/input|textarea|select/i.test(e.target.tagName);
+    if((e.key==='p'||e.key==='P'||e.key==='f'||e.key==='F')&&!typing){toggle();return;}
+    if(!document.body.classList.contains('present')) return;
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();show(idx+1);}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(idx-1);}
+    else if(e.key==='Home'){show(0);}else if(e.key==='End'){show(slides.length-1);}
+    else if(e.key==='Escape'){exit();}
+  });
+  return {toggle};
+})();
+</script>
+</body>
+</html>

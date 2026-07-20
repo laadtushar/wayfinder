@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+
+# Large raw source data (keep processing recipes in docs/, not the multi-GB rasters)
+data/raw/
+
+# --- Unity (applies once the unity/ project is added) ---
+unity/[Ll]ibrary/
+unity/[Tt]emp/
+unity/[Oo]bj/
+unity/[Bb]uild/
+unity/[Bb]uilds/
+unity/[Ll]ogs/
+unity/[Uu]ser[Ss]ettings/
+unity/[Mm]emoryCaptures/
+unity/*.apk
+unity/*.aab

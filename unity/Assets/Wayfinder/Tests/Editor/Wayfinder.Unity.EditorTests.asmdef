@@ -5,6 +5,7 @@
         "Wayfinder.Core",
         "Wayfinder.Unity",
         "Unity.XR.CoreUtils",
+        "UnityEngine.UI",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

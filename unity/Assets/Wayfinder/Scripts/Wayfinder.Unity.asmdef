@@ -2,7 +2,8 @@
     "name": "Wayfinder.Unity",
     "rootNamespace": "Wayfinder.Unity",
     "references": [
-        "Wayfinder.Core"
+        "Wayfinder.Core",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

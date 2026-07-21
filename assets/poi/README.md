@@ -1,0 +1,1 @@
+﻿POI content moved to unity/Assets/Wayfinder/POI/ (ticket #9) - the Unity project is the single consumer; WorldPackages reference the JSONs as TextAssets. Authoring guidance unchanged: see docs/specs/2026-07-21-terrain-and-poi-content.md.

@@ -3,7 +3,8 @@
     "rootNamespace": "Wayfinder.Unity.EditorTools",
     "references": [
         "Wayfinder.Core",
-        "Wayfinder.Unity"
+        "Wayfinder.Unity",
+        "Unity.XR.Interaction.Toolkit"
     ],
     "includePlatforms": [
         "Editor"

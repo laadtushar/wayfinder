@@ -71,6 +71,84 @@ namespace Wayfinder.Unity.Tests
         }
 
         [Test]
+        public void No_Smooth_Locomotion_Exists_Anywhere_In_The_Bridge_Scene()
+        {
+            // Comfort rules (CLAUDE.md): teleport / snap turn only. A smooth
+            // move or continuous turn provider must never ship.
+            var scene = OpenBridge();
+            foreach (var root in scene.GetRootGameObjects())
+            {
+                Assert.AreEqual(0,
+                    root.GetComponentsInChildren<global::UnityEngine.XR.Interaction.Toolkit.Locomotion.Movement.ContinuousMoveProvider>(true).Length,
+                    "ContinuousMoveProvider found under " + root.name);
+                Assert.AreEqual(0,
+                    root.GetComponentsInChildren<global::UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning.ContinuousTurnProvider>(true).Length,
+                    "ContinuousTurnProvider found under " + root.name);
+            }
+        }
+
+        [Test]
+        public void Bridge_Has_Teleport_And_SnapTurn_Providers()
+        {
+            var scene = OpenBridge();
+            global::UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationProvider teleport = null;
+            global::UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning.SnapTurnProvider snap = null;
+            foreach (var root in scene.GetRootGameObjects())
+            {
+                if (teleport == null) teleport = root.GetComponentInChildren<global::UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationProvider>(true);
+                if (snap == null) snap = root.GetComponentInChildren<global::UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning.SnapTurnProvider>(true);
+            }
+            Assert.IsNotNull(teleport, "no TeleportationProvider in Bridge scene");
+            Assert.IsNotNull(snap, "no SnapTurnProvider in Bridge scene");
+            Assert.AreEqual(45f, snap.turnAmount, 0.1f, "snap turn amount should be 45 degrees");
+        }
+
+        [Test]
+        public void Every_Controller_Manager_Has_A_Teleport_Interactor_Wired()
+        {
+            // A pinch/thumbstick teleport with no interactor behind it fails
+            // silently — this pins the player-usable input path.
+            var scene = OpenBridge();
+            int managers = 0;
+            foreach (var root in scene.GetRootGameObjects())
+                foreach (var comp in root.GetComponentsInChildren<MonoBehaviour>(true))
+                {
+                    if (comp == null || comp.GetType().Name != "ControllerInputActionManager") continue;
+                    managers++;
+                    var so = new SerializedObject(comp);
+                    var ti = so.FindProperty("m_TeleportInteractor");
+                    Assert.IsNotNull(ti, "manager has no teleport interactor property");
+                    Assert.IsNotNull(ti.objectReferenceValue,
+                        comp.gameObject.name + " has a null teleport interactor");
+                    var sm = so.FindProperty("m_SmoothMotionEnabled");
+                    if (sm != null) Assert.IsFalse(sm.boolValue, comp.gameObject.name + " smooth motion flag on");
+                    var st = so.FindProperty("m_SmoothTurnEnabled");
+                    if (st != null) Assert.IsFalse(st.boolValue, comp.gameObject.name + " smooth turn flag on");
+                }
+            Assert.GreaterOrEqual(managers, 2, "expected controller managers for both hands");
+        }
+
+        [Test]
+        public void Modality_Manager_Serves_Hands_And_Controllers()
+        {
+            // Hands are the platform default input (CLAUDE.md) — null hand
+            // slots would deactivate every interactor the moment hand
+            // tracking acquires.
+            var scene = OpenBridge();
+            global::UnityEngine.XR.Interaction.Toolkit.Inputs.XRInputModalityManager modality = null;
+            foreach (var root in scene.GetRootGameObjects())
+            {
+                modality = root.GetComponentInChildren<global::UnityEngine.XR.Interaction.Toolkit.Inputs.XRInputModalityManager>(true);
+                if (modality != null) break;
+            }
+            Assert.IsNotNull(modality, "no XRInputModalityManager");
+            Assert.IsNotNull(modality.leftHand, "left hand tree missing");
+            Assert.IsNotNull(modality.rightHand, "right hand tree missing");
+            Assert.IsNotNull(modality.leftController, "left controller tree missing");
+            Assert.IsNotNull(modality.rightController, "right controller tree missing");
+        }
+
+        [Test]
         public void Bridge_Has_A_Flat_Floor_At_Ground_Level_Under_The_Player()
         {
             var scene = OpenBridge();

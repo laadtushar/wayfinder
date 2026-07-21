@@ -19,6 +19,8 @@ namespace Wayfinder.Unity
         [Tooltip("Everything that is the Bridge interior — hidden while on a surface. The XR rig must NOT be under this root.")]
         [SerializeField] private GameObject bridgeVisualsRoot;
         [SerializeField] private global::Unity.XR.CoreUtils.XROrigin xrOrigin;
+        [Tooltip("The rig's locomotion root — disabled during warp transitions so a queued teleport/turn can never apply across the rig reset.")]
+        [SerializeField] private GameObject locomotionRoot;
 
         TravelStateMachine _machine;
         WorldRegistry _registry;
@@ -34,6 +36,7 @@ namespace Wayfinder.Unity
             if (warpFade == null) throw new System.InvalidOperationException($"{name}: no WarpFade assigned.");
             if (bridgeVisualsRoot == null) throw new System.InvalidOperationException($"{name}: no bridge visuals root assigned.");
             if (xrOrigin == null) throw new System.InvalidOperationException($"{name}: no XROrigin assigned.");
+            if (locomotionRoot == null) throw new System.InvalidOperationException($"{name}: no locomotion root assigned.");
 
             _machine = new TravelStateMachine();
             _registry = catalog.BuildRegistry();
@@ -76,6 +79,7 @@ namespace Wayfinder.Unity
                 yield break;
             }
 
+            locomotionRoot.SetActive(false);
             var load = new AsyncOperation[1];
             bool loadFailed = false;
 
@@ -105,6 +109,7 @@ namespace Wayfinder.Unity
                 return true;
             }));
 
+            locomotionRoot.SetActive(true);
             if (loadFailed)
             {
                 _machine.AbortWarp();
@@ -118,6 +123,7 @@ namespace Wayfinder.Unity
 
         IEnumerator WarpToBridge()
         {
+            locomotionRoot.SetActive(false);
             var unload = new AsyncOperation[1];
             bool unloadFailed = false;
 
@@ -132,10 +138,14 @@ namespace Wayfinder.Unity
                     if (unload[0] == null) { unloadFailed = true; return true; }
                 }
                 if (!unload[0].isDone) return false;
+                // The rig keeps its surface coordinates otherwise — the player
+                // would materialize kilometres from the Bridge geometry.
+                xrOrigin.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
                 bridgeVisualsRoot.SetActive(true);
                 return true;
             }));
 
+            locomotionRoot.SetActive(true);
             if (unloadFailed)
             {
                 // Still on the surface: keep the scene handle, put the return
@@ -159,6 +169,9 @@ namespace Wayfinder.Unity
             var canvas = _returnUi.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.WorldSpace;
             var rect = (RectTransform)_returnUi.transform;
+            // Parented to the rig so it travels with every teleport — the way
+            // home must never be left behind on the far side of the site.
+            _returnUi.transform.SetParent(xrOrigin.transform, true);
             // Anchored to the player's HEAD (not the rig base): the rig root
             // doesn't move when the player walks the play space physically.
             // Never world-absolute coordinates (worlds-as-data rule).

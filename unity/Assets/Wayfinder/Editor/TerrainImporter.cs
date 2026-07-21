@@ -114,6 +114,18 @@ namespace Wayfinder.Unity.EditorTools
             }
             terrain.materialTemplate = terrainMat;
 
+            // The whole site surface is walkable: teleport ray interactors
+            // (hands: point + pinch) target this area (build-plan Task 2.4).
+            var teleArea = terrainGo.GetComponent<UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationArea>();
+            if (teleArea == null)
+                teleArea = terrainGo.AddComponent<UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationArea>();
+            teleArea.matchOrientation = UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.MatchOrientation.WorldSpaceUp;
+            // Bit 31 = XRI's "Teleport" interaction layer — the rig's Teleport
+            // Interactors cast only on this layer, and keeping the giant
+            // terrain collider OFF Default stops it swallowing every
+            // near-far interaction on the site.
+            teleArea.interactionLayers = new UnityEngine.XR.Interaction.Toolkit.InteractionLayerMask { value = 1 << 31 };
+
             // Center the clip on the origin, then drop it so the surface under
             // the player's spawn point sits at y=0.
             terrainGo.transform.position = new Vector3(-width / 2f, 0f, -length / 2f);

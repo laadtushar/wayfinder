@@ -107,6 +107,10 @@ namespace Wayfinder.Unity.Tests
                 }
                 Assert.IsNotNull(terrain, "no Terrain in Site_mars-olympus");
                 Assert.IsNotNull(terrain.GetComponent<TerrainCollider>(), "terrain has no collider");
+                var area = terrain.GetComponent<global::UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationArea>();
+                Assert.IsNotNull(area, "terrain is not a TeleportationArea — the site can't be walked");
+                Assert.AreEqual(1 << 31, area.interactionLayers.value,
+                    "TeleportationArea must sit on the Teleport interaction layer (bit 31) — on Default the giant collider swallows every near-far interaction");
                 Assert.AreEqual(TerrainAssetPath, AssetDatabase.GetAssetPath(terrain.terrainData));
                 // The player spawns at the origin: terrain surface there must sit
                 // near y=0 so the rig stands on the ground, not inside or above it.

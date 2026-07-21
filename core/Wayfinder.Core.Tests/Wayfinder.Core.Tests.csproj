@@ -2,8 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <!-- Match Unity 6's compiler surface exactly: C# 9, no nullable context,
+         no implicit/global usings. A test that passes here must compile in
+         Unity's Test Runner too — every test file carries explicit usings. -->
+    <LangVersion>9</LangVersion>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
@@ -17,8 +20,11 @@
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
   </ItemGroup>
 
+  <!-- Single source of truth: test sources live beside the runtime sources in
+       the embedded Unity package (Tests/Editor) so the Unity Test Runner and
+       this fast headless project run the exact same tests. -->
   <ItemGroup>
-    <Using Include="NUnit.Framework" />
+    <Compile Include="..\..\unity\Packages\com.wayfinder.core\Tests\Editor\**\*.cs" />
   </ItemGroup>
 
   <ItemGroup>

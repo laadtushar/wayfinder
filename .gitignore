@@ -25,3 +25,7 @@ unity-*.log
 
 # graphify knowledge-graph output (regenerable; cache is per-machine)
 graphify-out/
+
+# Unity-MCP execute_code Roslyn support DLLs (machine-local editor tooling,
+# must never ship in a player build — marked Editor-only via PluginImporter)
+unity/Assets/Plugins/Roslyn/

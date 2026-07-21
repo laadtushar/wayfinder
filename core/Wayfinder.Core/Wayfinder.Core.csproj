@@ -1,8 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
+    <!-- Match Unity 6's compiler surface exactly: C# 9, no nullable context,
+         no implicit usings. Anything that compiles here must compile in Unity. -->
+    <LangVersion>9</LangVersion>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
+
+  <!-- Single source of truth: the sources live in the embedded Unity package
+       (unity/Packages/com.wayfinder.core/Runtime) so the Unity editor and this
+       fast headless project compile the exact same files. -->
+  <ItemGroup>
+    <Compile Include="..\..\unity\Packages\com.wayfinder.core\Runtime\**\*.cs" />
+  </ItemGroup>
 
 </Project>

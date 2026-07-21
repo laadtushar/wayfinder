@@ -1,0 +1,7 @@
+{
+  "name": "com.wayfinder.core",
+  "version": "0.1.0",
+  "displayName": "Wayfinder Core",
+  "description": "Engine-free core logic for Wayfinder: travel state machine, world registry, field log, interaction target sizing. No UnityEngine dependencies — also compiled by the dotnet projects under core/ for fast headless tests.",
+  "unity": "6000.3"
+}

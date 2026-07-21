@@ -2,7 +2,7 @@
   "//": "Project-scoped MCP servers for Wayfinder. Context7 is active (works on a fresh clone). The Unity + Blender servers are documented in .claude/README.md and added only after Unity/Blender are installed locally (Phase 0+), because they need a local editor/app running. Do NOT add a second Unity bridge or the paid asset-generator servers here.",
   "//github": "GitHub MCP needs `gh auth login` (or a PAT) done once, manually, outside this config. Uses the official remote server, no local process.",
   "//gis": "gis-mcp needs Python 3.10+/uv on this machine (same prereq as the Unity bridge). Beta (mahdin75), complements raw GDAL for dem-to-terrain; GDAL recipe stays source of truth.",
-  "//unity": "Unity OFFICIAL MCP (com.unity.ai.assistant 2.15+, user's pick — replaces the Coplay default from .claude/README.md; one-bridge rule stands). Dormant until Unity 6 + the AI Assistant package are installed: the Editor installs the relay binary to %USERPROFILE%/.unity/relay/ on load, then Project Settings > AI > Unity MCP Server must show the bridge Running. VERIFY the exact Windows relay exe name against that panel's Example Configuration at install time — filename below is the expected pattern, not confirmed.",
+  "//unity": "CoplayDev mcp-for-unity (community bridge, back to the .claude/README.md default; one-bridge rule stands). Switched off Unity's official MCP July 2026: it hard-caps direct connections at 0 without a paid Unity AI seat. Unity-side package is com.coplaydev.unity-mcp in unity/Packages/manifest.json; it hosts HTTP MCP at 127.0.0.1:8080 while the editor is open (transport chosen by its setup wizard).",
   "mcpServers": {
     "context7": {
       "command": "npx",
@@ -17,8 +17,8 @@
       "args": ["--python", "3.12", "gis-mcp"]
     },
     "unity": {
-      "command": "C:\\Users\\tusha\\.unity\\relay\\relay_win.exe",
-      "args": ["--mcp"]
+      "type": "http",
+      "url": "http://127.0.0.1:8080/mcp"
     }
   }
 }

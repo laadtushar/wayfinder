@@ -1,9 +1,19 @@
 {
   "//": "Project-scoped MCP servers for Wayfinder. Context7 is active (works on a fresh clone). The Unity + Blender servers are documented in .claude/README.md and added only after Unity/Blender are installed locally (Phase 0+), because they need a local editor/app running. Do NOT add a second Unity bridge or the paid asset-generator servers here.",
+  "//github": "GitHub MCP needs `gh auth login` (or a PAT) done once, manually, outside this config. Uses the official remote server, no local process.",
+  "//gis": "gis-mcp needs Python 3.10+/uv on this machine (same prereq as the Unity bridge). Beta (mahdin75), complements raw GDAL for dem-to-terrain; GDAL recipe stays source of truth.",
   "mcpServers": {
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"]
+    },
+    "gis": {
+      "command": "uvx",
+      "args": ["gis-mcp"]
     }
   }
 }

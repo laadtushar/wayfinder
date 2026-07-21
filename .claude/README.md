@@ -24,8 +24,19 @@ The guiding principle, echoed by every research source: **build this folder incr
 | `skills/add-world/` | The repeatable World Package authoring flow. | nice |
 | `commands/deploy-headset.md` | Build + adb install to Galaxy XR + tail filtered log. | nice |
 | `commands/run-tests.md` | Run EditMode logic tests headless. | nice |
+| `skills/pre-commit-checklist/` | Chains run-tests → unity-reviewer → Input/GetComponent grep before any commit. | core |
+| `skills/terrain-verify/` | Catches NoData/byte-order/scale gotchas before Unity Terrain import. | core |
+| `skills/frame-budget-report/` | Standard pass/fail report format for the 72/90 fps gate. | core |
+| `skills/asset-import-gate/` | android-xr-asset-budget rules run at import time, not from memory. | core |
+| `agents/terrain-pipeline-reviewer.md` | Reviews a GDAL command sequence before it runs. Read-only. | nice |
+| `agents/asset-budget-auditor.md` | Read-only asset-budget audit, separate from unity-reviewer's frame focus. | nice |
+| `agents/build-plan-tracker.md` | Reports plan-vs-repo-reality drift. Read-only. | nice |
+| `hooks/block-meta-unity-edit.ps1` | PreToolUse: blocks Edit/Write on `.meta`/`.unity` files, enforces the CLAUDE.md hand-edit rule. | core |
+| `hooks/warn-csharp-hotpath.ps1` | PostToolUse: warns on `GetComponent`/`Find`/allocations in Update/LateUpdate and legacy `Input.*` usage. | core |
 
-Later, when you hit the need: add safety **hooks** (block accidental `.meta`/scene edits, warn on `GetComponent`-in-Update) — deterministic guardrails a solo dev otherwise forgets. Skipped for now because there's no code yet to guard.
+Now wired: safety **hooks** (block accidental `.meta`/scene edits, warn on `GetComponent`-in-Update/legacy Input) — deterministic guardrails a solo dev otherwise forgets.
+
+`.mcp.json` also now lists **github** (needs `gh auth login` done once, manually) and **gis** (gis-mcp, needs Python 3.10+/uv — same prereq as the Unity bridge) alongside context7. Both need their prerequisite set up outside this repo before they'll actually connect.
 
 ## Setup order (matches the build plan)
 

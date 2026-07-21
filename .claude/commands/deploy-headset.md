@@ -6,7 +6,7 @@ Build and deploy Wayfinder to the connected Galaxy XR headset, then show the rel
 
 Steps:
 
-1. Confirm a device is connected: `adb devices` (expect the Galaxy XR listed as `device`, not `unauthorized`). If unauthorized, tell me to accept the USB-debugging prompt in the headset.
+1. Confirm a device is connected: `adb devices` (expect the Galaxy XR listed as `device`, not `unauthorized`). If unauthorized, tell me to accept the USB-debugging prompt in the headset. If no device: the USB-C port is hidden under a cap on the RIGHT STRAP (it is data-only — the battery pack charges the headset, not this port), and the cable must be a data cable, not charge-only.
 2. Build the APK from Unity for the Android XR target (via the Unity MCP bridge if connected, or tell me the exact Build Settings to use: Android platform, Vulkan, IL2CPP, ARM64). Prefer a **development build** so the profiler can attach.
 3. Install: `adb install -r <path-to.apk>`.
 4. Launch and tail a filtered log so we see our own output and crashes without the Android firehose:

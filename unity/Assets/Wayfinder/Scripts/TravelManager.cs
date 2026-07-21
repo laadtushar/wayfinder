@@ -24,8 +24,14 @@ namespace Wayfinder.Unity
 
         TravelStateMachine _machine;
         WorldRegistry _registry;
+        readonly FieldLog _fieldLog = new FieldLog();
         string _loadedSceneName;
         GameObject _returnUi;
+        PoiSystem _poiSystem;
+
+        /// The player's discovery log — lives with the TravelManager for the
+        /// session (persistence is a later ticket).
+        public FieldLog FieldLog => _fieldLog;
 
         public TravelState State => _machine.State;
 
@@ -106,6 +112,7 @@ namespace Wayfinder.Unity
                 // cost never lands on a visible frame.
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName(world.SceneName));
                 SpawnReturnUi();
+                SpawnPoiSystem(worldId);
                 return true;
             }));
 
@@ -133,6 +140,7 @@ namespace Wayfinder.Unity
                 if (unload[0] == null)
                 {
                     if (_returnUi != null) Destroy(_returnUi);
+                    if (_poiSystem != null) { Destroy(_poiSystem.gameObject); _poiSystem = null; }
                     SceneManager.SetActiveScene(gameObject.scene);
                     unload[0] = SceneManager.UnloadSceneAsync(_loadedSceneName);
                     if (unload[0] == null) { unloadFailed = true; return true; }
@@ -160,6 +168,32 @@ namespace Wayfinder.Unity
             bridgeVisualsRoot.SetActive(true);
             _loadedSceneName = null;
             _machine.CompleteReturn();
+        }
+
+        void SpawnPoiSystem(string worldId)
+        {
+            var package = FindPackage(worldId);
+            if (package == null || package.PoiData == null)
+            {
+                Debug.LogWarning($"[TravelManager] no POI data on WorldPackage '{worldId}' — site has no discoveries.");
+                return;
+            }
+            var terrain = UnityEngine.Object.FindFirstObjectByType<Terrain>();
+            if (terrain == null)
+            {
+                Debug.LogWarning($"[TravelManager] no terrain in '{worldId}' — POI markers skipped.");
+                return;
+            }
+            var go = new GameObject("PoiSystem");
+            _poiSystem = go.AddComponent<PoiSystem>();
+            _poiSystem.Build(PoiSet.Parse(package.PoiData.text), terrain, _fieldLog, xrOrigin.Camera.transform);
+        }
+
+        WorldPackage FindPackage(string worldId)
+        {
+            foreach (var package in catalog.Packages)
+                if (package != null && package.ToDefinition().Id == worldId) return package;
+            return null;
         }
 
         void SpawnReturnUi()

@@ -16,5 +16,5 @@ MonoBehaviour:
   displayName: "Mars \u2014 Coprates Chasma canyon wall (Valles Marineris)"
   sceneName: Site_mars-valles
   surfaceGravity: 3.72
-  poiData: {fileID: 0}
+  poiData: {fileID: 4900000, guid: 407831c18042ee64a921a131fd2fb833, type: 3}
   terrain: {fileID: 0}

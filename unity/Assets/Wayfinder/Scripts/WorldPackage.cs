@@ -19,7 +19,7 @@ namespace Wayfinder.Unity
         [SerializeField] private float surfaceGravity;
 
         [Header("Content references (wired by later tickets)")]
-        [Tooltip("Per-site POI list (assets/poi/<site>.json) — consumed by the POI system and, later, the Gemini companion.")]
+        [Tooltip("Per-site POI list (unity/Assets/Wayfinder/POI/<site>.json) — consumed by the POI system and, later, the Gemini companion.")]
         [SerializeField] private TextAsset poiData;
         [Tooltip("Terrain for the site — assigned when the Phase 2 terrain import lands.")]
         [SerializeField] private TerrainData terrain;

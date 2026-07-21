@@ -16,5 +16,5 @@ MonoBehaviour:
   displayName: "Mars \u2014 Olympus Mons caldera rim"
   sceneName: Site_mars-olympus
   surfaceGravity: 3.72
-  poiData: {fileID: 0}
+  poiData: {fileID: 4900000, guid: 6acd2d7d6071f72439288b0a4e6f1bcf, type: 3}
   terrain: {fileID: 15600000, guid: 59adc2499d4293e459452ce07df65229, type: 2}

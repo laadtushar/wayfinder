@@ -114,9 +114,15 @@ Because v1 leads with solar-system places, the render representation is ordinary
 
 Consequence: v1 carries **no splat renderer at all**, which removes the single riskiest rendering dependency from the first release.
 
+> **Shape note (July 2026):** the shipped WorldPackage keeps POIs as a JSON
+> TextAsset (`unity/Assets/Wayfinder/POI/<site>.json`) rather than the
+> `PointOfInterest[]` drawn below, defers the ambient-audio field, and adds a
+> `spawnOffset` (Shackleton's clip centres on the permanently shadowed floor,
+> so its spawn is rim data). Additive changes; the seam is unchanged.
+
 ## 6. Discovery: forward-compatible with the AI companion
 
-Guidance in v1 is pre-authored. Each **Point of Interest** is a structured record: an id, a title, the real fact, a source citation, and a world position. Looking at or pointing at one reveals a short panel (optionally spoken by synthesized voice) and calls `FieldLog.Discover(id)`.
+Guidance in v1 is pre-authored. Each **Point of Interest** is a structured record: an id, a title, the real fact, a source citation, and a world position. Approaching one (proximity reveal, ~6 m — shipped mechanic; gaze/point reveal remains an option if in-headset feel prefers it) reveals a short panel (optionally spoken by synthesized voice) and calls `FieldLog.Discover(id)`.
 
 ```mermaid
 flowchart LR

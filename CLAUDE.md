@@ -2,6 +2,10 @@
 
 Wayfinder is a solo-developer game for the **Samsung Galaxy XR** headset (Android XR). You command a ship, warp between real solar-system worlds, and walk their surfaces on foot. Read [DESIGN.md](DESIGN.md) and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) before changing anything structural. The build plan is [docs/plans/2026-07-20-wayfinder-v1.md](docs/plans/2026-07-20-wayfinder-v1.md). Tooling notes are in [.claude/README.md](.claude/README.md).
 
+## Machines
+
+The **Windows PC (RTX 5070 Ti) is the canonical dev machine**: Unity (6000.3.5f2+ floor), Engine Hub/Direct Preview, adb, the Unity MCP bridge, GDAL (via OSGeo4W or conda-forge, not brew), and all splat/reconstruction authoring run there. Claude Code runs natively on Windows with Git Bash (not WSL — the project lives on the Windows filesystem). The **Mac is for docs, research, and repo/plan work only — never install Unity on it**; one engine install means one source of truth. Push before switching machines.
+
 ## The stack (pin these; do not drift)
 
 - **Engine:** Unity 6 LTS, C#. Universal Render Pipeline (URP), **Vulkan** graphics API. Not Built-in pipeline, not GLES.
@@ -32,7 +36,7 @@ One **persistent Bridge scene**; each world is a **World Package** (terrain + po
 
 ## Testing
 
-- Pure logic (travel state machine, world registry, field log, coordinate/terrain math) gets EditMode NUnit tests, run headless so you can self-verify. Scene/rig/rendering work is verified by building to the **Android XR emulator** (functional) and the **real headset** (framerate/comfort — the emulator does not reproduce GPU timing).
+- Pure logic (travel state machine, world registry, field log, coordinate/terrain math) gets EditMode NUnit tests, run headless so you can self-verify. Scene/rig/interaction work climbs three tiers: **XR Interaction Simulator** in-editor (no headset, logic/UI wiring) → **Direct Preview via Engine Hub** (headset streams the editor live over USB, seconds per iteration, real hand tracking) → **device build over adb** (the truth). **Direct Preview and the editor are never framerate evidence; only an on-device build is** — the PC's GPU renders the preview.
 - The build plan's rule stands: **Site One must hold 72+ fps on the real headset before any other site is built.**
 
 ## Docs, versions, and honesty

@@ -1,6 +1,6 @@
 # Wayfinder AI-assistance toolkit
 
-This folder configures Claude Code (and documents the wider AI-dev landscape) for building Wayfinder: a solo-dev Unity 6 game for the Samsung Galaxy XR (Android XR), on macOS. It has two parts:
+This folder configures Claude Code (and documents the wider AI-dev landscape) for building Wayfinder: a solo-dev Unity 6 game for the Samsung Galaxy XR (Android XR). Primary machine: a Windows PC with an RTX 5070 Ti (Unity, Engine Hub, adb, GDAL, splat/reconstruction authoring); the Mac is docs/research only. It has two parts:
 
 1. **A lean, working config** (the files below) — the high-value subset, ready to use.
 2. **A full catalog** (further down) — every relevant tool across coding, architecture, docs, UI/UX, graphics/assets, XR, and backend, so you can pull in more on a real need.
@@ -42,19 +42,18 @@ Later, when you hit the need: add safety **hooks** (block accidental `.meta`/sce
 
 # Full catalog (the landscape)
 
-Priorities are for **this** project (solo dev, macOS, Unity 6, Galaxy XR). Cited to real repos/vendors; nothing invented.
+Priorities are for **this** project (solo dev, Windows RTX 5070 Ti primary + Mac for docs, Unity 6, Galaxy XR). Cited to real repos/vendors; nothing invented.
 
-## AI coding assistants / IDEs (macOS)
+## AI coding assistants / IDEs (Windows primary)
 
 | Tool | Priority | Why | Get |
 |---|---|---|---|
-| **Claude Code + a Unity MCP bridge** | must-have | The spine. Plain Claude Code edits `.cs` half-blind; with the bridge it sees the scene, console, and components. | already installed + Unity MCP below |
-| **JetBrains Rider + AI Assistant / Junie** | must-have | Best .NET/Unity IDE on macOS; understands `.asmdef`, debugs into the Editor. Rider is free for non-commercial. | https://www.jetbrains.com/rider/ ; AI add-on ~$10/mo |
-| **GitHub Copilot** (in Rider / VS Code) | nice | Cheap always-on completions for routine C#. On macOS its agent mode is weaker than in Windows-only VS 2026. | https://github.com/features/copilot |
-| Cursor / Windsurf | situational | AI-first VS Code forks; alternatives to Claude Code, not complements. Need DotRush for Unity C# IntelliSense. | cursor.com / windsurf.com |
-| **DotRush** (C# LSP) | situational | Not AI, but the enabler that keeps a VS Code fork's C# IntelliSense alive for Unity on macOS (more reliable than OmniSharp). | VS Code/Cursor/Windsurf marketplace |
+| **Claude Code + a Unity MCP bridge** | must-have | The spine. Plain Claude Code edits `.cs` half-blind; with the bridge it sees the scene, console, and components. Run natively on Windows with Git Bash (not WSL — project lives on the Windows filesystem). | already installed + Unity MCP below |
+| **Visual Studio 2026 Community** (Unity workload) | must-have | The free debugger of record on Windows: attach breakpoints to the Editor or a device build. Free for a solo dev even commercially. | https://visualstudio.microsoft.com/ |
+| **GitHub Copilot** (in VS / VS Code) | nice | Cheap always-on completions for routine C#; agent mode is strongest on Windows VS/VS Code. | https://github.com/features/copilot |
+| JetBrains Rider + AI Assistant | situational | Genuinely great Unity integration, but with Claude Code doing the heavy agent work and VS Community free, paying for Rider is a v1.1-era luxury, not a Phase 0 need. | https://www.jetbrains.com/rider/ |
+| Cursor / Windsurf | situational | AI-first VS Code forks; alternatives to Claude Code, not complements. | cursor.com / windsurf.com |
 | Unity AI (in-editor) | nice-later | Live replacement for the retired Muse; official MCP + asset gen. Beta, quality uneven, $10/mo. Try the trial; don't build around it yet. | https://unity.com/blog/unity-ai-how-to-get-started |
-| ~~Visual Studio IntelliCode~~ | excluded | VS is Windows-only; VS for Mac retired 2024; IntelliCode deprecated in VS Code. Not usable here. | — |
 | ~~Unity Muse~~ | excluded | Retired in 2024. Any Muse tutorial is obsolete; it's Unity AI now. | — |
 
 ## MCP servers — Unity / 3D / graphics
@@ -84,10 +83,10 @@ Priorities are for **this** project (solo dev, macOS, Unity 6, Galaxy XR). Cited
 
 | Tool | Priority | Why | Get |
 |---|---|---|---|
-| **Meshy (v6)** | must-have | Best for a Mac-only dev: browser-based, no local GPU, exports Unity-ready FBX/GLB/USDZ + packed PBR. Props, waymarkers, probes. Retopo + ASTC before shipping. | https://www.meshy.ai/ (Pro $20/mo) |
+| **Meshy (v6)** | nice | Browser-based, exports Unity-ready FBX/GLB/USDZ + packed PBR. Props, waymarkers, probes. With local TRELLIS now viable on the 5070 Ti, Meshy is convenience rather than necessity. Retopo + ASTC before shipping. | https://www.meshy.ai/ (Pro $20/mo) |
 | Tripo | nice | Cheaper Meshy equal; quality varies per prompt. | https://www.tripo3d.ai/ (Pro $19.9/mo) |
 | Hyper3D Rodin | situational | Highest detail — hero assets / the companion only (credit-priced, more cleanup). | https://hyper3d.ai/ |
-| Microsoft TRELLIS / TRELLIS.2 | situational | Free/open, best topology, but needs an NVIDIA CUDA GPU → cloud-only for a Mac dev. | https://github.com/microsoft/TRELLIS |
+| Microsoft TRELLIS / TRELLIS.2 | situational | Free/open, best topology — runs locally on the RTX 5070 Ti (half-precision/512³ or the quantized ComfyUI build in ~6-9GB VRAM; full 1024³ wants ~30GB). Casual prop generation only, not pipeline. | https://github.com/microsoft/TRELLIS |
 
 Hard rule for **all** of these: they output dense high-poly meshes that must be retopologized/decimated + ASTC-compressed before they're safe on the Galaxy XR GPU. See `skills/android-xr-asset-budget/`.
 
@@ -109,7 +108,7 @@ Hard rule for **all** of these: they output dense high-poly meshes that must be 
 |---|---|---|---|
 | Scaniverse | nice-later | Free on-device phone splat capture, PLY/SPZ export. | https://scaniverse.com/ |
 | Polycam | nice-later | Also gives a real mesh (GLB) you can decimate — cheaper on-headset than a splat. | https://poly.cam/ |
-| Postshot | situational | Highest splat quality, but Windows + NVIDIA only (not this Mac). | https://www.jawset.com/ |
+| Postshot | nice-later | Highest-quality local splat trainer — runs on the Windows RTX 5070 Ti. Free tier to learn now; the paid tier (needed for PLY export + commercial use) has contradictory pricing reports [verify at v2 checkout]. | https://www.jawset.com/ |
 | aras-p UnityGaussianSplatting | nice-later | The importer that lands splats in Unity 6 URP/Vulkan. **Distant set-dressing only, cap the count, profile on-device** — the author calls it toy-grade. | https://github.com/aras-p/UnityGaussianSplatting |
 
 ## UI / UX
@@ -121,7 +120,9 @@ Honest finding: **no AI tool outputs Unity UI Toolkit or spatial-XR layouts.** F
 | Tool | Priority | Why | Get |
 |---|---|---|---|
 | **Unity OpenXR: Android XR** | must-have | The base runtime that makes a Unity 6 URP/Vulkan project run on Galaxy XR. Cross-device (not vendor-locked). | https://developer.android.com/develop/xr/unity |
-| **Android XR Emulator** (Android Studio) | must-have | Test scene loading/locomotion/UI on your Mac without the headset. Functional only — not GPU timing. | https://developer.android.com/develop/xr/develop-with-emulator |
+| Android XR Emulator (Android Studio) | situational | Demoted: with a real headset + Direct Preview + the XR Interaction Simulator, the emulator is a fourth tier with no unique job. | https://developer.android.com/develop/xr/develop-with-emulator |
+| **Engine Hub + Direct Preview** (Windows) | must-have | The inner loop: press Play in the Unity editor and the scene streams live to the headset with real hand tracking/eye gaze. Requires Unity 6000.3.5f2+, USB data cable. Never a framerate signal — the PC renders it. | https://developer.android.com/develop/xr/unity/direct-preview |
+| **XR Interaction Simulator** (XRI sample) | must-have | Headset-off tier: fake headset + tracked hands from keyboard/mouse in-editor, for logic/UI/POI wiring at 11pm. | bundled with XR Interaction Toolkit 3.x |
 | **Unity Profiler + Frame Debugger + Memory Profiler** | must-have | The real perf instruments, attached over adb. There is no credible "AI profiler". See `skills/android-xr-perf/`. | https://developer.android.com/blog/posts/optimizing-performance-for-android-xr-with-unity |
 | **Unity 6 SRP foveated rendering** | must-have | Biggest GPU lever for a fragment-bound terrain scene; eye-tracked on Galaxy XR. | https://docs.unity3d.com/6000.0/Documentation/Manual/xr-foveated-rendering.html |
 | Qualcomm Snapdragon Profiler | situational | Adreno-level detail when Unity says "GPU-bound" but not why. | https://www.qualcomm.com/developer/software/snapdragon-profiler |
@@ -135,7 +136,7 @@ Honest finding: **no AI tool outputs Unity UI Toolkit or spatial-XR layouts.** F
 | **Firebase AI Logic SDK for Unity** | must-have (v1.1) | The sanctioned Gemini path: Unity 6 + Android XR compatible, App Check keeps your key off the client. **Never embed a raw Gemini key.** Supersedes community wrappers (UGemini archived Feb 2026). | https://firebase.blog/posts/2025/05/ai-logic-unity-androidxr/ |
 | Gemini Live API (Unity) | situational | Real-time voice for the companion — but Unity support was still "coming soon" mid-2026. Plan for it; don't assume turnkey. | https://firebase.google.com/docs/ai-logic/live-api |
 | Unity Sentis / Inference Engine | situational | Only if a *small* model must run offline on the headset. Gemini itself is a cloud API, so this isn't for Gemini. | https://docs.unity3d.com/Packages/com.unity.ai.inference@latest/ |
-| **GDAL** | must-have | Core of the terrain pipeline: NASA/USGS DEM → 16-bit RAW heightmap. CLI, so Claude can drive it. See `skills/dem-to-terrain/`. | `brew install gdal` |
+| **GDAL** | must-have | Core of the terrain pipeline: NASA/USGS DEM → 16-bit RAW heightmap. CLI, so Claude can drive it. Runs on the Windows box so outputs land beside the Unity project. See `skills/dem-to-terrain/`. | Windows: OSGeo4W (https://trac.osgeo.org/osgeo4w/) or conda-forge; Mac fallback: `brew install gdal` |
 | QGIS | nice | Eyes-on inspection/mosaic/clip of DEM tiles before GDAL batch conversion. | https://qgis.org |
 | USGS Astrogeology / NASA PDS / EarthExplorer | must-have | The actual elevation data. Record source, projection, units, attribution. | https://astrogeology.usgs.gov/search |
 | Cesium for Unity | situational | Only if you ever need globe-scale streaming terrain instead of a baked walkable patch — heavier runtime dependency. | https://github.com/CesiumGS/cesium-unity |

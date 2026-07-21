@@ -26,7 +26,7 @@ These are the hard numbers your design has to live inside. They're not negotiabl
 | Input | Hand tracking is the default; must be fully playable with **no controllers** (controllers are a separate $250 add-on) | Design around pinch/grab/gaze first. |
 | Asset size | [30 GB cumulative asset packs](https://developer.android.com/develop/xr/package-and-distribute) (vs 4 GB for normal mobile apps) | Big enough to ship several baked worlds via Play Asset Delivery — structure worlds as on-demand downloads. |
 | Session length | External tethered battery, ~2–2.5 hrs | Exploration in short loops, not marathon sessions. |
-| Your dev machine | The [Android XR "Engine Hub" live-streaming tool is Windows-only](https://android-developers.googleblog.com/2026/06/what-is-new-android-xr.html); you're on macOS | You lose the fastest iterate-against-real-hardware loop unless you keep a Windows box. Plan for it. |
+| Your dev machine | Primary machine is a Windows PC with an RTX 5070 Ti; the [Android XR "Engine Hub" live-streaming tool is Windows-only](https://android-developers.googleblog.com/2026/06/what-is-new-android-xr.html) — available | The fastest iterate-against-real-hardware loop (Direct Preview) works. The Mac stays for docs/research only. |
 | Licensing landmine | Most reconstruction weights are **non-commercial** | You cannot ship DUSt3R / MASt3R / MASt3R-SLAM / SLAM3R / Fast3R / original-VGGT weights in a paid game. See 1.2 for the narrow set you *can* ship. |
 
 ---

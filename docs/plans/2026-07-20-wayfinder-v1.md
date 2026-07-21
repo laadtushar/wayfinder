@@ -8,7 +8,7 @@
 
 **Read before starting:** `~/Projects/wayfinder/DESIGN.md` (the approved design) and `~/Projects/wayfinder/IDEATION.md` (why these choices, the hardware constraints).
 
-**Developer notes:** You are on macOS. Unity builds and deploys to Galaxy XR fine from a Mac, but the live "Engine Hub" in-editor preview is Windows-only, so your loop is build-and-deploy-APK, which is slower. Budget for that. You are new to XR; each phase teaches the toolchain as it goes.
+**Developer notes:** Your primary machine is a Windows PC with an RTX 5070 Ti; the Mac is for docs/research only (never install Unity on it). The Windows-only "Engine Hub" live in-editor preview (Direct Preview) IS available to you — make it the inner loop. The iteration tiers are: XR Interaction Simulator in-editor (no headset) → Direct Preview (headset streams live, seconds) → device build over adb (the only tier that proves framerate). You are new to XR; each phase teaches the toolchain as it goes. The fuller setup guidance lives in [SETUP-ROADMAP.md](../SETUP-ROADMAP.md).
 
 **The one sequencing rule that governs everything:** Build Site One completely and validate framerate and comfort on the actual Galaxy XR headset (Task 2.9) BEFORE building Sites Two and Three. Do not author three worlds and discover on day 20 that none hold framerate.
 
@@ -31,7 +31,7 @@ Goal: prove you can build a Unity app and run it on the Galaxy XR with hand trac
 
 **Steps:**
 1. Install Unity Hub (unity.com/download).
-2. In Hub, install the latest **Unity 6 LTS** (6000.x). In the install options, tick **Android Build Support** (and its child modules: Android SDK & NDK Tools, OpenJDK). On Apple Silicon, install the Apple-silicon editor.
+2. In Hub, install **Unity 6000.3.5f2 or newer** (Windows x64 editor). This exact floor matters twice: Direct Preview (the live editor-to-headset loop) requires 6000.3.5f2+, and Unity's built-in crash Diagnostics needs 6.2+. In the install options, tick **Android Build Support** (and its child modules: Android SDK & NDK Tools, OpenJDK). Set Vulkan as the graphics API on BOTH the Android and Windows/Standalone tabs (the host renders the streamed preview with Vulkan).
 3. Verify: Unity Hub shows Unity 6 LTS with the Android logo under installed modules.
 
 **Check:** `Unity Hub > Installs` lists Unity 6 LTS with Android support. No test; this is setup.
@@ -39,7 +39,7 @@ Goal: prove you can build a Unity app and run it on the Galaxy XR with hand trac
 ### Task 0.2: Create the project and put it under version control
 
 **Steps:**
-1. New project, template **Universal 3D** (URP) or Unity's **Mixed Reality** template if offered for your version. Name it `wayfinder`. Location: `~/Projects/wayfinder/unity` (keep it beside DESIGN.md, not inside docs).
+1. New project, template **Universal 3D** (URP) or Unity's **Mixed Reality** template if offered for your version. Name it `wayfinder`. Location: a `unity/` folder inside the cloned repo on the Windows box (keep it beside DESIGN.md, not inside docs). Run git commands from Git Bash (installed with Git for Windows).
 2. In a terminal:
    ```bash
    cd ~/Projects/wayfinder/unity

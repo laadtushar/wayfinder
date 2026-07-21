@@ -141,6 +141,27 @@ Honest finding: **no AI tool outputs Unity UI Toolkit or spatial-XR layouts.** F
 | USGS Astrogeology / NASA PDS / EarthExplorer | must-have | The actual elevation data. Record source, projection, units, attribution. | https://astrogeology.usgs.gov/search |
 | Cesium for Unity | situational | Only if you ever need globe-scale streaming terrain instead of a baked walkable patch — heavier runtime dependency. | https://github.com/CesiumGS/cesium-unity |
 
+## Second-pass findings (deep-research, adversarially verified July 2026)
+
+A dedicated deep-research pass (103 agents, 3-vote verification per claim) hunted for tools NOT in the catalog above. Twelve survived; verdicts re-slanted for the Windows-primary setup.
+
+| Tool | Category | Priority | Why / honest fit | Get |
+|---|---|---|---|---|
+| **gis-mcp** (mahdin75) | geospatial MCP | nice | Wraps the Python GIS stack (Rasterio, PyProj, GeoPandas, Shapely) as ~92 MCP tools: DEM reprojection, resampling, hillshade, coordinate transforms driven from Claude Code. A higher-level complement to raw GDAL for the terrain pipeline. Beta (MIT, v0.14.0 Dec 2025); the dem-to-terrain skill's GDAL recipe stays the source of truth. | https://github.com/mahdin75/gis-mcp |
+| **Task Master** (eyaltoledano) | project-mgmt MCP | nice | Mature (27.9k stars) AI task management as MCP; first-class Claude Code support and can drive the Claude Code CLI directly, so no separate model API key. Gotcha from its issue tracker: silently falls back to the paid Anthropic API if ANTHROPIC_API_KEY is set in env. | https://github.com/eyaltoledano/claude-task-master |
+| **awesome-gamedev-agent-skills** | skill collection | nice | 66 version-pinned skills + a router that fingerprints the engine and loads only matching ones; includes 8 Unity-6-pinned skills (csharp-scripting, input-system, physics, animation, scriptableobjects, navmesh, build-pipeline). Best-matched collection for our stack; healthy (317 stars, active). Cherry-pick per our no-bulk-install rule. | https://github.com/gamedev-skills/awesome-gamedev-agent-skills |
+| nowsprinting/unity-coding-skills | skill collection | situational | Test-first Unity C# workflow (9 skills, 3 subagents) — but its run-tests/edit-scene skills hard-require JetBrains Rider's built-in MCP server, no fallback. Only relevant if Rider ever enters the toolchain (currently skipped in favor of VS Community). | https://github.com/nowsprinting/unity-coding-skills |
+| cc-plugin-unity-gamedev | skill collection | situational | 21 Unity skills via /plugin install; decent pattern coverage but nothing XR-specific and several skills target paid assets (Wwise, Behavior Designer). Very early (4 stars, single push). | https://github.com/tjboudreaux/cc-plugin-unity-gamedev |
+| **Cascadeur** (Nekki) | AI animation | nice-later | AI-assisted keyframe animation (neural AutoPosing), cleans mocap, exports FBX with a documented Unity workflow. Native Windows and macOS builds. The animation-content answer when creatures/characters arrive. | https://cascadeur.com/ |
+| DeepMotion Animate 3D | AI animation | situational | Phone video → 3D character animation (no suit), FBX for Unity. Output needs cleanup (foot sliding); free-tier 3D-download unconfirmed. For companion/creature motion later. | https://www.deepmotion.com/animate-3d |
+| Convai (Unity plugin) | NPC dialogue | situational | Mature full-stack NPC platform (dialogue, voice, lip-sync; Unity-verified, free plugin, usage-priced cloud). Honest caveat: it REPLACES a Gemini pipeline rather than integrating with it — adopting it means abandoning the Firebase AI Logic companion path. Know it exists; default remains Gemini. | https://docs.convai.com/api-docs/plugins-and-integrations/unity-plugin |
+| Inworld Runtime (Unity SDK) | NPC dialogue | situational | The main Convai alternative: composable graph engine + early-access Unity SDK (Unity 6000.0.41+). Same caveat: a competing companion backend, and Android XR support is not claimed. | https://docs.inworld.ai/docs/Unity/runtime/get-started |
+| AltTester Unity SDK | playtest/QA | situational | Open-source (GPL) UI-driven test automation; Claude Code can author its C#/Python scripts. Friction: requires the proprietary AltTester Desktop app running during tests, account + license key even on the free tier. A claimed "AltTester MCP server" was investigated and does not exist. Phase-2-at-earliest. | https://github.com/alttester/AltTester-Unity-SDK |
+| GameDriver Test Assistant | playtest/QA | situational | Attaches to a running Unity build for live test creation and embeds a local MCP server (7 tools; vendor documents Claude Desktop config — Claude Code registration [unverified]). **Windows-only today — which now fits our primary machine.** Watch-list for phase-2 QA. | https://kb.gamedriver.io/gamedriver-test-assistant |
+| ~~yimengfan/claude-code-for-unity3d~~ | — | **excluded** | Search-result trap: despite the name it contains zero Unity content — it's a stale fork of a generic Claude Code bundle with Windows .bat installers added. Do not install. | — |
+
+Verified gaps (nothing real survived the vote): **localization, marketing/store-listing tooling, and spatial-UI/XR-interaction design AI**. For those, the answer today is doing it by hand with the design guidance in [docs/ANDROID-XR-PLATFORM.md](../docs/ANDROID-XR-PLATFORM.md).
+
 ## How the `.claude` pieces work (reference)
 
 - **`CLAUDE.md`** (repo root): always loaded into context; project rules and conventions.

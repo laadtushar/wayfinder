@@ -92,6 +92,95 @@ namespace Wayfinder.Unity.Tests
         }
 
         [Test]
+        public void Shackleton_Spawns_On_The_Rim_Not_The_Shadowed_Floor()
+        {
+            // The clip centres on the permanently shadowed floor — narratively
+            // untouchable. The World Package carries a rim spawn offset; this
+            // pins both the offset's presence and that it lands on high ground.
+            var pkg = AssetDatabase.LoadAssetAtPath<WorldPackage>("Assets/Wayfinder/Sites/moon-shackleton.asset");
+            Assert.AreNotEqual(Vector2.zero, pkg.SpawnOffset, "shackleton has no spawn offset");
+            var data = AssetDatabase.LoadAssetAtPath<TerrainData>("Assets/Wayfinder/Terrain/moon-shackleton.asset");
+            int n = data.heightmapResolution;
+            int col = Mathf.Clamp((int)((pkg.SpawnOffset.x + data.size.x / 2f) / data.size.x * (n - 1)), 0, n - 1);
+            int row = Mathf.Clamp((int)((pkg.SpawnOffset.y + data.size.z / 2f) / data.size.z * (n - 1)), 0, n - 1);
+            float h = data.GetHeights(col, row, 1, 1)[0, 0];
+            Assert.Greater(h, 0.6f, $"spawn at normalized height {h:F2} — not on the rim");
+        }
+
+        [TestCase("mars-valles", 3600f, 4703f, 19500f)]
+        [TestCase("moon-shackleton", 20000f, 4438f, 20000f)]
+        public void Phase3_Sites_Have_True_Metric_Sizes(string siteId, float x, float y, float z)
+        {
+            var data = AssetDatabase.LoadAssetAtPath<TerrainData>("Assets/Wayfinder/Terrain/" + siteId + ".asset");
+            Assert.AreEqual(x, data.size.x, 1f, siteId + " width");
+            Assert.AreEqual(y, data.size.y, 1f, siteId + " height range");
+            Assert.AreEqual(z, data.size.z, 1f, siteId + " length");
+        }
+
+        [TestCase("mars-valles")]
+        [TestCase("moon-shackleton")]
+        public void Phase3_Sites_Meet_The_Shared_Import_Contract(string siteId)
+        {
+            var data = AssetDatabase.LoadAssetAtPath<TerrainData>("Assets/Wayfinder/Terrain/" + siteId + ".asset");
+            Assert.IsNotNull(data, siteId + " terrain missing");
+            Assert.AreEqual(2049, data.heightmapResolution);
+
+            var heights = data.GetHeights(0, 0, 2049, 2049);
+            float min = 1f, max = 0f;
+            double deltaSum = 0; long deltaCount = 0;
+            for (int y = 0; y < 2049; y += 8)
+                for (int x = 1; x < 2049; x += 8)
+                {
+                    float v = heights[y, x];
+                    if (v < min) min = v;
+                    if (v > max) max = v;
+                    deltaSum += Mathf.Abs(v - heights[y, x - 1]);
+                    deltaCount++;
+                }
+            Assert.Less(min, 0.05f, siteId + " min far from 0");
+            Assert.Greater(max, 0.95f, siteId + " max far from 1");
+            Assert.Less(deltaSum / deltaCount, 0.01, siteId + " looks like byte-order noise");
+
+            var pkg = AssetDatabase.LoadAssetAtPath<WorldPackage>("Assets/Wayfinder/Sites/" + siteId + ".asset");
+            Assert.AreEqual(data, pkg.Terrain, siteId + " package terrain not wired");
+        }
+
+        [Test]
+        public void Valles_Orientation_South_Wall_High_Floor_North()
+        {
+            // Anchors from the verified import: southern plateau strip ≈ 0.83,
+            // northern floor strip ≈ 0.09. A row-flip regression mirrors them.
+            var data = AssetDatabase.LoadAssetAtPath<TerrainData>("Assets/Wayfinder/Terrain/mars-valles.asset");
+            int n = data.heightmapResolution;
+            var h = data.GetHeights(0, 0, n, n);
+            double north = 0, south = 0; long c = 0;
+            for (int strip = 0; strip < 64; strip++)
+                for (int x = 0; x < n; x += 4)
+                { south += h[strip, x]; north += h[n - 1 - strip, x]; c++; }
+            Assert.Greater(south / c, north / c + 0.5,
+                $"south {south / c:F3} not clearly above north {north / c:F3} — valles looks mirrored");
+        }
+
+        [Test]
+        public void Shackleton_Orientation_Is_A_Centered_Crater_Bowl()
+        {
+            var data = AssetDatabase.LoadAssetAtPath<TerrainData>("Assets/Wayfinder/Terrain/moon-shackleton.asset");
+            int n = data.heightmapResolution;
+            var h = data.GetHeights(0, 0, n, n);
+            int mid = n / 2;
+            double center = 0; long c = 0;
+            for (int r = mid - 128; r < mid + 128; r += 4)
+                for (int col = mid - 128; col < mid + 128; col += 4)
+                { center += h[r, col]; c++; }
+            double edge = 0; long e = 0;
+            for (int strip = 0; strip < 64; strip++)
+                for (int i = 0; i < n; i += 4)
+                { edge += h[strip, i] + h[n - 1 - strip, i]; e += 2; }
+            Assert.Less(center / c, 0.2, "crater centre not deep — bowl missing");
+            Assert.Greater(edge / e, 0.6, "edges not high — rim missing");
+        }
+
+        [Test]
         public void Site_Scene_Contains_A_Terrain_With_A_Collider()
         {
             var savedSetup = UnityEditor.SceneManagement.EditorSceneManager.GetSceneManagerSetup();

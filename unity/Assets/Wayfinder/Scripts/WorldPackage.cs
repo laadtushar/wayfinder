@@ -18,6 +18,12 @@ namespace Wayfinder.Unity
         [Tooltip("m/s². Mars 3.72, Moon 1.62 — from the site's meta.json.")]
         [SerializeField] private float surfaceGravity;
 
+        [Header("Arrival")]
+        [Tooltip("Site-local metres from the terrain centre where the player lands. Worlds-as-data: the shackleton clip centres on the permanently shadowed floor, so its spawn must sit on the rim.")]
+        [SerializeField] private Vector2 spawnOffset;
+
+        public Vector2 SpawnOffset => spawnOffset;
+
         [Header("Content references (wired by later tickets)")]
         [Tooltip("Per-site POI list (unity/Assets/Wayfinder/POI/<site>.json) — consumed by the POI system and, later, the Gemini companion.")]
         [SerializeField] private TextAsset poiData;

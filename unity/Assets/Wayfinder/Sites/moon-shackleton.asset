@@ -16,5 +16,6 @@ MonoBehaviour:
   displayName: "Moon \u2014 Shackleton crater rim (lunar south pole)"
   sceneName: Site_moon-shackleton
   surfaceGravity: 1.62
+  spawnOffset: {x: -9200, y: 4400}
   poiData: {fileID: 4900000, guid: 05cab24a3b3702743b20e64033aeba00, type: 3}
-  terrain: {fileID: 0}
+  terrain: {fileID: 15600000, guid: 4653fb2d86c0d1c4b9b822fc7f1e5125, type: 2}

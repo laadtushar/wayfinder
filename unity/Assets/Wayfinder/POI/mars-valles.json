@@ -1,8 +1,10 @@
-{
+﻿{
   "siteId": "mars-valles",
   "pois": [
     {
       "id": "mars-valles/grand-canyon-comparison",
+      "positionX": -1167,
+      "positionZ": -9464,
       "title": "A Canyon That Dwarfs the Grand Canyon",
       "fact": "You are standing inside Valles Marineris, the largest canyon known in the solar system. The full system runs about 3,870 km long, spans about 600 km at its widest, and drops about 9.3 km at its deepest point. Earth's Grand Canyon is 446 km long and 1.6 km deep; if this canyon were on Earth, it would stretch from New York to California.",
       "source": "https://science.nasa.gov/earth/10-things-grand-canyons/",
@@ -10,6 +12,8 @@
     },
     {
       "id": "mars-valles/deepest-floor",
+      "positionX": 1691,
+      "positionZ": 9103,
       "title": "The Deepest Floor in the System",
       "fact": "This stretch is Coprates Chasma, home to the deepest floor in the whole Valles Marineris system: in this region the plunge from the surrounding plateau reaches 11 km, and the drop below the nearest rim exceeds 7 km. The wall you are on descends 4.7 uninterrupted kilometres inside this site alone, taller than any cliff face on Earth. Look up: it keeps going far past where any Earth cliff would stop.",
       "source": "https://hirise.lpl.arizona.edu/ESP_089134_1655",
@@ -17,6 +21,8 @@
     },
     {
       "id": "mars-valles/cracked-open-not-carved",
+      "positionX": 1164,
+      "positionZ": -5408,
       "title": "Cracked Open, Not Carved by a River",
       "fact": "Unlike Earth's Grand Canyon, no river cut this trench. The leading explanation is that the crust stretched and fractured under tension as the giant Tharsis volcanic region to the west pushed upward, and the cracks widened into these troughs. Scientists also suspect underground water erosion and melting ground ice helped the surface collapse and widen the canyon, and possibly all of these processes worked together.",
       "source": "https://www.esa.int/Science_Exploration/Space_Science/Mars_Express/Coprates_Chasma_and_Coprates_Catena",
@@ -24,6 +30,8 @@
     },
     {
       "id": "mars-valles/seasonal-dark-streaks",
+      "positionX": 605,
+      "positionZ": 6760,
       "title": "Dark Streaks on the Spurs",
       "fact": "Narrow dark streaks stain the steep bedrock spurs above you. In Coprates Chasma these flows are abundant along the ancient bedrock slopes, following small channels down onto the bright debris fans at the base of the wall. NASA scientists say they may be active seeps of salty water, which would make this wall one of the most visibly active places on Mars today.",
       "source": "https://www.jpl.nasa.gov/images/pia18119-recurring-slope-lineae-in-coprates-chasma/",
@@ -31,6 +39,8 @@
     },
     {
       "id": "mars-valles/crater-window-into-wet-layers",
+      "positionX": 1500,
+      "positionZ": 8800,
       "title": "A Crater Window into Water-Formed Layers",
       "fact": "An 8-km-wide crater punched into this deepest stretch of floor exposes pale, layered sediments in its wall, fractured and faulted, perhaps by the impact itself. The layers likely contain clays called smectites, along with carbonates, sulfates, and other water-formed minerals detected in this region. All of these minerals need water to form, hinting that lakes may once have stood on this floor, or that water later soaked through the sediments.",
       "source": "https://hirise.lpl.arizona.edu/ESP_089134_1655",
@@ -38,6 +48,8 @@
     },
     {
       "id": "mars-valles/blue-ice-fog-at-sunrise",
+      "positionX": 300,
+      "positionZ": 9300,
       "title": "Blue Ice Fog at Sunrise",
       "fact": "Come here just after sunrise and the canyon fills with pale blue clouds, a scene NASA's Mars Odyssey orbiter photographed over Coprates Chasma on 25 November 2015. The clouds are mostly ice crystals, and they look blue because they scatter blue light more strongly than other colors. They pool down here because in this part of the canyon the floor sits about 10,000 meters below the flat rim above you.",
       "source": "https://science.nasa.gov/resource/mars-odyssey-view-of-morning-clouds-in-canyon/",
@@ -45,6 +57,8 @@
     },
     {
       "id": "mars-valles/floor-of-landslides-and-dunes",
+      "positionX": 1600,
+      "positionZ": 7800,
       "title": "Walking on Landslides and Dunes",
       "fact": "The ground here is not a smooth riverbed: landslide deposits, layered materials, and sand dunes cover a large portion of the chasma floor. In places the surface is a chaotic jumble that NASA scientists read as the runout of a very large landslide, where a whole section of the cliff face gave way. This single chasma stretches 960 km, from Melas Chasma in the west to Capri Chasma in the east, and you are crossing one small slice of it.",
       "source": "https://www.jpl.nasa.gov/images/pia21994-investigating-mars-coprates-chasma/",
@@ -52,6 +66,8 @@
     },
     {
       "id": "mars-valles/far-wall-beyond-the-haze",
+      "positionX": 900,
+      "positionZ": 8500,
       "title": "The Far Wall Is Beyond Reach",
       "fact": "The canyon here is roughly 60 to 100 km wide and sinks 8 to 9 km below the surrounding plains, so the wall facing you is farther away than a full day's walk. ESA orbiter images show the lower slopes and floor softened by a blanket of airborne dust, which is why the far side reads as a hazy silhouette instead of a sharp cliff. Everything you can explore in this site is a thin strip along one side of the trench.",
       "source": "https://www.esa.int/Science_Exploration/Space_Science/Mars_Express/Coprates_Chasma_and_Coprates_Catena",

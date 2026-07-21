@@ -16,7 +16,10 @@ namespace Wayfinder.Unity
 
         IEnumerator Start()
         {
-            if (!Debug.isDebugBuild && !Application.isEditor)
+            // Device development builds only. Never in the editor — play-mode
+            // tests drive the menu themselves, and a probe firing mid-test
+            // warps the player out from under the test driver.
+            if (!Debug.isDebugBuild || Application.isEditor)
             {
                 Destroy(gameObject);
                 yield break;

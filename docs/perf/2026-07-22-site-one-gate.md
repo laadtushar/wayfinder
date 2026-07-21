@@ -44,3 +44,17 @@ single directional light, flat ambient, solid-color camera clear.
 Site One holds 72 fps on the real headset with the full travel + POI stack.
 CHECKPOINT 2 cleared per the plan's sequencing rule — world-building beyond
 Site One is unblocked.
+
+---
+
+## Addendum — Sites Two & Three (same night, ticket #11)
+
+Same unattended probe method, ~100 s soak each:
+
+```
+mars-valles     FrameRate 72.05 / 72.0   XR drops/sec 0.0   thermal 0
+moon-shackleton FrameRate 71.98 / 72.0   XR drops/sec 0.0   thermal 0
+```
+
+All three v1 worlds hold refresh with zero XR frame drops. Same residuals
+apply (head-static, clocks unlocked, pre-imagery-drape).

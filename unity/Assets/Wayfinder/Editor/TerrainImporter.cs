@@ -14,6 +14,12 @@ namespace Wayfinder.Unity.EditorTools
         [MenuItem("Wayfinder/Import Terrain/mars-olympus")]
         public static void ImportMarsOlympus() => Import("mars-olympus");
 
+        [MenuItem("Wayfinder/Import Terrain/mars-valles")]
+        public static void ImportMarsValles() => Import("mars-valles");
+
+        [MenuItem("Wayfinder/Import Terrain/moon-shackleton")]
+        public static void ImportMoonShackleton() => Import("moon-shackleton");
+
         public static void Import(string siteId)
         {
             string repoRoot = Path.GetFullPath(Path.Combine(Application.dataPath, "..", ".."));

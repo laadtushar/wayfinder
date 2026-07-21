@@ -11,11 +11,14 @@ namespace Wayfinder.Unity.Tests
         static string OlympusJson() =>
             AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Wayfinder/POI/mars-olympus.json").text;
 
-        [Test]
-        public void Olympus_Poi_File_Parses_With_Eight_Placed_Pois()
+        [TestCase("mars-olympus")]
+        [TestCase("mars-valles")]
+        [TestCase("moon-shackleton")]
+        public void Site_Poi_File_Parses_With_Eight_Placed_Pois(string siteId)
         {
-            var set = PoiSet.Parse(OlympusJson());
-            Assert.AreEqual("mars-olympus", set.siteId);
+            var json = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Wayfinder/POI/" + siteId + ".json").text;
+            var set = PoiSet.Parse(json);
+            Assert.AreEqual(siteId, set.siteId);
             Assert.AreEqual(8, set.pois.Count);
             foreach (var poi in set.pois)
             {
@@ -23,6 +26,25 @@ namespace Wayfinder.Unity.Tests
                 Assert.IsFalse(string.IsNullOrEmpty(poi.title), poi.id + " has no title");
                 Assert.IsFalse(string.IsNullOrEmpty(poi.fact), poi.id + " has no fact");
                 Assert.IsFalse(string.IsNullOrEmpty(poi.source), poi.id + " has no source");
+            }
+        }
+
+        [TestCase("mars-olympus")]
+        [TestCase("mars-valles")]
+        [TestCase("moon-shackleton")]
+        public void Every_Baked_Position_Is_Inside_Its_Sites_Terrain(string siteId)
+        {
+            // The valles clip is a narrow HiRISE strip (±1800 m x) — a
+            // position baked against the wrong frame spawns an unreachable
+            // marker, and worse, the runtime bounds guard would fire inside
+            // the warp fade. Catch it here instead.
+            var terrain = AssetDatabase.LoadAssetAtPath<TerrainData>("Assets/Wayfinder/Terrain/" + siteId + ".asset");
+            var json = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Wayfinder/POI/" + siteId + ".json").text;
+            float halfX = terrain.size.x / 2f, halfZ = terrain.size.z / 2f;
+            foreach (var poi in PoiSet.Parse(json).pois)
+            {
+                Assert.LessOrEqual(Mathf.Abs(poi.positionX), halfX, poi.id + " x outside terrain");
+                Assert.LessOrEqual(Mathf.Abs(poi.positionZ), halfZ, poi.id + " z outside terrain");
             }
         }
 

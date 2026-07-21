@@ -111,6 +111,7 @@ namespace Wayfinder.Unity
                 // return UI inside the covered period too, so its construction
                 // cost never lands on a visible frame.
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName(world.SceneName));
+                ApplySpawnOffset(worldId);
                 SpawnReturnUi();
                 SpawnPoiSystem(worldId);
                 return true;
@@ -170,6 +171,17 @@ namespace Wayfinder.Unity
             _machine.CompleteReturn();
         }
 
+        void ApplySpawnOffset(string worldId)
+        {
+            var package = FindPackage(worldId);
+            if (package == null || package.SpawnOffset == Vector2.zero) return;
+            var terrain = UnityEngine.Object.FindFirstObjectByType<Terrain>();
+            var pos = new Vector3(package.SpawnOffset.x, 0f, package.SpawnOffset.y);
+            if (terrain != null)
+                pos.y = terrain.SampleHeight(pos) + terrain.transform.position.y;
+            xrOrigin.transform.position = pos;
+        }
+
         void SpawnPoiSystem(string worldId)
         {
             var package = FindPackage(worldId);
@@ -184,9 +196,20 @@ namespace Wayfinder.Unity
                 Debug.LogWarning($"[TravelManager] no terrain in '{worldId}' — POI markers skipped.");
                 return;
             }
-            var go = new GameObject("PoiSystem");
-            _poiSystem = go.AddComponent<PoiSystem>();
-            _poiSystem.Build(PoiSet.Parse(package.PoiData.text), terrain, _fieldLog, xrOrigin.Camera.transform);
+            // POI failures must never brick travel — this runs inside the warp
+            // fade callback, where an uncaught exception freezes the player at
+            // full bright forever.
+            try
+            {
+                var go = new GameObject("PoiSystem");
+                _poiSystem = go.AddComponent<PoiSystem>();
+                _poiSystem.Build(PoiSet.Parse(package.PoiData.text), terrain, _fieldLog, xrOrigin.Camera.transform);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[TravelManager] POI system failed for '{worldId}' — travelling on without discoveries. {e.Message}");
+                if (_poiSystem != null) { Destroy(_poiSystem.gameObject); _poiSystem = null; }
+            }
         }
 
         WorldPackage FindPackage(string worldId)

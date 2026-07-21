@@ -17,4 +17,4 @@ MonoBehaviour:
   sceneName: Site_mars-valles
   surfaceGravity: 3.72
   poiData: {fileID: 4900000, guid: 407831c18042ee64a921a131fd2fb833, type: 3}
-  terrain: {fileID: 0}
+  terrain: {fileID: 15600000, guid: 7df05868377943445ad50aa2557a60a4, type: 2}

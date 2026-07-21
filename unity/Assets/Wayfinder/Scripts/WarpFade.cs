@@ -41,8 +41,23 @@ namespace Wayfinder.Unity
             SetAlpha(1f);
             IsFullyBright = true;
 
-            while (!workIsDone())
+            // An exception in the work callback must never strand the player at
+            // full bright with a dead coroutine — treat it as "done", log, and
+            // let the fade come back down (the caller's failure paths handle
+            // state rollback).
+            while (true)
+            {
+                bool done;
+                try { done = workIsDone(); }
+                catch (System.Exception e)
+                {
+                    Debug.LogException(e);
+                    Debug.LogError("[WarpFade] work callback threw — completing the fade to avoid a full-bright lock.");
+                    done = true;
+                }
+                if (done) break;
                 yield return null;
+            }
 
             IsFullyBright = false;
             for (float t = 0; t < halfDurationSeconds; t += Time.deltaTime)

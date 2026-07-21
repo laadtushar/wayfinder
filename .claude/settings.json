@@ -9,6 +9,15 @@
             "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .claude/hooks/block-meta-unity-edit.ps1"
           }
         ]
+      },
+      {
+        "matcher": "Glob|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f graphify-out/graph.json ] && echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"additionalContext\":\"graphify: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files.\"}}' || true"
+          }
+        ]
       }
     ],
     "PostToolUse": [

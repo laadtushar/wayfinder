@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Bridge.unity
     guid: 960c2686ced6c194e89396176235a956
+  - enabled: 1
+    path: Assets/Scenes/Site_mars-olympus.unity
+    guid: d819a11661b48424fb492e3b3ffd0b2b
+  - enabled: 1
+    path: Assets/Scenes/Site_mars-valles.unity
+    guid: d8d0961889a8d974186234365fe3217f
+  - enabled: 1
+    path: Assets/Scenes/Site_moon-shackleton.unity
+    guid: 6dc350762f9f4754c8bff940343f5b9e
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 7fdba815e72be63458feb1d2aa44631c, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: dedf24648d9e46645879024c2e11cd3a, type: 2}

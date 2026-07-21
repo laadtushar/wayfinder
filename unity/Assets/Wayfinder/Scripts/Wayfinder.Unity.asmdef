@@ -3,7 +3,8 @@
     "rootNamespace": "Wayfinder.Unity",
     "references": [
         "Wayfinder.Core",
-        "UnityEngine.UI"
+        "UnityEngine.UI",
+        "Unity.XR.Interaction.Toolkit"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

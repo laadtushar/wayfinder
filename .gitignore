@@ -15,3 +15,7 @@ unity/[Uu]ser[Ss]ettings/
 unity/[Mm]emoryCaptures/
 unity/*.apk
 unity/*.aab
+
+# .NET build output (core/ staging projects)
+core/**/bin/
+core/**/obj/

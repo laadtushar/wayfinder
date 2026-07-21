@@ -1,1 +1,2 @@
 assets/terrain/**/*.raw filter=lfs diff=lfs merge=lfs -text
+unity/Assets/Wayfinder/Terrain/*.asset filter=lfs diff=lfs merge=lfs -text

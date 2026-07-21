@@ -1,0 +1,19 @@
+{
+    "name": "Wayfinder.Unity.Editor",
+    "rootNamespace": "Wayfinder.Unity.EditorTools",
+    "references": [
+        "Wayfinder.Core",
+        "Wayfinder.Unity"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

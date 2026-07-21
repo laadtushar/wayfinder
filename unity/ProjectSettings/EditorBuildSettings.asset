@@ -4,7 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/HelloHeadset.unity
+    guid: 3cb7db7cfffb8ec4fbd400b94bee22ba
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 7fdba815e72be63458feb1d2aa44631c, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: dedf24648d9e46645879024c2e11cd3a, type: 2}

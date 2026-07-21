@@ -33,7 +33,14 @@
     ]
   },
   "permissions": {
+    "defaultMode": "dontAsk",
     "allow": [
+      "Bash(*)",
+      "PowerShell(*)",
+      "Edit",
+      "Write",
+      "WebFetch",
+      "WebSearch",
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git add:*)",

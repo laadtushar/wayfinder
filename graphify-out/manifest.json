@@ -1,0 +1,21 @@
+{
+  "core\\Wayfinder.Core\\FieldLog.cs": 1784656193.529132,
+  "core\\Wayfinder.Core\\InteractionTargets.cs": 1784656193.5296273,
+  "core\\Wayfinder.Core\\TravelStateMachine.cs": 1784656193.5301273,
+  "core\\Wayfinder.Core\\WorldRegistry.cs": 1784656193.5311377,
+  "core\\Wayfinder.Core.Tests\\FieldLogTests.cs": 1784656193.5271268,
+  "core\\Wayfinder.Core.Tests\\InteractionTargetsTests.cs": 1784656193.5276277,
+  "core\\Wayfinder.Core.Tests\\TravelStateMachineTests.cs": 1784656193.528132,
+  "core\\Wayfinder.Core.Tests\\WorldRegistryTests.cs": 1784656193.528631,
+  "CLAUDE.md": 1784657442.1688795,
+  "DESIGN.md": 1784656193.524128,
+  "IDEATION.md": 1784656193.5256302,
+  "README.md": 1784656193.5261302,
+  "core\\README.md": 1784656193.526627,
+  "docs\\ANDROID-XR-PLATFORM.md": 1784656193.531629,
+  "docs\\ARCHITECTURE.md": 1784656193.532128,
+  "docs\\data-sources.md": 1784656785.285459,
+  "docs\\SETUP-ROADMAP.md": 1784656193.5326319,
+  "docs\\plans\\2026-07-20-wayfinder-v1.md": 1784656193.5336316,
+  "docs\\specs\\2026-07-21-terrain-and-poi-content.md": 1784656193.5341277
+}

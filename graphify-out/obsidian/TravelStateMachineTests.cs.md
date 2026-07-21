@@ -1,0 +1,18 @@
+---
+source_file: "core\Wayfinder.Core.Tests\TravelStateMachineTests.cs"
+type: "code"
+community: "Travel Machine Tests"
+location: "L1"
+tags:
+  - graphify/code
+  - graphify/EXTRACTED
+  - community/Travel_Machine_Tests
+---
+
+# TravelStateMachineTests.cs
+
+## Connections
+- [[TravelStateMachineTests]] - `contains` [EXTRACTED]
+- [[Wayfinder.Core.Tests_2]] - `contains` [EXTRACTED]
+
+#graphify/code #graphify/EXTRACTED #community/Travel_Machine_Tests

@@ -1,0 +1,2006 @@
+{
+  "nodes": [
+    {
+      "id": "g0",
+      "type": "group",
+      "label": "Travel Machine Tests",
+      "x": 0,
+      "y": 0,
+      "width": 880,
+      "height": 620,
+      "color": "1"
+    },
+    {
+      "id": "n_travelstatemachinetests_travelstatemachinetests_completereturn_whennotreturning_throws",
+      "type": "file",
+      "file": "graphify/obsidian/.CompleteReturn_WhenNotReturning_Throws().md",
+      "x": 20,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachinetests_travelstatemachinetests_completewarp_whennotwarping_throws",
+      "type": "file",
+      "file": "graphify/obsidian/.CompleteWarp_WhenNotWarping_Throws().md",
+      "x": 220,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachinetests_travelstatemachinetests_fullloop_canruntwice",
+      "type": "file",
+      "file": "graphify/obsidian/.FullLoop_CanRunTwice().md",
+      "x": 420,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachinetests_travelstatemachinetests_return_frombridge_isrejected",
+      "type": "file",
+      "file": "graphify/obsidian/.Return_FromBridge_IsRejected().md",
+      "x": 20,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachinetests_travelstatemachinetests_return_fromsurface_enterswarping_thenbridge_andclearsdestination",
+      "type": "file",
+      "file": "graphify/obsidian/.Return_FromSurface_EntersWarping_ThenBridge_AndClearsDestination().md",
+      "x": 220,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachinetests_travelstatemachinetests_startsonbridge_withnodestination",
+      "type": "file",
+      "file": "graphify/obsidian/.StartsOnBridge_WithNoDestination().md",
+      "x": 420,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachinetests_travelstatemachinetests_warp_frombridge_enterswarping_thensurface",
+      "type": "file",
+      "file": "graphify/obsidian/.Warp_FromBridge_EntersWarping_ThenSurface().md",
+      "x": 20,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachinetests_travelstatemachinetests_warp_whileonsurface_isrejected",
+      "type": "file",
+      "file": "graphify/obsidian/.Warp_WhileOnSurface_IsRejected().md",
+      "x": 220,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachinetests_travelstatemachinetests_warp_whilewarping_isrejected",
+      "type": "file",
+      "file": "graphify/obsidian/.Warp_WhileWarping_IsRejected().md",
+      "x": 420,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachinetests_travelstatemachinetests_warp_withnulloremptyid_isrejected",
+      "type": "file",
+      "file": "graphify/obsidian/.Warp_WithNullOrEmptyId_IsRejected().md",
+      "x": 20,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachinetests_travelstatemachinetests",
+      "type": "file",
+      "file": "graphify/obsidian/TravelStateMachineTests.md",
+      "x": 220,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_core_wayfinder_core_tests_travelstatemachinetests_cs",
+      "type": "file",
+      "file": "graphify/obsidian/TravelStateMachineTests.cs.md",
+      "x": 420,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachinetests_wayfinder_core_tests",
+      "type": "file",
+      "file": "graphify/obsidian/Wayfinder.Core.Tests_2.md",
+      "x": 20,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g1",
+      "type": "group",
+      "label": "Docs & Terrain Pipeline",
+      "x": 960,
+      "y": 0,
+      "width": 880,
+      "height": 620,
+      "color": "2"
+    },
+    {
+      "id": "n_claudemd_project_instructions",
+      "type": "file",
+      "file": "graphify/obsidian/CLAUDE.md Project Instructions.md",
+      "x": 980,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_claudemd_terrain_pipeline",
+      "type": "file",
+      "file": "graphify/obsidian/GDAL DEM-to-Unity-Terrain Pipeline.md",
+      "x": 1180,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_spec_heightmap_contract",
+      "type": "file",
+      "file": "graphify/obsidian/Heightmap Output Contract (2049x2049 16-bit big-endian RAW, 8396802 bytes).md",
+      "x": 1380,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ideation_frontier_survey",
+      "type": "file",
+      "file": "graphify/obsidian/IDEATION Frontier-Tech Survey.md",
+      "x": 980,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ideation_offline_authoring",
+      "type": "file",
+      "file": "graphify/obsidian/Offline Authoring Reframe (scan, reconstruct, bake; headset only renders).md",
+      "x": 1180,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ideation_trademark_risk",
+      "type": "file",
+      "file": "graphify/obsidian/Public Name Trademark Risk (Classes 9 and 41).md",
+      "x": 1380,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_spec_terrain_poi_content",
+      "type": "file",
+      "file": "graphify/obsidian/Terrain + POI Content Spec (Mac-side Pre-production).md",
+      "x": 980,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_datasources_terrain_audit",
+      "type": "file",
+      "file": "graphify/obsidian/Terrain Data Sources and Processing Audit.md",
+      "x": 1180,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_readme_wayfinder_overview",
+      "type": "file",
+      "file": "graphify/obsidian/Wayfinder README.md",
+      "x": 1380,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_architecture_runtime_architecture",
+      "type": "file",
+      "file": "graphify/obsidian/Wayfinder Runtime Architecture.md",
+      "x": 980,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_design_v1_design",
+      "type": "file",
+      "file": "graphify/obsidian/Wayfinder v1 Design (Locked Decisions).md",
+      "x": 1180,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_plan_v1_build_plan",
+      "type": "file",
+      "file": "graphify/obsidian/Wayfinder v1 Implementation Plan.md",
+      "x": 1380,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_worldregistry_WorldRegistry",
+      "type": "file",
+      "file": "graphify/obsidian/WorldRegistry_1.md",
+      "x": 980,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g2",
+      "type": "group",
+      "label": "World Package & Companion Seam",
+      "x": 1920,
+      "y": 0,
+      "width": 880,
+      "height": 620,
+      "color": "3"
+    },
+    {
+      "id": "n_androidxr_platform_guide",
+      "type": "file",
+      "file": "graphify/obsidian/Android XR  Galaxy XR Platform Guide.md",
+      "x": 1940,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_fieldlog_FieldLog",
+      "type": "file",
+      "file": "graphify/obsidian/FieldLog_1.md",
+      "x": 2140,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_fieldlogtests_FieldLogTests",
+      "type": "file",
+      "file": "graphify/obsidian/FieldLogTests_1.md",
+      "x": 2340,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ideation_gemini_companion",
+      "type": "file",
+      "file": "graphify/obsidian/Gemini In-World Companion.md",
+      "x": 1940,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_spec_poi_contract",
+      "type": "file",
+      "file": "graphify/obsidian/POI Content Contract (per-site JSON, 5-8 POIs).md",
+      "x": 2140,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_arch_persistent_bridge",
+      "type": "file",
+      "file": "graphify/obsidian/Persistent Bridge Hub.md",
+      "x": 2340,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_arch_point_of_interest",
+      "type": "file",
+      "file": "graphify/obsidian/PointOfInterest Record.md",
+      "x": 1940,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_arch_offline_constraint_rationale",
+      "type": "file",
+      "file": "graphify/obsidian/Rationale Headset Renders Worlds, Never Builds Them Live.md",
+      "x": 2140,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_arch_no_splats_rationale",
+      "type": "file",
+      "file": "graphify/obsidian/Rationale No Splat Renderer in v1 (removes riskiest dependency).md",
+      "x": 2340,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_arch_companion_seam_rationale",
+      "type": "file",
+      "file": "graphify/obsidian/Rationale POI Data as the v1.1 Gemini Companion Seam.md",
+      "x": 1940,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ideation_splat_diorama",
+      "type": "file",
+      "file": "graphify/obsidian/Splat Diorama-Per-Scene Pattern (bounded scene swapped at travel).md",
+      "x": 2140,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_core_readme_engine_free_core",
+      "type": "file",
+      "file": "graphify/obsidian/Wayfinder.Core Module README.md",
+      "x": 2340,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_arch_world_package",
+      "type": "file",
+      "file": "graphify/obsidian/World Package (worlds as data, not code).md",
+      "x": 1940,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g3",
+      "type": "group",
+      "label": "XR Quality & Perf Gates",
+      "x": 2880,
+      "y": 0,
+      "width": 880,
+      "height": 520,
+      "color": "4"
+    },
+    {
+      "id": "n_androidxr_quality_checklist",
+      "type": "file",
+      "file": "graphify/obsidian/Android XR Quality Checklist.md",
+      "x": 2900,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_design_comfort_rules",
+      "type": "file",
+      "file": "graphify/obsidian/Comfort and Locomotion Rules.md",
+      "x": 3100,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_claudemd_frame_budget",
+      "type": "file",
+      "file": "graphify/obsidian/Frame Budget 72 fps minimum  90 target.md",
+      "x": 3300,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_interactiontargets_InteractionTargets",
+      "type": "file",
+      "file": "graphify/obsidian/InteractionTargets_1.md",
+      "x": 2900,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_interactiontargetstests_InteractionTargetsTests",
+      "type": "file",
+      "file": "graphify/obsidian/InteractionTargetsTests_1.md",
+      "x": 3100,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_androidxr_target_sizing_rule",
+      "type": "file",
+      "file": "graphify/obsidian/Interactive Target Sizing Rule (distance x 0.868 x 48dp).md",
+      "x": 3300,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_core_engine_free_rationale",
+      "type": "file",
+      "file": "graphify/obsidian/Rationale Engine-Free Core, Built and Tested Before Unity Exists.md",
+      "x": 2900,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_plan_sequencing_rationale",
+      "type": "file",
+      "file": "graphify/obsidian/Rationale Prove Site One Before Authoring Three Worlds.md",
+      "x": 3100,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_plan_site_one_gate",
+      "type": "file",
+      "file": "graphify/obsidian/Site One Framerate Gate (Checkpoint 2).md",
+      "x": 3300,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_setup_iteration_tiers",
+      "type": "file",
+      "file": "graphify/obsidian/Three-Tier Iteration Loop (Simulator, Direct Preview, device build).md",
+      "x": 2900,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_setuproadmap_windows_dev_setup",
+      "type": "file",
+      "file": "graphify/obsidian/Windows-Primary Setup Roadmap.md",
+      "x": 3100,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g4",
+      "type": "group",
+      "label": "Core Travel Loop",
+      "x": 0,
+      "y": 700,
+      "width": 880,
+      "height": 520,
+      "color": "5"
+    },
+    {
+      "id": "n_design_core_loop",
+      "type": "file",
+      "file": "graphify/obsidian/Core Loop Bridge to Warp to Surface to Return.md",
+      "x": 20,
+      "y": 780,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_datasources_hrsc_dtm",
+      "type": "file",
+      "file": "graphify/obsidian/Mars Express HRSC Level-4 DTM, orbit 0037.md",
+      "x": 220,
+      "y": 780,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_core_four_state_deviation",
+      "type": "file",
+      "file": "graphify/obsidian/Rationale Four Travel States Instead of the Plan's Three.md",
+      "x": 420,
+      "y": 780,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_arch_warp_load_rationale",
+      "type": "file",
+      "file": "graphify/obsidian/Rationale Warp as Loading Screen.md",
+      "x": 20,
+      "y": 860,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_arch_travel_manager",
+      "type": "file",
+      "file": "graphify/obsidian/TravelManager (planned MonoBehaviour wrapper).md",
+      "x": 220,
+      "y": 860,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachine_TravelStateMachine",
+      "type": "file",
+      "file": "graphify/obsidian/TravelStateMachine_1.md",
+      "x": 420,
+      "y": 860,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachinetests_TravelStateMachineTests",
+      "type": "file",
+      "file": "graphify/obsidian/TravelStateMachineTests_1.md",
+      "x": 20,
+      "y": 940,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_worldregistry_WorldDefinition",
+      "type": "file",
+      "file": "graphify/obsidian/WorldDefinition_1.md",
+      "x": 220,
+      "y": 940,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_worldregistrytests_WorldRegistryTests",
+      "type": "file",
+      "file": "graphify/obsidian/WorldRegistryTests_1.md",
+      "x": 420,
+      "y": 940,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_datasources_mars_olympus",
+      "type": "file",
+      "file": "graphify/obsidian/mars-olympus Site (Olympus Mons caldera rim).md",
+      "x": 20,
+      "y": 1020,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g5",
+      "type": "group",
+      "label": "World Registry Tests",
+      "x": 960,
+      "y": 700,
+      "width": 660,
+      "height": 420,
+      "color": "6"
+    },
+    {
+      "id": "n_worldregistrytests_worldregistrytests_all_preservesregistrationorder_fortheviewscreenlist",
+      "type": "file",
+      "file": "graphify/obsidian/.All_PreservesRegistrationOrder_ForTheViewscreenList().md",
+      "x": 980,
+      "y": 780,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_worldregistrytests_worldregistrytests_duplicateid_lastregistrationwins",
+      "type": "file",
+      "file": "graphify/obsidian/.DuplicateId_LastRegistrationWins().md",
+      "x": 1180,
+      "y": 780,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_worldregistrytests_worldregistrytests_getbyid_returnsdefinition_whenpresent",
+      "type": "file",
+      "file": "graphify/obsidian/.GetById_ReturnsDefinition_WhenPresent().md",
+      "x": 1380,
+      "y": 780,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_worldregistrytests_worldregistrytests_getbyid_returnsnull_whenmissing",
+      "type": "file",
+      "file": "graphify/obsidian/.GetById_ReturnsNull_WhenMissing().md",
+      "x": 980,
+      "y": 860,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_worldregistrytests_worldregistrytests_mars",
+      "type": "file",
+      "file": "graphify/obsidian/.Mars().md",
+      "x": 1180,
+      "y": 860,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_worldregistrytests_worldregistrytests_worlddefinition_rejectsnulloremptyid",
+      "type": "file",
+      "file": "graphify/obsidian/.WorldDefinition_RejectsNullOrEmptyId().md",
+      "x": 1380,
+      "y": 860,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_worldregistrytests_wayfinder_core_tests",
+      "type": "file",
+      "file": "graphify/obsidian/Wayfinder.Core.Tests_3.md",
+      "x": 980,
+      "y": 940,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_worldregistrytests_worldregistrytests",
+      "type": "file",
+      "file": "graphify/obsidian/WorldRegistryTests.md",
+      "x": 1180,
+      "y": 940,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_core_wayfinder_core_tests_worldregistrytests_cs",
+      "type": "file",
+      "file": "graphify/obsidian/WorldRegistryTests.cs.md",
+      "x": 1380,
+      "y": 940,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g6",
+      "type": "group",
+      "label": "Field Log Tests",
+      "x": 1920,
+      "y": 700,
+      "width": 660,
+      "height": 420,
+      "color": "1"
+    },
+    {
+      "id": "n_fieldlogtests_fieldlogtests_count_reflectsdistinctdiscoveries",
+      "type": "file",
+      "file": "graphify/obsidian/.Count_ReflectsDistinctDiscoveries().md",
+      "x": 1940,
+      "y": 780,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_fieldlogtests_fieldlogtests_discover_addsonce_ignoresduplicates",
+      "type": "file",
+      "file": "graphify/obsidian/.Discover_AddsOnce_IgnoresDuplicates().md",
+      "x": 2140,
+      "y": 780,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_fieldlogtests_fieldlogtests_discover_nullorempty_isrejected_andnotcounted",
+      "type": "file",
+      "file": "graphify/obsidian/.Discover_NullOrEmpty_IsRejected_AndNotCounted().md",
+      "x": 2340,
+      "y": 780,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_fieldlogtests_fieldlogtests_discoveredids_returnseverythingdiscovered",
+      "type": "file",
+      "file": "graphify/obsidian/.DiscoveredIds_ReturnsEverythingDiscovered().md",
+      "x": 1940,
+      "y": 860,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_fieldlogtests_fieldlogtests_hasdiscovered_isfalse_forunknownid",
+      "type": "file",
+      "file": "graphify/obsidian/.HasDiscovered_IsFalse_ForUnknownId().md",
+      "x": 2140,
+      "y": 860,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_fieldlogtests_fieldlogtests",
+      "type": "file",
+      "file": "graphify/obsidian/FieldLogTests.md",
+      "x": 2340,
+      "y": 860,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_core_wayfinder_core_tests_fieldlogtests_cs",
+      "type": "file",
+      "file": "graphify/obsidian/FieldLogTests.cs.md",
+      "x": 1940,
+      "y": 940,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_fieldlogtests_wayfinder_core_tests",
+      "type": "file",
+      "file": "graphify/obsidian/Wayfinder.Core.Tests.md",
+      "x": 2140,
+      "y": 940,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g7",
+      "type": "group",
+      "label": "Travel State Machine",
+      "x": 2880,
+      "y": 700,
+      "width": 660,
+      "height": 420,
+      "color": "2"
+    },
+    {
+      "id": "n_travelstatemachine_travelstatemachine_completereturn",
+      "type": "file",
+      "file": "graphify/obsidian/.CompleteReturn().md",
+      "x": 2900,
+      "y": 780,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachine_travelstatemachine_completewarp",
+      "type": "file",
+      "file": "graphify/obsidian/.CompleteWarp().md",
+      "x": 3100,
+      "y": 780,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachine_travelstatemachine_trybeginreturn",
+      "type": "file",
+      "file": "graphify/obsidian/.TryBeginReturn().md",
+      "x": 3300,
+      "y": 780,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachine_travelstatemachine_trybeginwarp",
+      "type": "file",
+      "file": "graphify/obsidian/.TryBeginWarp().md",
+      "x": 2900,
+      "y": 860,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachine_travelstatemachine",
+      "type": "file",
+      "file": "graphify/obsidian/TravelStateMachine.md",
+      "x": 3100,
+      "y": 860,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_core_wayfinder_core_travelstatemachine_cs",
+      "type": "file",
+      "file": "graphify/obsidian/TravelStateMachine.cs.md",
+      "x": 3300,
+      "y": 860,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_travelstatemachine_wayfinder_core",
+      "type": "file",
+      "file": "graphify/obsidian/Wayfinder.Core_2.md",
+      "x": 2900,
+      "y": 940,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g8",
+      "type": "group",
+      "label": "Interaction Target Tests",
+      "x": 0,
+      "y": 1300,
+      "width": 660,
+      "height": 420,
+      "color": "3"
+    },
+    {
+      "id": "n_interactiontargetstests_interactiontargetstests_minimumsize_at3meters_isabout12point5centimeters",
+      "type": "file",
+      "file": "graphify/obsidian/.MinimumSize_At3Meters_IsAbout12Point5Centimeters().md",
+      "x": 20,
+      "y": 1380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_interactiontargetstests_interactiontargetstests_nonpositivedistance_throws",
+      "type": "file",
+      "file": "graphify/obsidian/.NonPositiveDistance_Throws().md",
+      "x": 220,
+      "y": 1380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_interactiontargetstests_interactiontargetstests_recommendedsize_usesthe56dptarget",
+      "type": "file",
+      "file": "graphify/obsidian/.RecommendedSize_UsesThe56dpTarget().md",
+      "x": 420,
+      "y": 1380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_interactiontargetstests_interactiontargetstests_sizes_scalelinearlywithdistance",
+      "type": "file",
+      "file": "graphify/obsidian/.Sizes_ScaleLinearlyWithDistance().md",
+      "x": 20,
+      "y": 1460,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_interactiontargetstests_interactiontargetstests",
+      "type": "file",
+      "file": "graphify/obsidian/InteractionTargetsTests.md",
+      "x": 220,
+      "y": 1460,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_core_wayfinder_core_tests_interactiontargetstests_cs",
+      "type": "file",
+      "file": "graphify/obsidian/InteractionTargetsTests.cs.md",
+      "x": 420,
+      "y": 1460,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_interactiontargetstests_wayfinder_core_tests",
+      "type": "file",
+      "file": "graphify/obsidian/Wayfinder.Core.Tests_1.md",
+      "x": 20,
+      "y": 1540,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g9",
+      "type": "group",
+      "label": "Interaction Targets",
+      "x": 960,
+      "y": 1300,
+      "width": 660,
+      "height": 400,
+      "color": "4"
+    },
+    {
+      "id": "n_interactiontargets_interactiontargets_minimumsizemeters",
+      "type": "file",
+      "file": "graphify/obsidian/.MinimumSizeMeters().md",
+      "x": 980,
+      "y": 1380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_interactiontargets_interactiontargets_recommendedsizemeters",
+      "type": "file",
+      "file": "graphify/obsidian/.RecommendedSizeMeters().md",
+      "x": 1180,
+      "y": 1380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_interactiontargets_interactiontargets_sizemeters",
+      "type": "file",
+      "file": "graphify/obsidian/.SizeMeters().md",
+      "x": 1380,
+      "y": 1380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_interactiontargets_interactiontargets",
+      "type": "file",
+      "file": "graphify/obsidian/InteractionTargets.md",
+      "x": 980,
+      "y": 1460,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_core_wayfinder_core_interactiontargets_cs",
+      "type": "file",
+      "file": "graphify/obsidian/InteractionTargets.cs.md",
+      "x": 1180,
+      "y": 1460,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_interactiontargets_wayfinder_core",
+      "type": "file",
+      "file": "graphify/obsidian/Wayfinder.Core_1.md",
+      "x": 1380,
+      "y": 1460,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g10",
+      "type": "group",
+      "label": "Field Log",
+      "x": 1920,
+      "y": 1300,
+      "width": 660,
+      "height": 400,
+      "color": "5"
+    },
+    {
+      "id": "n_fieldlog_fieldlog_discover",
+      "type": "file",
+      "file": "graphify/obsidian/.Discover().md",
+      "x": 1940,
+      "y": 1380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_fieldlog_fieldlog_hasdiscovered",
+      "type": "file",
+      "file": "graphify/obsidian/.HasDiscovered().md",
+      "x": 2140,
+      "y": 1380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_fieldlog_fieldlog",
+      "type": "file",
+      "file": "graphify/obsidian/FieldLog.md",
+      "x": 2340,
+      "y": 1380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_core_wayfinder_core_fieldlog_cs",
+      "type": "file",
+      "file": "graphify/obsidian/FieldLog.cs.md",
+      "x": 1940,
+      "y": 1460,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_fieldlog_wayfinder_core",
+      "type": "file",
+      "file": "graphify/obsidian/Wayfinder.Core.md",
+      "x": 2140,
+      "y": 1460,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g11",
+      "type": "group",
+      "label": "World Registry",
+      "x": 2880,
+      "y": 1300,
+      "width": 660,
+      "height": 400,
+      "color": "6"
+    },
+    {
+      "id": "n_worldregistry_worldregistry_getbyid",
+      "type": "file",
+      "file": "graphify/obsidian/.GetById().md",
+      "x": 2900,
+      "y": 1380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_worldregistry_wayfinder_core",
+      "type": "file",
+      "file": "graphify/obsidian/Wayfinder.Core_3.md",
+      "x": 3100,
+      "y": 1380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_worldregistry_worlddefinition",
+      "type": "file",
+      "file": "graphify/obsidian/WorldDefinition.md",
+      "x": 3300,
+      "y": 1380,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_worldregistry_worldregistry",
+      "type": "file",
+      "file": "graphify/obsidian/WorldRegistry.md",
+      "x": 2900,
+      "y": 1460,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_core_wayfinder_core_worldregistry_cs",
+      "type": "file",
+      "file": "graphify/obsidian/WorldRegistry.cs.md",
+      "x": 3100,
+      "y": 1460,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g12",
+      "type": "group",
+      "label": "Moon Shackleton Data",
+      "x": 0,
+      "y": 1800,
+      "width": 600,
+      "height": 400,
+      "color": "1"
+    },
+    {
+      "id": "n_datasources_barker2021",
+      "type": "file",
+      "file": "graphify/obsidian/Barker et al. 2021, Improved LOLA Elevation Maps for South Pole Landing Sites.md",
+      "x": 20,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_datasources_lola_dem",
+      "type": "file",
+      "file": "graphify/obsidian/LOLA South Pole DEM Mosaic 5 mpx (ldem_87s_5mpp).md",
+      "x": 220,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_datasources_moon_shackleton",
+      "type": "file",
+      "file": "graphify/obsidian/moon-shackleton Site (Shackleton crater rim).md",
+      "x": 420,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g13",
+      "type": "group",
+      "label": "Mars Valles Data",
+      "x": 960,
+      "y": 1800,
+      "width": 600,
+      "height": 400,
+      "color": "2"
+    },
+    {
+      "id": "n_datasources_hirise_dtm",
+      "type": "file",
+      "file": "graphify/obsidian/HiRISE Stereo DTM DTEEC_046764_1660 (East Coprates Chasma).md",
+      "x": 980,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_datasources_mars_valles",
+      "type": "file",
+      "file": "graphify/obsidian/mars-valles Site (Coprates Chasma canyon wall).md",
+      "x": 1180,
+      "y": 1880,
+      "width": 180,
+      "height": 60
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_core_wayfinder_core_fieldlog_cs_fieldlog_wayfinder_core",
+      "fromNode": "n_core_wayfinder_core_fieldlog_cs",
+      "toNode": "n_fieldlog_wayfinder_core",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_fieldlog_cs_fieldlog_fieldlog",
+      "fromNode": "n_core_wayfinder_core_fieldlog_cs",
+      "toNode": "n_fieldlog_fieldlog",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlog_fieldlog_fieldlog_fieldlog_discover",
+      "fromNode": "n_fieldlog_fieldlog",
+      "toNode": "n_fieldlog_fieldlog_discover",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlog_fieldlog_fieldlog_fieldlog_hasdiscovered",
+      "fromNode": "n_fieldlog_fieldlog",
+      "toNode": "n_fieldlog_fieldlog_hasdiscovered",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_interactiontargets_cs_interactiontargets_wayfinder_core",
+      "fromNode": "n_core_wayfinder_core_interactiontargets_cs",
+      "toNode": "n_interactiontargets_wayfinder_core",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_interactiontargets_cs_interactiontargets_interactiontargets",
+      "fromNode": "n_core_wayfinder_core_interactiontargets_cs",
+      "toNode": "n_interactiontargets_interactiontargets",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_interactiontargets_interactiontargets_interactiontargets_interactiontargets_minimumsizemeters",
+      "fromNode": "n_interactiontargets_interactiontargets",
+      "toNode": "n_interactiontargets_interactiontargets_minimumsizemeters",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_interactiontargets_interactiontargets_interactiontargets_interactiontargets_recommendedsizemeters",
+      "fromNode": "n_interactiontargets_interactiontargets",
+      "toNode": "n_interactiontargets_interactiontargets_recommendedsizemeters",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_interactiontargets_interactiontargets_interactiontargets_interactiontargets_sizemeters",
+      "fromNode": "n_interactiontargets_interactiontargets",
+      "toNode": "n_interactiontargets_interactiontargets_sizemeters",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_interactiontargets_interactiontargets_minimumsizemeters_interactiontargets_interactiontargets_sizemeters",
+      "fromNode": "n_interactiontargets_interactiontargets_minimumsizemeters",
+      "toNode": "n_interactiontargets_interactiontargets_sizemeters",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_interactiontargets_interactiontargets_recommendedsizemeters_interactiontargets_interactiontargets_sizemeters",
+      "fromNode": "n_interactiontargets_interactiontargets_recommendedsizemeters",
+      "toNode": "n_interactiontargets_interactiontargets_sizemeters",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_travelstatemachine_cs_travelstatemachine_wayfinder_core",
+      "fromNode": "n_core_wayfinder_core_travelstatemachine_cs",
+      "toNode": "n_travelstatemachine_wayfinder_core",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_travelstatemachine_cs_travelstatemachine_travelstatemachine",
+      "fromNode": "n_core_wayfinder_core_travelstatemachine_cs",
+      "toNode": "n_travelstatemachine_travelstatemachine",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachine_travelstatemachine_travelstatemachine_travelstatemachine_trybeginwarp",
+      "fromNode": "n_travelstatemachine_travelstatemachine",
+      "toNode": "n_travelstatemachine_travelstatemachine_trybeginwarp",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachine_travelstatemachine_travelstatemachine_travelstatemachine_completewarp",
+      "fromNode": "n_travelstatemachine_travelstatemachine",
+      "toNode": "n_travelstatemachine_travelstatemachine_completewarp",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachine_travelstatemachine_travelstatemachine_travelstatemachine_trybeginreturn",
+      "fromNode": "n_travelstatemachine_travelstatemachine",
+      "toNode": "n_travelstatemachine_travelstatemachine_trybeginreturn",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachine_travelstatemachine_travelstatemachine_travelstatemachine_completereturn",
+      "fromNode": "n_travelstatemachine_travelstatemachine",
+      "toNode": "n_travelstatemachine_travelstatemachine_completereturn",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_worldregistry_cs_worldregistry_wayfinder_core",
+      "fromNode": "n_core_wayfinder_core_worldregistry_cs",
+      "toNode": "n_worldregistry_wayfinder_core",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_worldregistry_cs_worldregistry_worlddefinition",
+      "fromNode": "n_core_wayfinder_core_worldregistry_cs",
+      "toNode": "n_worldregistry_worlddefinition",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_worldregistry_cs_worldregistry_worldregistry",
+      "fromNode": "n_core_wayfinder_core_worldregistry_cs",
+      "toNode": "n_worldregistry_worldregistry",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistry_worldregistry_worldregistry_worldregistry_getbyid",
+      "fromNode": "n_worldregistry_worldregistry",
+      "toNode": "n_worldregistry_worldregistry_getbyid",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_tests_fieldlogtests_cs_fieldlogtests_wayfinder_core_tests",
+      "fromNode": "n_core_wayfinder_core_tests_fieldlogtests_cs",
+      "toNode": "n_fieldlogtests_wayfinder_core_tests",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_tests_fieldlogtests_cs_fieldlogtests_fieldlogtests",
+      "fromNode": "n_core_wayfinder_core_tests_fieldlogtests_cs",
+      "toNode": "n_fieldlogtests_fieldlogtests",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlogtests_fieldlogtests_fieldlogtests_fieldlogtests_discover_addsonce_ignoresduplicates",
+      "fromNode": "n_fieldlogtests_fieldlogtests",
+      "toNode": "n_fieldlogtests_fieldlogtests_discover_addsonce_ignoresduplicates",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlogtests_fieldlogtests_fieldlogtests_fieldlogtests_count_reflectsdistinctdiscoveries",
+      "fromNode": "n_fieldlogtests_fieldlogtests",
+      "toNode": "n_fieldlogtests_fieldlogtests_count_reflectsdistinctdiscoveries",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlogtests_fieldlogtests_fieldlogtests_fieldlogtests_hasdiscovered_isfalse_forunknownid",
+      "fromNode": "n_fieldlogtests_fieldlogtests",
+      "toNode": "n_fieldlogtests_fieldlogtests_hasdiscovered_isfalse_forunknownid",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlogtests_fieldlogtests_fieldlogtests_fieldlogtests_discover_nullorempty_isrejected_andnotcounted",
+      "fromNode": "n_fieldlogtests_fieldlogtests",
+      "toNode": "n_fieldlogtests_fieldlogtests_discover_nullorempty_isrejected_andnotcounted",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlogtests_fieldlogtests_fieldlogtests_fieldlogtests_discoveredids_returnseverythingdiscovered",
+      "fromNode": "n_fieldlogtests_fieldlogtests",
+      "toNode": "n_fieldlogtests_fieldlogtests_discoveredids_returnseverythingdiscovered",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_tests_interactiontargetstests_cs_interactiontargetstests_wayfinder_core_tests",
+      "fromNode": "n_core_wayfinder_core_tests_interactiontargetstests_cs",
+      "toNode": "n_interactiontargetstests_wayfinder_core_tests",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_tests_interactiontargetstests_cs_interactiontargetstests_interactiontargetstests",
+      "fromNode": "n_core_wayfinder_core_tests_interactiontargetstests_cs",
+      "toNode": "n_interactiontargetstests_interactiontargetstests",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_interactiontargetstests_interactiontargetstests_interactiontargetstests_interactiontargetstests_minimumsize_at3meters_isabout12point5centimeters",
+      "fromNode": "n_interactiontargetstests_interactiontargetstests",
+      "toNode": "n_interactiontargetstests_interactiontargetstests_minimumsize_at3meters_isabout12point5centimeters",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_interactiontargetstests_interactiontargetstests_interactiontargetstests_interactiontargetstests_recommendedsize_usesthe56dptarget",
+      "fromNode": "n_interactiontargetstests_interactiontargetstests",
+      "toNode": "n_interactiontargetstests_interactiontargetstests_recommendedsize_usesthe56dptarget",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_interactiontargetstests_interactiontargetstests_interactiontargetstests_interactiontargetstests_sizes_scalelinearlywithdistance",
+      "fromNode": "n_interactiontargetstests_interactiontargetstests",
+      "toNode": "n_interactiontargetstests_interactiontargetstests_sizes_scalelinearlywithdistance",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_interactiontargetstests_interactiontargetstests_interactiontargetstests_interactiontargetstests_nonpositivedistance_throws",
+      "fromNode": "n_interactiontargetstests_interactiontargetstests",
+      "toNode": "n_interactiontargetstests_interactiontargetstests_nonpositivedistance_throws",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_tests_travelstatemachinetests_cs_travelstatemachinetests_wayfinder_core_tests",
+      "fromNode": "n_core_wayfinder_core_tests_travelstatemachinetests_cs",
+      "toNode": "n_travelstatemachinetests_wayfinder_core_tests",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_tests_travelstatemachinetests_cs_travelstatemachinetests_travelstatemachinetests",
+      "fromNode": "n_core_wayfinder_core_tests_travelstatemachinetests_cs",
+      "toNode": "n_travelstatemachinetests_travelstatemachinetests",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_startsonbridge_withnodestination",
+      "fromNode": "n_travelstatemachinetests_travelstatemachinetests",
+      "toNode": "n_travelstatemachinetests_travelstatemachinetests_startsonbridge_withnodestination",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_warp_frombridge_enterswarping_thensurface",
+      "fromNode": "n_travelstatemachinetests_travelstatemachinetests",
+      "toNode": "n_travelstatemachinetests_travelstatemachinetests_warp_frombridge_enterswarping_thensurface",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_warp_whilewarping_isrejected",
+      "fromNode": "n_travelstatemachinetests_travelstatemachinetests",
+      "toNode": "n_travelstatemachinetests_travelstatemachinetests_warp_whilewarping_isrejected",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_warp_whileonsurface_isrejected",
+      "fromNode": "n_travelstatemachinetests_travelstatemachinetests",
+      "toNode": "n_travelstatemachinetests_travelstatemachinetests_warp_whileonsurface_isrejected",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_warp_withnulloremptyid_isrejected",
+      "fromNode": "n_travelstatemachinetests_travelstatemachinetests",
+      "toNode": "n_travelstatemachinetests_travelstatemachinetests_warp_withnulloremptyid_isrejected",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_return_fromsurface_enterswarping_thenbridge_andclearsdestination",
+      "fromNode": "n_travelstatemachinetests_travelstatemachinetests",
+      "toNode": "n_travelstatemachinetests_travelstatemachinetests_return_fromsurface_enterswarping_thenbridge_andclearsdestination",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_return_frombridge_isrejected",
+      "fromNode": "n_travelstatemachinetests_travelstatemachinetests",
+      "toNode": "n_travelstatemachinetests_travelstatemachinetests_return_frombridge_isrejected",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_completewarp_whennotwarping_throws",
+      "fromNode": "n_travelstatemachinetests_travelstatemachinetests",
+      "toNode": "n_travelstatemachinetests_travelstatemachinetests_completewarp_whennotwarping_throws",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_completereturn_whennotreturning_throws",
+      "fromNode": "n_travelstatemachinetests_travelstatemachinetests",
+      "toNode": "n_travelstatemachinetests_travelstatemachinetests_completereturn_whennotreturning_throws",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_travelstatemachinetests_fullloop_canruntwice",
+      "fromNode": "n_travelstatemachinetests_travelstatemachinetests",
+      "toNode": "n_travelstatemachinetests_travelstatemachinetests_fullloop_canruntwice",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_tests_worldregistrytests_cs_worldregistrytests_wayfinder_core_tests",
+      "fromNode": "n_core_wayfinder_core_tests_worldregistrytests_cs",
+      "toNode": "n_worldregistrytests_wayfinder_core_tests",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_core_wayfinder_core_tests_worldregistrytests_cs_worldregistrytests_worldregistrytests",
+      "fromNode": "n_core_wayfinder_core_tests_worldregistrytests_cs",
+      "toNode": "n_worldregistrytests_worldregistrytests",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistrytests_worldregistrytests_worldregistrytests_worldregistrytests_mars",
+      "fromNode": "n_worldregistrytests_worldregistrytests",
+      "toNode": "n_worldregistrytests_worldregistrytests_mars",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistrytests_worldregistrytests_worldregistrytests_worldregistrytests_getbyid_returnsdefinition_whenpresent",
+      "fromNode": "n_worldregistrytests_worldregistrytests",
+      "toNode": "n_worldregistrytests_worldregistrytests_getbyid_returnsdefinition_whenpresent",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistrytests_worldregistrytests_worldregistrytests_worldregistrytests_getbyid_returnsnull_whenmissing",
+      "fromNode": "n_worldregistrytests_worldregistrytests",
+      "toNode": "n_worldregistrytests_worldregistrytests_getbyid_returnsnull_whenmissing",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistrytests_worldregistrytests_worldregistrytests_worldregistrytests_all_preservesregistrationorder_fortheviewscreenlist",
+      "fromNode": "n_worldregistrytests_worldregistrytests",
+      "toNode": "n_worldregistrytests_worldregistrytests_all_preservesregistrationorder_fortheviewscreenlist",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistrytests_worldregistrytests_worldregistrytests_worldregistrytests_duplicateid_lastregistrationwins",
+      "fromNode": "n_worldregistrytests_worldregistrytests",
+      "toNode": "n_worldregistrytests_worldregistrytests_duplicateid_lastregistrationwins",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistrytests_worldregistrytests_worldregistrytests_worldregistrytests_worlddefinition_rejectsnulloremptyid",
+      "fromNode": "n_worldregistrytests_worldregistrytests",
+      "toNode": "n_worldregistrytests_worldregistrytests_worlddefinition_rejectsnulloremptyid",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistrytests_worldregistrytests_mars_worldregistrytests_worldregistrytests_getbyid_returnsdefinition_whenpresent",
+      "fromNode": "n_worldregistrytests_worldregistrytests_mars",
+      "toNode": "n_worldregistrytests_worldregistrytests_getbyid_returnsdefinition_whenpresent",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistrytests_worldregistrytests_mars_worldregistrytests_worldregistrytests_all_preservesregistrationorder_fortheviewscreenlist",
+      "fromNode": "n_worldregistrytests_worldregistrytests_mars",
+      "toNode": "n_worldregistrytests_worldregistrytests_all_preservesregistrationorder_fortheviewscreenlist",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistrytests_worldregistrytests_mars_worldregistrytests_worldregistrytests_duplicateid_lastregistrationwins",
+      "fromNode": "n_worldregistrytests_worldregistrytests_mars",
+      "toNode": "n_worldregistrytests_worldregistrytests_duplicateid_lastregistrationwins",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlog_FieldLog_fieldlogtests_FieldLogTests",
+      "fromNode": "n_fieldlog_FieldLog",
+      "toNode": "n_fieldlogtests_FieldLogTests",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlog_FieldLog_plan_v1_build_plan",
+      "fromNode": "n_fieldlog_FieldLog",
+      "toNode": "n_plan_v1_build_plan",
+      "label": "implements [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlog_FieldLog_spec_poi_contract",
+      "fromNode": "n_fieldlog_FieldLog",
+      "toNode": "n_spec_poi_contract",
+      "label": "shares_data_with [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlog_FieldLog_travelstatemachine_TravelStateMachine",
+      "fromNode": "n_fieldlog_FieldLog",
+      "toNode": "n_travelstatemachine_TravelStateMachine",
+      "label": "semantically_similar_to [INFERRED]"
+    },
+    {
+      "id": "e_fieldlog_FieldLog_architecture_runtime_architecture",
+      "fromNode": "n_fieldlog_FieldLog",
+      "toNode": "n_architecture_runtime_architecture",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlog_FieldLog_arch_point_of_interest",
+      "fromNode": "n_fieldlog_FieldLog",
+      "toNode": "n_arch_point_of_interest",
+      "label": "shares_data_with [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlog_FieldLog_arch_companion_seam_rationale",
+      "fromNode": "n_fieldlog_FieldLog",
+      "toNode": "n_arch_companion_seam_rationale",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlog_FieldLog_core_engine_free_rationale",
+      "fromNode": "n_fieldlog_FieldLog",
+      "toNode": "n_core_engine_free_rationale",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_interactiontargets_InteractionTargets_interactiontargetstests_InteractionTargetsTests",
+      "fromNode": "n_interactiontargets_InteractionTargets",
+      "toNode": "n_interactiontargetstests_InteractionTargetsTests",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_interactiontargets_InteractionTargets_androidxr_target_sizing_rule",
+      "fromNode": "n_interactiontargets_InteractionTargets",
+      "toNode": "n_androidxr_target_sizing_rule",
+      "label": "implements [EXTRACTED]"
+    },
+    {
+      "id": "e_interactiontargets_InteractionTargets_plan_v1_build_plan",
+      "fromNode": "n_interactiontargets_InteractionTargets",
+      "toNode": "n_plan_v1_build_plan",
+      "label": "implements [AMBIGUOUS]"
+    },
+    {
+      "id": "e_interactiontargets_InteractionTargets_core_engine_free_rationale",
+      "fromNode": "n_interactiontargets_InteractionTargets",
+      "toNode": "n_core_engine_free_rationale",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachine_TravelStateMachine_travelstatemachinetests_TravelStateMachineTests",
+      "fromNode": "n_travelstatemachine_TravelStateMachine",
+      "toNode": "n_travelstatemachinetests_TravelStateMachineTests",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachine_TravelStateMachine_design_core_loop",
+      "fromNode": "n_travelstatemachine_TravelStateMachine",
+      "toNode": "n_design_core_loop",
+      "label": "implements [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachine_TravelStateMachine_plan_v1_build_plan",
+      "fromNode": "n_travelstatemachine_TravelStateMachine",
+      "toNode": "n_plan_v1_build_plan",
+      "label": "implements [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachine_TravelStateMachine_worldregistry_WorldDefinition",
+      "fromNode": "n_travelstatemachine_TravelStateMachine",
+      "toNode": "n_worldregistry_WorldDefinition",
+      "label": "shares_data_with [INFERRED]"
+    },
+    {
+      "id": "e_travelstatemachine_TravelStateMachine_architecture_runtime_architecture",
+      "fromNode": "n_travelstatemachine_TravelStateMachine",
+      "toNode": "n_architecture_runtime_architecture",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachine_TravelStateMachine_arch_travel_manager",
+      "fromNode": "n_travelstatemachine_TravelStateMachine",
+      "toNode": "n_arch_travel_manager",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachine_TravelStateMachine_core_engine_free_rationale",
+      "fromNode": "n_travelstatemachine_TravelStateMachine",
+      "toNode": "n_core_engine_free_rationale",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachine_TravelStateMachine_core_four_state_deviation",
+      "fromNode": "n_travelstatemachine_TravelStateMachine",
+      "toNode": "n_core_four_state_deviation",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistry_WorldDefinition_worldregistrytests_WorldRegistryTests",
+      "fromNode": "n_worldregistry_WorldDefinition",
+      "toNode": "n_worldregistrytests_WorldRegistryTests",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistry_WorldDefinition_arch_world_package",
+      "fromNode": "n_worldregistry_WorldDefinition",
+      "toNode": "n_arch_world_package",
+      "label": "conceptually_related_to [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistry_WorldDefinition_spec_heightmap_contract",
+      "fromNode": "n_worldregistry_WorldDefinition",
+      "toNode": "n_spec_heightmap_contract",
+      "label": "shares_data_with [INFERRED]"
+    },
+    {
+      "id": "e_worldregistry_WorldRegistry_worldregistrytests_WorldRegistryTests",
+      "fromNode": "n_worldregistry_WorldRegistry",
+      "toNode": "n_worldregistrytests_WorldRegistryTests",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistry_WorldRegistry_plan_v1_build_plan",
+      "fromNode": "n_worldregistry_WorldRegistry",
+      "toNode": "n_plan_v1_build_plan",
+      "label": "implements [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistry_WorldRegistry_architecture_runtime_architecture",
+      "fromNode": "n_worldregistry_WorldRegistry",
+      "toNode": "n_architecture_runtime_architecture",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistry_WorldRegistry_arch_travel_manager",
+      "fromNode": "n_worldregistry_WorldRegistry",
+      "toNode": "n_arch_travel_manager",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_worldregistry_WorldRegistry_core_engine_free_rationale",
+      "fromNode": "n_worldregistry_WorldRegistry",
+      "toNode": "n_core_engine_free_rationale",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_fieldlogtests_FieldLogTests_spec_poi_contract",
+      "fromNode": "n_fieldlogtests_FieldLogTests",
+      "toNode": "n_spec_poi_contract",
+      "label": "shares_data_with [INFERRED]"
+    },
+    {
+      "id": "e_interactiontargetstests_InteractionTargetsTests_androidxr_target_sizing_rule",
+      "fromNode": "n_interactiontargetstests_InteractionTargetsTests",
+      "toNode": "n_androidxr_target_sizing_rule",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_travelstatemachinetests_TravelStateMachineTests_datasources_mars_olympus",
+      "fromNode": "n_travelstatemachinetests_TravelStateMachineTests",
+      "toNode": "n_datasources_mars_olympus",
+      "label": "shares_data_with [INFERRED]"
+    },
+    {
+      "id": "e_worldregistrytests_WorldRegistryTests_datasources_mars_olympus",
+      "fromNode": "n_worldregistrytests_WorldRegistryTests",
+      "toNode": "n_datasources_mars_olympus",
+      "label": "shares_data_with [INFERRED]"
+    },
+    {
+      "id": "e_claudemd_project_instructions_design_v1_design",
+      "fromNode": "n_claudemd_project_instructions",
+      "toNode": "n_design_v1_design",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_claudemd_project_instructions_architecture_runtime_architecture",
+      "fromNode": "n_claudemd_project_instructions",
+      "toNode": "n_architecture_runtime_architecture",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_claudemd_project_instructions_plan_v1_build_plan",
+      "fromNode": "n_claudemd_project_instructions",
+      "toNode": "n_plan_v1_build_plan",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_claudemd_project_instructions_plan_site_one_gate",
+      "fromNode": "n_claudemd_project_instructions",
+      "toNode": "n_plan_site_one_gate",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_claudemd_project_instructions_design_comfort_rules",
+      "fromNode": "n_claudemd_project_instructions",
+      "toNode": "n_design_comfort_rules",
+      "label": "references [INFERRED]"
+    },
+    {
+      "id": "e_design_v1_design_ideation_frontier_survey",
+      "fromNode": "n_design_v1_design",
+      "toNode": "n_ideation_frontier_survey",
+      "label": "cites [EXTRACTED]"
+    },
+    {
+      "id": "e_design_v1_design_readme_wayfinder_overview",
+      "fromNode": "n_design_v1_design",
+      "toNode": "n_readme_wayfinder_overview",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_design_v1_design_architecture_runtime_architecture",
+      "fromNode": "n_design_v1_design",
+      "toNode": "n_architecture_runtime_architecture",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_design_v1_design_plan_v1_build_plan",
+      "fromNode": "n_design_v1_design",
+      "toNode": "n_plan_v1_build_plan",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_design_v1_design_spec_terrain_poi_content",
+      "fromNode": "n_design_v1_design",
+      "toNode": "n_spec_terrain_poi_content",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_design_v1_design_ideation_gemini_companion",
+      "fromNode": "n_design_v1_design",
+      "toNode": "n_ideation_gemini_companion",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_design_v1_design_arch_no_splats_rationale",
+      "fromNode": "n_design_v1_design",
+      "toNode": "n_arch_no_splats_rationale",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_design_v1_design_ideation_trademark_risk",
+      "fromNode": "n_design_v1_design",
+      "toNode": "n_ideation_trademark_risk",
+      "label": "rationale_for [INFERRED]"
+    },
+    {
+      "id": "e_ideation_frontier_survey_readme_wayfinder_overview",
+      "fromNode": "n_ideation_frontier_survey",
+      "toNode": "n_readme_wayfinder_overview",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_ideation_frontier_survey_plan_v1_build_plan",
+      "fromNode": "n_ideation_frontier_survey",
+      "toNode": "n_plan_v1_build_plan",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_readme_wayfinder_overview_architecture_runtime_architecture",
+      "fromNode": "n_readme_wayfinder_overview",
+      "toNode": "n_architecture_runtime_architecture",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_readme_wayfinder_overview_plan_v1_build_plan",
+      "fromNode": "n_readme_wayfinder_overview",
+      "toNode": "n_plan_v1_build_plan",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_readme_wayfinder_overview_ideation_trademark_risk",
+      "fromNode": "n_readme_wayfinder_overview",
+      "toNode": "n_ideation_trademark_risk",
+      "label": "cites [EXTRACTED]"
+    },
+    {
+      "id": "e_readme_wayfinder_overview_datasources_terrain_audit",
+      "fromNode": "n_readme_wayfinder_overview",
+      "toNode": "n_datasources_terrain_audit",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_readme_wayfinder_overview_ideation_offline_authoring",
+      "fromNode": "n_readme_wayfinder_overview",
+      "toNode": "n_ideation_offline_authoring",
+      "label": "cites [EXTRACTED]"
+    },
+    {
+      "id": "e_core_readme_engine_free_core_plan_v1_build_plan",
+      "fromNode": "n_core_readme_engine_free_core",
+      "toNode": "n_plan_v1_build_plan",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_core_readme_engine_free_core_arch_world_package",
+      "fromNode": "n_core_readme_engine_free_core",
+      "toNode": "n_arch_world_package",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_androidxr_platform_guide_arch_world_package",
+      "fromNode": "n_androidxr_platform_guide",
+      "toNode": "n_arch_world_package",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_architecture_runtime_architecture_ideation_offline_authoring",
+      "fromNode": "n_architecture_runtime_architecture",
+      "toNode": "n_ideation_offline_authoring",
+      "label": "references [INFERRED]"
+    },
+    {
+      "id": "e_datasources_terrain_audit_spec_heightmap_contract",
+      "fromNode": "n_datasources_terrain_audit",
+      "toNode": "n_spec_heightmap_contract",
+      "label": "implements [INFERRED]"
+    },
+    {
+      "id": "e_datasources_terrain_audit_claudemd_terrain_pipeline",
+      "fromNode": "n_datasources_terrain_audit",
+      "toNode": "n_claudemd_terrain_pipeline",
+      "label": "implements [INFERRED]"
+    },
+    {
+      "id": "e_setuproadmap_windows_dev_setup_plan_v1_build_plan",
+      "fromNode": "n_setuproadmap_windows_dev_setup",
+      "toNode": "n_plan_v1_build_plan",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_setuproadmap_windows_dev_setup_androidxr_quality_checklist",
+      "fromNode": "n_setuproadmap_windows_dev_setup",
+      "toNode": "n_androidxr_quality_checklist",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_plan_v1_build_plan_spec_terrain_poi_content",
+      "fromNode": "n_plan_v1_build_plan",
+      "toNode": "n_spec_terrain_poi_content",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_spec_terrain_poi_content_claudemd_terrain_pipeline",
+      "fromNode": "n_spec_terrain_poi_content",
+      "toNode": "n_claudemd_terrain_pipeline",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_arch_world_package_ideation_splat_diorama",
+      "fromNode": "n_arch_world_package",
+      "toNode": "n_ideation_splat_diorama",
+      "label": "semantically_similar_to [INFERRED]"
+    },
+    {
+      "id": "e_arch_world_package_arch_point_of_interest",
+      "fromNode": "n_arch_world_package",
+      "toNode": "n_arch_point_of_interest",
+      "label": "shares_data_with [EXTRACTED]"
+    },
+    {
+      "id": "e_arch_world_package_arch_offline_constraint_rationale",
+      "fromNode": "n_arch_world_package",
+      "toNode": "n_arch_offline_constraint_rationale",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_arch_travel_manager_arch_warp_load_rationale",
+      "fromNode": "n_arch_travel_manager",
+      "toNode": "n_arch_warp_load_rationale",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_arch_point_of_interest_spec_poi_contract",
+      "fromNode": "n_arch_point_of_interest",
+      "toNode": "n_spec_poi_contract",
+      "label": "shares_data_with [EXTRACTED]"
+    },
+    {
+      "id": "e_arch_point_of_interest_arch_companion_seam_rationale",
+      "fromNode": "n_arch_point_of_interest",
+      "toNode": "n_arch_companion_seam_rationale",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_arch_persistent_bridge_ideation_gemini_companion",
+      "fromNode": "n_arch_persistent_bridge",
+      "toNode": "n_ideation_gemini_companion",
+      "label": "conceptually_related_to [EXTRACTED]"
+    },
+    {
+      "id": "e_arch_persistent_bridge_arch_offline_constraint_rationale",
+      "fromNode": "n_arch_persistent_bridge",
+      "toNode": "n_arch_offline_constraint_rationale",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_design_core_loop_arch_warp_load_rationale",
+      "fromNode": "n_design_core_loop",
+      "toNode": "n_arch_warp_load_rationale",
+      "label": "conceptually_related_to [EXTRACTED]"
+    },
+    {
+      "id": "e_design_comfort_rules_androidxr_quality_checklist",
+      "fromNode": "n_design_comfort_rules",
+      "toNode": "n_androidxr_quality_checklist",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_androidxr_quality_checklist_androidxr_target_sizing_rule",
+      "fromNode": "n_androidxr_quality_checklist",
+      "toNode": "n_androidxr_target_sizing_rule",
+      "label": "conceptually_related_to [EXTRACTED]"
+    },
+    {
+      "id": "e_androidxr_quality_checklist_claudemd_frame_budget",
+      "fromNode": "n_androidxr_quality_checklist",
+      "toNode": "n_claudemd_frame_budget",
+      "label": "conceptually_related_to [EXTRACTED]"
+    },
+    {
+      "id": "e_claudemd_frame_budget_plan_site_one_gate",
+      "fromNode": "n_claudemd_frame_budget",
+      "toNode": "n_plan_site_one_gate",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_ideation_offline_authoring_arch_offline_constraint_rationale",
+      "fromNode": "n_ideation_offline_authoring",
+      "toNode": "n_arch_offline_constraint_rationale",
+      "label": "semantically_similar_to [INFERRED]"
+    },
+    {
+      "id": "e_ideation_gemini_companion_spec_poi_contract",
+      "fromNode": "n_ideation_gemini_companion",
+      "toNode": "n_spec_poi_contract",
+      "label": "conceptually_related_to [EXTRACTED]"
+    },
+    {
+      "id": "e_ideation_gemini_companion_arch_companion_seam_rationale",
+      "fromNode": "n_ideation_gemini_companion",
+      "toNode": "n_arch_companion_seam_rationale",
+      "label": "conceptually_related_to [EXTRACTED]"
+    },
+    {
+      "id": "e_ideation_splat_diorama_arch_no_splats_rationale",
+      "fromNode": "n_ideation_splat_diorama",
+      "toNode": "n_arch_no_splats_rationale",
+      "label": "conceptually_related_to [EXTRACTED]"
+    },
+    {
+      "id": "e_setup_iteration_tiers_plan_site_one_gate",
+      "fromNode": "n_setup_iteration_tiers",
+      "toNode": "n_plan_site_one_gate",
+      "label": "semantically_similar_to [INFERRED]"
+    },
+    {
+      "id": "e_plan_site_one_gate_plan_sequencing_rationale",
+      "fromNode": "n_plan_site_one_gate",
+      "toNode": "n_plan_sequencing_rationale",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_datasources_mars_olympus_datasources_hrsc_dtm",
+      "fromNode": "n_datasources_mars_olympus",
+      "toNode": "n_datasources_hrsc_dtm",
+      "label": "cites [EXTRACTED]"
+    },
+    {
+      "id": "e_datasources_mars_valles_datasources_hirise_dtm",
+      "fromNode": "n_datasources_mars_valles",
+      "toNode": "n_datasources_hirise_dtm",
+      "label": "cites [EXTRACTED]"
+    },
+    {
+      "id": "e_datasources_moon_shackleton_datasources_lola_dem",
+      "fromNode": "n_datasources_moon_shackleton",
+      "toNode": "n_datasources_lola_dem",
+      "label": "cites [EXTRACTED]"
+    },
+    {
+      "id": "e_datasources_moon_shackleton_datasources_barker2021",
+      "fromNode": "n_datasources_moon_shackleton",
+      "toNode": "n_datasources_barker2021",
+      "label": "cites [EXTRACTED]"
+    }
+  ]
+}

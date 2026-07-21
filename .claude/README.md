@@ -41,11 +41,7 @@ Now wired: safety **hooks** (block accidental `.meta`/scene edits, warn on `GetC
 ## Setup order (matches the build plan)
 
 1. **Now:** Context7 works on clone (`../.mcp.json`). `CLAUDE.md` and the skills guide any Claude Code session.
-2. **Phase 0 (Unity installed):** add the **Unity MCP bridge** — the biggest single upgrade to the workflow. Merge this into `../.mcp.json`:
-   ```json
-   "unity": { "command": "uvx", "args": ["mcp-for-unity"] }
-   ```
-   then in Unity install the package (`Window > Package Manager > Add from git URL`: `https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#main`) and run `Window > MCP for Unity > Configure All Detected Clients`. Needs Python 3.10+ via `uv`. This lets Claude read the Unity console and edit/verify scenes instead of coding blind. Verify the exact server invocation against the repo README at setup time.
+2. **Phase 0 (Unity installed):** the Unity MCP bridge is now the **official Unity MCP** (`com.unity.ai.assistant`, user decision July 2026 — supersedes the Coplay default below; the one-bridge rule stands). Already in `unity/Packages/manifest.json` and `../.mcp.json` ("unity" entry). To activate: open the `unity/` project in the editor once — it installs the relay binary to `%USERPROFILE%\.unity\relay\` — then check Project Settings > AI > Unity MCP Server shows the bridge Running, and verify the relay exe name in `../.mcp.json` matches the panel's Example Configuration.
 3. **When authoring assets:** add `blender-mcp` (`uvx blender-mcp` + the Blender addon) per-session, not always-on.
 4. **When wiring Gemini (v1.1):** Firebase AI Logic SDK for Unity (below).
 

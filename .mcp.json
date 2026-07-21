@@ -17,7 +17,7 @@
       "args": ["--python", "3.12", "gis-mcp"]
     },
     "unity": {
-      "command": "C:\\Users\\tusha\\.unity\\relay\\relay_win_x64.exe",
+      "command": "C:\\Users\\tusha\\.unity\\relay\\relay_win.exe",
       "args": ["--mcp"]
     }
   }

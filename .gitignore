@@ -19,3 +19,9 @@ unity/*.aab
 # .NET build output (core/ staging projects)
 core/**/bin/
 core/**/obj/
+
+# Unity batchmode logs at repo root
+unity-*.log
+
+# graphify knowledge-graph output (regenerable; cache is per-machine)
+graphify-out/

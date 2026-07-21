@@ -2,7 +2,7 @@
 
 > A guided space-travel experience for the Samsung Galaxy XR headset. Command a ship, warp between **real** worlds of the solar system, and walk their surfaces on foot while their real science is revealed to you.
 
-**Status:** design and planning complete, no engine code yet. This repo currently holds the research, the approved design, and a phased build plan. Building starts at [Phase 0 of the plan](docs/plans/2026-07-20-wayfinder-v1.md).
+**Status:** Phase 0 in progress (July 2026). Engine-free core logic done and tested (24 EditMode tests green); terrain + POI content authored for all three v1 sites; Unity 6000.5.4f1 project live under `unity/` with the full XR stack (URP/Vulkan, OpenXR + Android XR, XRI, XR Hands), Android/IL2CPP/ARM64 toolchain wired, and the Unity MCP bridge active. Current gate: hello-headset build on the real Galaxy XR ([Phase 0 of the plan](docs/plans/2026-07-20-wayfinder-v1.md)).
 
 > **Note on the name:** "Wayfinder" is an internal codename only. It is a live trademark held by another game studio, and "Strange New Worlds" is an active Paramount series title. A public product name must be cleared in trademark classes 9 and 41 before any branding. See [IDEATION.md](IDEATION.md#tier-1) for the detail.
 

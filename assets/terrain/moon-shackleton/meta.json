@@ -1,0 +1,16 @@
+{
+  "siteId": "moon-shackleton",
+  "displayName": "Moon — Shackleton crater rim (lunar south pole)",
+  "heightmapResolution": 2049,
+  "widthMeters": 20000,
+  "lengthMeters": 20000,
+  "minElevationMeters": -2872.4,
+  "maxElevationMeters": 1565.6,
+  "heightRangeMeters": 4438.0,
+  "surfaceGravity": 1.62,
+  "sourceProduct": "LOLA South Pole DEM Mosaic 5 m/px (ldem_87s_5mpp), NASA GSFC Planetary Geodesy Data Archive product 81",
+  "sourceResolutionMPerPx": 5.0,
+  "byteOrder": "big-endian",
+  "credit": "NASA LRO LOLA / NASA GSFC Planetary Geodesy Data Archive. Cite: Barker, M.K., et al. (2021), Planetary and Space Science 203, 105119, doi:10.1016/j.pss.2020.105119",
+  "notes": "20x20 km polar-stereographic window containing the lunar south pole (which sits on Shackleton's western rim crest) and the entire ~21 km crater bowl; 4.44 km rim-to-floor relief. Laser altimetry, so the permanently shadowed floor is real measured data (cameras cannot see it). 100% valid pixels, no interpolation. Elevations are metres above the 1737.4 km lunar reference sphere."
+}

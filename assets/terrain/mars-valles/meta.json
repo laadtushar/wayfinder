@@ -1,0 +1,16 @@
+{
+  "siteId": "mars-valles",
+  "displayName": "Mars — Coprates Chasma canyon wall (Valles Marineris)",
+  "heightmapResolution": 2049,
+  "widthMeters": 3600,
+  "lengthMeters": 19500,
+  "minElevationMeters": -2204.9,
+  "maxElevationMeters": 2498.5,
+  "heightRangeMeters": 4703.4,
+  "surfaceGravity": 3.72,
+  "sourceProduct": "HiRISE stereo DTM DTEEC_046764_1660_050812_1660_A01 (East Coprates Chasma wall), University of Arizona / NASA PDS",
+  "sourceResolutionMPerPx": 1.01,
+  "byteOrder": "big-endian",
+  "credit": "NASA/JPL-Caltech/UArizona",
+  "notes": "Swath-aligned 3.6x19.5 km strip down the south wall of eastern Coprates Chasma: 4.70 km of continuous rim-to-floor relief, taller than any cliff on Earth. The grid is rotated ~5 degrees west of north to follow the HiRISE swath (oblique-mercator alignment), so grid-up is along-track, not exactly north; cells are anisotropic (~1.76 m across-track, ~9.52 m along-track). 99.8% real measured pixels; 0.2% were small interior stereo-matching pinholes filled by interpolation. Elevations are metres relative to the Mars areoid."
+}

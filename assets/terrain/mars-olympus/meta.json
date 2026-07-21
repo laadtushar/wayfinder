@@ -1,0 +1,16 @@
+{
+  "siteId": "mars-olympus",
+  "displayName": "Mars — Olympus Mons caldera rim",
+  "heightmapResolution": 2049,
+  "widthMeters": 20000,
+  "lengthMeters": 20000,
+  "minElevationMeters": 17515,
+  "maxElevationMeters": 19585,
+  "heightRangeMeters": 2070,
+  "surfaceGravity": 3.72,
+  "sourceProduct": "Mars Express HRSC level-4 DTM, orbit 0037 (H0037_0000_DT4.IMG), MEX-M-HRSC-5-REFDR-DTM-V1.0, NASA PDS Geosciences Node",
+  "sourceResolutionMPerPx": 50.0,
+  "byteOrder": "big-endian",
+  "credit": "ESA/DLR/FU Berlin (G. Neukum), CC BY-SA 3.0 IGO",
+  "notes": "20x20 km window centered 18.745N 227.176E framing the ~19 km nested collapse crater on the caldera's northeast rim; 2.07 km rim-to-floor cliff. Elevations are metres above the Mars areoid (Olympus really is ~18-19 km above datum). Upsampled 50 m/px source to ~9.76 m grid cells with cubic-spline interpolation; real information content is 50 m."
+}

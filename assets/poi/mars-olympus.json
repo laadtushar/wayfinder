@@ -1,0 +1,61 @@
+{
+  "siteId": "mars-olympus",
+  "pois": [
+    {
+      "id": "mars-olympus/caldera-rim-drop",
+      "title": "The Three-Kilometre Drop",
+      "fact": "The cliff at your feet falls about 3 km straight down to the caldera floor. The stair-like ledges cut into the wall below are faults, places where the ground slipped downward as the summit collapsed, and the southern wall carries tongue-shaped scars left by old landslides. ESA's Mars Express camera captured this wall in 2004, in the first high-resolution colour image of the complete caldera.",
+      "source": "https://www.esa.int/Science_Exploration/Space_Science/Mars_Express/Olympus_Mons_-_the_caldera_in_close-up",
+      "placementHint": "Primary rim overlook at the caldera edge, with a clear sight line down the wall; ideally on or near the southern rim so the landslide scars are visible."
+    },
+    {
+      "id": "mars-olympus/six-collapse-pits",
+      "title": "Six Craters in One",
+      "fact": "What reads as one giant pit is actually six overlapping collapse craters that together span about 65 by 80 km. Each pit formed when eruptions drained the magma chamber below and the summit roof fell in, and the way the rims cut across each other records the order of the collapses. USGS geologists mapped the whole nested structure in 2021 and found a volcanic history with many parallels to shield volcanoes on Earth.",
+      "source": "https://pubs.usgs.gov/publication/sim3470",
+      "placementHint": "A high vantage point on the rim where at least two overlapping pit rims can be seen crossing each other."
+    },
+    {
+      "id": "mars-olympus/hardened-lava-lake-floor",
+      "title": "The Floor Was a Lake of Lava",
+      "fact": "The flat expanse below you began as a series of lava lakes, sheets of molten rock that pooled inside the collapsed pits and froze solid. Topographic mapping shows the floor has warped by more than 1.2 km since it hardened. The long wrinkled ridges and straight trenches crossing it record that slow buckling and stretching of the old lake surface.",
+      "source": "https://pubs.usgs.gov/publication/sim3470",
+      "placementHint": "Rim viewpoint angled down at the caldera floor, framed so wrinkle ridges and trench lines on the floor are readable."
+    },
+    {
+      "id": "mars-olympus/two-million-year-lava",
+      "title": "A Sleeping Volcano, Not a Dead One",
+      "fact": "Crater counts from ESA's Mars Express camera date volcanic surfaces here to as recently as about two million years ago, which is yesterday in geological time. The same 2004 study found the calderas of Olympus Mons and four neighbouring volcanoes went through repeated bursts of activity within the most recent 20 per cent of Mars' history. Its authors concluded these volcanoes may be dormant rather than extinct, so the ground under you could erupt again someday.",
+      "source": "https://www.nature.com/articles/nature03231",
+      "placementHint": "A smooth, sparsely cratered lava surface near the rim, presented as one of the young flows."
+    },
+    {
+      "id": "mars-olympus/taller-than-everest",
+      "title": "Two and a Half Everests",
+      "fact": "This summit rises about 21 km above the plains surrounding the mountain. NASA's caption for the region rounds that to 'about 3 times the height of Mt. Everest'; measured against Everest's height above sea level the strict multiple is closer to two and a half, still far beyond anything Earth has. The whole volcano is about 600 km across, wider than many countries.",
+      "source": "https://apod.nasa.gov/apod/ap040526.html",
+      "placementHint": "A summit marker or survey-cairn spot on open ground near the diorama's highest walkable point."
+    },
+    {
+      "id": "mars-olympus/dwarfs-mauna-loa",
+      "title": "Mauna Loa, More Than Doubled",
+      "fact": "Earth's largest volcano, Mauna Loa in Hawaii, stands about 10 km from its base on the ocean floor to its summit. NASA's laser-altimeter mapping of Mars puts Olympus Mons at about 23 km base to summit, well over twice Mauna Loa. And Mars is only about half Earth's size, which makes this giant even more striking.",
+      "source": "https://svs.gsfc.nasa.gov/2864",
+      "placementHint": "A comparison-exhibit spot on the rim walk, suitable for an overlay showing Mauna Loa nested inside the Olympus Mons profile."
+    },
+    {
+      "id": "mars-olympus/summit-thin-air",
+      "title": "Standing Above Most of the Sky",
+      "fact": "At this height the air pressure is only about 0.7 millibars, against a Martian surface average of 6 to 7 millibars and about 1,013 millibars at sea level on Earth. Roughly nine-tenths of Mars' already thin atmosphere lies below your boots, and what remains is under a thousandth of Earth's sea-level pressure. This is effectively standing in space with ground under your feet; a pressure suit here is not optional.",
+      "source": "https://marsed.asu.edu/mep/atmosphere",
+      "placementHint": "The highest point of the diorama, looking up and outward at the sky rather than into the caldera."
+    },
+    {
+      "id": "mars-olympus/no-mountain-view",
+      "title": "The Mountain You Cannot See",
+      "fact": "Look away from the caldera and there is no mountain vista at all: the volcano is about 600 km across, so its outer edge lies some 300 km from where you stand. The slope falls away so gradually that the summit plain itself becomes your skyline, with the surrounding lowlands hidden from view [unverified: exact sight lines depend on local topography]. Nowhere on Earth can you stand on a summit this high and have no sense of being on a mountain.",
+      "source": "https://apod.nasa.gov/apod/ap040526.html",
+      "placementHint": "An outward-facing viewpoint at the diorama boundary, back turned to the caldera, over gently sloping featureless lava plain."
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "siteId": "moon-shackleton",
+  "pois": [
+    {
+      "id": "moon-shackleton/rim-overlook",
+      "title": "A Four-Kilometre Drop Into the Dark",
+      "fact": "You are standing on the edge of a hole 21 kilometres across whose walls fall about 4.2 kilometres to a flat floor only about 6.6 kilometres wide. Japan's Kaguya spacecraft mapped this shape with its stereo camera and described the crater as a cone with its top sliced off, ringed by a nearly circular rim. Look across: the far rim is 21 kilometres away, and everything between you and it is black.",
+      "source": "https://global.jaxa.jp/press/2008/10/20081024_kaguya_e.html",
+      "placementHint": "Highest walkable point on the rim crest, facing straight across the crater interior."
+    },
+    {
+      "id": "moon-shackleton/peaks-of-eternal-light",
+      "title": "Peaks of (Almost) Eternal Light",
+      "fact": "The Moon's axis tilts only 1.5 degrees, versus Earth's 23.5, so at the pole the Sun never climbs high; it just circles the horizon. That is why peaks along this rim sit in almost continual sunlight: three points on Shackleton's rim are collectively sunlit for more than 90 percent of the year. A solar panel planted where you stand would almost never go dark, which is exactly why mission planners keep coming back to this ridge.",
+      "source": "https://science.nasa.gov/resource/shackleton-craters-illuminated-rim-shadowed-interior/",
+      "placementHint": "On one of the sunlit rim high points, with a long shadow stretching away from the player."
+    },
+    {
+      "id": "moon-shackleton/permanently-shadowed-floor",
+      "title": "The Floor Sunlight Never Touches",
+      "fact": "Because the Sun only skims the horizon here, its light can never reach over the rim wall, so the crater floor below you sits in permanent shadow. NASA's ShadowCam, flying on South Korea's Danuri orbiter, is the first camera able to photograph that darkness in detail: it is 200 times more light-sensitive than the Lunar Reconnaissance Orbiter's camera and sees the floor using only faint light bounced off the surrounding crater walls and mountains. What you see from this spot with your own eyes is simply a wall of black.",
+      "source": "https://www.nasa.gov/blogs/missions/2023/02/09/nasas-shadowcam-images-permanently-shadowed-regions-from-lunar-orbit/",
+      "placementHint": "At the inner edge of the rim where lit ground gives way to the shadow boundary."
+    },
+    {
+      "id": "moon-shackleton/boulder-track",
+      "title": "Something Rolled Down There",
+      "fact": "ShadowCam's images of Shackleton's hidden floor caught the track of a boulder that rolled down the crater wall, a groove pressed into soil no sunbeam has ever shown. Scientists use trails like this to work out the boulder's shape and speed and what the loose surface soil is like. The slope dropping away beneath you is the kind of wall that boulder came down.",
+      "source": "https://www.nasa.gov/solar-system/nasas-shadowcam-images-lunar-south-pole-region/",
+      "placementHint": "Partway down the walkable upper inner slope, looking down-slope toward the dark floor."
+    },
+    {
+      "id": "moon-shackleton/cold-trap",
+      "title": "One of the Coldest Places Around",
+      "fact": "The shadowed part of the crater below you is a natural deep-freeze: the most common average surface temperatures measured there by the Diviner instrument on the Lunar Reconnaissance Orbiter fall in the 60 to 65 kelvin range, around minus 210 degrees Celsius. Meanwhile the ground you stand on gets grazing sunshine for most of the year. A few steps separate near-constant light from cold so deep that any water vapour drifting in freezes solid and stays put, which is why scientists call places like this cold traps.",
+      "source": "https://iopscience.iop.org/article/10.3847/PSJ/ae3c86",
+      "placementHint": "Straddling the light-shadow line on the rim, with a temperature-contrast readout."
+    },
+    {
+      "id": "moon-shackleton/hidden-ice",
+      "title": "The 22 Percent Question",
+      "fact": "In 2012, the laser altimeter on the Lunar Reconnaissance Orbiter found that Shackleton's shadowed floor reflects more light than the floors of nearby craters, and the team calculated that ice may make up as much as 22 percent of the material in a micron-thick layer at the very surface. It is not a frozen lake: an earlier Japanese camera study of the same floor found no exposed sheets of pure ice, so any water down there is frost mixed into the soil. Somewhere in the blackness below you may lie the water future crews would drink.",
+      "source": "https://news.mit.edu/2012/shackletons-crater-0620",
+      "secondarySource": "https://global.jaxa.jp/press/2008/10/20081024_kaguya_e.html",
+      "placementHint": "A rim viewpoint aimed at the crater floor, paired with the cold-trap POI."
+    },
+    {
+      "id": "moon-shackleton/artemis-shortlist",
+      "title": "Astronauts Almost Landed Here",
+      "fact": "In 2022, NASA named 13 candidate landing regions for Artemis III, the first crewed Moon landing since Apollo, and this ground was on the list: 'Peak Near Shackleton' and the 'Connecting Ridge' running toward de Gerlache crater. In October 2024, NASA narrowed the list to nine regions, and the Shackleton-adjacent sites were dropped from that shortlist, though every remaining region is still in this same south polar neighbourhood. You are walking terrain that mission planners studied metre by metre as a place to set down humans.",
+      "source": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/",
+      "secondarySource": "https://www.nasa.gov/news-release/nasa-identifies-candidate-regions-for-landing-next-americans-on-moon/",
+      "placementHint": "On the ridge saddle leading away from the rim toward de Gerlache, at the diorama's edge."
+    },
+    {
+      "id": "moon-shackleton/earth-on-horizon",
+      "title": "Earth Never Rises, Never Sets",
+      "fact": "From this rim, Earth does not cross the sky the way the Moon crosses ours; it hangs low near the horizon in almost the same direction all the time, slowly bobbing up and down over the course of a month. NASA's rendering of this exact vantage point, a camera placed on Shackleton's rim, shows Earth appearing upside-down and spinning backwards compared with the view most of us grew up with. The Sun, meanwhile, slides all the way around the horizon, never more than 1.5 degrees above or below it.",
+      "source": "https://svs.gsfc.nasa.gov/4944",
+      "placementHint": "A rim lookout oriented toward Earth's fixed direction in the sky, with Earth a few degrees above the horizon."
+    }
+  ]
+}

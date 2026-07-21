@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a611db160e8b9a84a98999f9513e5a1c, type: 3}
+  m_Name: WorldCatalog
+  m_EditorClassIdentifier: Wayfinder.Unity::Wayfinder.Unity.WorldCatalog
+  packages:
+  - {fileID: 11400000, guid: 71396cdce76d47044b15fc937a4f08b5, type: 2}
+  - {fileID: 11400000, guid: ae19200338747c8458979953737ce358, type: 2}
+  - {fileID: 11400000, guid: 437862555e4a39640b165ca5817ec6fd, type: 2}

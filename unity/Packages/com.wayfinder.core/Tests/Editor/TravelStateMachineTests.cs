@@ -3,6 +3,64 @@ using Wayfinder.Core;
 
 namespace Wayfinder.Core.Tests
 {
+    /// Abort semantics: a warp that fails mid-transition (scene load failure)
+    /// must return the machine to the stable state it left, so travel keeps
+    /// working after the error is surfaced.
+    public class TravelAbortTests
+    {
+        [Test]
+        public void AbortWarp_WhileWarpingToSurface_ReturnsToBridge_AndClearsDestination()
+        {
+            var m = new TravelStateMachine();
+            m.TryBeginWarp("mars-olympus");
+
+            m.AbortWarp();
+
+            Assert.AreEqual(TravelState.OnBridge, m.State);
+            Assert.IsNull(m.DestinationWorldId);
+        }
+
+        [Test]
+        public void AbortWarp_WhileWarpingToBridge_StaysOnSurface_AndKeepsDestination()
+        {
+            var m = new TravelStateMachine();
+            m.TryBeginWarp("mars-olympus");
+            m.CompleteWarp();
+            m.TryBeginReturn();
+
+            m.AbortWarp();
+
+            Assert.AreEqual(TravelState.OnSurface, m.State);
+            Assert.AreEqual("mars-olympus", m.DestinationWorldId);
+        }
+
+        [Test]
+        public void AbortWarp_FromStableStates_Throws()
+        {
+            var bridge = new TravelStateMachine();
+            Assert.Throws<System.InvalidOperationException>(() => bridge.AbortWarp());
+
+            var surface = new TravelStateMachine();
+            surface.TryBeginWarp("w");
+            surface.CompleteWarp();
+            Assert.Throws<System.InvalidOperationException>(() => surface.AbortWarp());
+        }
+
+        [Test]
+        public void Warp_Works_Again_After_An_Aborted_Warp()
+        {
+            var m = new TravelStateMachine();
+            m.TryBeginWarp("w-a");
+            m.AbortWarp();
+
+            Assert.IsTrue(m.TryBeginWarp("w-b"));
+            Assert.AreEqual("w-b", m.DestinationWorldId);
+        }
+    }
+}
+
+namespace Wayfinder.Core.Tests
+{
     public class TravelStateMachineTests
     {
         [Test]

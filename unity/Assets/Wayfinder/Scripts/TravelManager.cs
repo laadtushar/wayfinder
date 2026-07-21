@@ -18,6 +18,7 @@ namespace Wayfinder.Unity
         [SerializeField] private WarpFade warpFade;
         [Tooltip("Everything that is the Bridge interior — hidden while on a surface. The XR rig must NOT be under this root.")]
         [SerializeField] private GameObject bridgeVisualsRoot;
+        [SerializeField] private global::Unity.XR.CoreUtils.XROrigin xrOrigin;
 
         TravelStateMachine _machine;
         WorldRegistry _registry;
@@ -32,6 +33,7 @@ namespace Wayfinder.Unity
             if (menu == null) throw new System.InvalidOperationException($"{name}: no DestinationMenu assigned.");
             if (warpFade == null) throw new System.InvalidOperationException($"{name}: no WarpFade assigned.");
             if (bridgeVisualsRoot == null) throw new System.InvalidOperationException($"{name}: no bridge visuals root assigned.");
+            if (xrOrigin == null) throw new System.InvalidOperationException($"{name}: no XROrigin assigned.");
 
             _machine = new TravelStateMachine();
             _registry = catalog.BuildRegistry();
@@ -66,6 +68,14 @@ namespace Wayfinder.Unity
         IEnumerator WarpToSurface(string worldId)
         {
             var world = _registry.GetById(worldId);
+            if (world == null)
+            {
+                // Unknown id: roll back before any visuals change.
+                _machine.AbortWarp();
+                Debug.LogError($"[TravelManager] '{worldId}' is not in the registry. Warp aborted.");
+                yield break;
+            }
+
             var load = new AsyncOperation[1];
             bool loadFailed = false;
 
@@ -76,49 +86,66 @@ namespace Wayfinder.Unity
                 {
                     bridgeVisualsRoot.SetActive(false);
                     load[0] = SceneManager.LoadSceneAsync(world.SceneName, LoadSceneMode.Additive);
-                    if (load[0] == null) { loadFailed = true; return true; }
+                    if (load[0] == null)
+                    {
+                        // Restore the bridge while still at full bright so the
+                        // fade-down reveals a sane place, not empty void.
+                        bridgeVisualsRoot.SetActive(true);
+                        loadFailed = true;
+                        return true;
+                    }
                 }
                 if (!load[0].isDone) return false;
                 // Site RenderSettings (sky/ambient — World Package data) only
-                // apply while the site scene is the active scene.
+                // apply while the site scene is the active scene. Spawn the
+                // return UI inside the covered period too, so its construction
+                // cost never lands on a visible frame.
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName(world.SceneName));
+                SpawnReturnUi();
                 return true;
             }));
 
             if (loadFailed)
             {
-                // Fail loudly but leave the player somewhere sane: back on the
-                // Bridge, fade cleared. The machine stays in WarpingToSurface on
-                // purpose — travel is broken and must look broken in the logs.
-                // (Follow-up noted on the tracker: TravelStateMachine needs an
-                // abort transition to recover cleanly.)
-                bridgeVisualsRoot.SetActive(true);
-                Debug.LogError($"[TravelManager] Scene '{world.SceneName}' failed to load — is it in Build Settings? Travel is halted.");
+                _machine.AbortWarp();
+                Debug.LogError($"[TravelManager] Scene '{world.SceneName}' failed to load — is it in Build Settings? Warp aborted.");
                 yield break;
             }
 
             _loadedSceneName = world.SceneName;
             _machine.CompleteWarp();
-            SpawnReturnUi();
         }
 
         IEnumerator WarpToBridge()
         {
             var unload = new AsyncOperation[1];
+            bool unloadFailed = false;
 
             yield return StartCoroutine(warpFade.FadeAcross(() =>
             {
+                if (unloadFailed) return true;
                 if (unload[0] == null)
                 {
                     if (_returnUi != null) Destroy(_returnUi);
                     SceneManager.SetActiveScene(gameObject.scene);
                     unload[0] = SceneManager.UnloadSceneAsync(_loadedSceneName);
-                    if (unload[0] == null) return true;
+                    if (unload[0] == null) { unloadFailed = true; return true; }
                 }
                 if (!unload[0].isDone) return false;
                 bridgeVisualsRoot.SetActive(true);
                 return true;
             }));
+
+            if (unloadFailed)
+            {
+                // Still on the surface: keep the scene handle, put the return
+                // button back, roll the machine back to OnSurface.
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName(_loadedSceneName));
+                SpawnReturnUi();
+                _machine.AbortWarp();
+                Debug.LogError($"[TravelManager] Unload of '{_loadedSceneName}' failed. Return aborted; still on surface.");
+                yield break;
+            }
 
             bridgeVisualsRoot.SetActive(true);
             _loadedSceneName = null;
@@ -132,8 +159,20 @@ namespace Wayfinder.Unity
             var canvas = _returnUi.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.WorldSpace;
             var rect = (RectTransform)_returnUi.transform;
-            rect.position = new Vector3(0.9f, 1.2f, 1.4f);
-            rect.rotation = Quaternion.LookRotation(new Vector3(0.9f, 0, 1.4f));
+            // Anchored to the player's HEAD (not the rig base): the rig root
+            // doesn't move when the player walks the play space physically.
+            // Never world-absolute coordinates (worlds-as-data rule).
+            var head = xrOrigin.Camera.transform;
+            Vector3 basePos = new Vector3(head.position.x, head.position.y - 0.4f, head.position.z);
+            Quaternion baseYaw = Quaternion.Euler(0, head.eulerAngles.y, 0);
+            Vector3 localOffset = new Vector3(0.6f, 0f, 1.3f);
+            Vector3 pos = basePos + baseYaw * localOffset;
+            // On sloped terrain the offset can bury the button — lift it above
+            // any ground beneath it.
+            if (Physics.Raycast(pos + Vector3.up * 3f, Vector3.down, out var hit, 6f))
+                pos.y = Mathf.Max(pos.y, hit.point.y + 0.8f);
+            rect.position = pos;
+            rect.rotation = baseYaw * Quaternion.LookRotation(new Vector3(localOffset.x, 0, localOffset.z));
             rect.sizeDelta = new Vector2(0.7f, 0.25f);
             rect.localScale = Vector3.one;
 

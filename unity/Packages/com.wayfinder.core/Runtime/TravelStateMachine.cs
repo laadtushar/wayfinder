@@ -51,5 +51,25 @@ namespace Wayfinder.Core
             DestinationWorldId = null;
             State = TravelState.OnBridge;
         }
+
+        /// Rolls a failed transition back to the stable state it left, so a
+        /// scene-load failure surfaces loudly but travel keeps working. Only
+        /// legal mid-warp — aborting from a stable state is a caller bug.
+        public void AbortWarp()
+        {
+            switch (State)
+            {
+                case TravelState.WarpingToSurface:
+                    DestinationWorldId = null;
+                    State = TravelState.OnBridge;
+                    break;
+                case TravelState.WarpingToBridge:
+                    State = TravelState.OnSurface;
+                    break;
+                default:
+                    throw new InvalidOperationException(
+                        $"AbortWarp called in stable state {State}; only valid mid-warp.");
+            }
+        }
     }
 }

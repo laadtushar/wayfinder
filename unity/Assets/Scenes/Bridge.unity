@@ -1139,6 +1139,7 @@ MonoBehaviour:
   menu: {fileID: 1469158088}
   warpFade: {fileID: 1076990916}
   bridgeVisualsRoot: {fileID: 1426803461}
+  xrOrigin: {fileID: 4314094175670818476}
 --- !u!114 &1076990916
 MonoBehaviour:
   m_ObjectHideFlags: 0

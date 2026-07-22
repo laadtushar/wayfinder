@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,9 +6,9 @@ using Wayfinder.Core;
 
 namespace Wayfinder.Unity
 {
-    /// Drives the bridge → warp → surface → return loop (ARCHITECTURE.md
+    /// Drives the bridge â†’ warp â†’ surface â†’ return loop (ARCHITECTURE.md
     /// section 4). All travel LOGIC lives in the engine-free
-    /// TravelStateMachine — this component only performs the Unity work each
+    /// TravelStateMachine â€” this component only performs the Unity work each
     /// transition implies: the warp fade, the additive scene load, and
     /// showing/hiding the Bridge interior.
     public sealed class TravelManager : MonoBehaviour
@@ -16,11 +16,12 @@ namespace Wayfinder.Unity
         [SerializeField] private WorldCatalog catalog;
         [SerializeField] private DestinationMenu menu;
         [SerializeField] private WarpFade warpFade;
-        [Tooltip("Everything that is the Bridge interior — hidden while on a surface. The XR rig must NOT be under this root.")]
+        [Tooltip("Everything that is the Bridge interior â€” hidden while on a surface. The XR rig must NOT be under this root.")]
         [SerializeField] private GameObject bridgeVisualsRoot;
         [SerializeField] private global::Unity.XR.CoreUtils.XROrigin xrOrigin;
         [SerializeField] private SuitWardrobe wardrobe;
-        [Tooltip("The rig's locomotion root — disabled during warp transitions so a queued teleport/turn can never apply across the rig reset.")]
+        [SerializeField] private WorldGrabController worldGrab;
+        [Tooltip("The rig's locomotion root â€” disabled during warp transitions so a queued teleport/turn can never apply across the rig reset.")]
         [SerializeField] private GameObject locomotionRoot;
 
         TravelStateMachine _machine;
@@ -30,7 +31,7 @@ namespace Wayfinder.Unity
         GameObject _returnUi;
         PoiSystem _poiSystem;
 
-        /// The player's discovery log — lives with the TravelManager for the
+        /// The player's discovery log â€” lives with the TravelManager for the
         /// session (persistence is a later ticket).
         public FieldLog FieldLog => _fieldLog;
 
@@ -45,6 +46,7 @@ namespace Wayfinder.Unity
             if (xrOrigin == null) throw new System.InvalidOperationException($"{name}: no XROrigin assigned.");
             if (locomotionRoot == null) throw new System.InvalidOperationException($"{name}: no locomotion root assigned.");
             if (wardrobe == null) throw new System.InvalidOperationException($"{name}: no SuitWardrobe assigned.");
+            if (worldGrab == null) throw new System.InvalidOperationException($"{name}: no WorldGrabController assigned.");
 
             _machine = new TravelStateMachine();
             _registry = catalog.BuildRegistry();
@@ -108,7 +110,7 @@ namespace Wayfinder.Unity
                     }
                 }
                 if (!load[0].isDone) return false;
-                // Site RenderSettings (sky/ambient — World Package data) only
+                // Site RenderSettings (sky/ambient â€” World Package data) only
                 // apply while the site scene is the active scene. Spawn the
                 // return UI inside the covered period too, so its construction
                 // cost never lands on a visible frame.
@@ -118,6 +120,7 @@ namespace Wayfinder.Unity
                 xrOrigin.Camera.clearFlags = CameraClearFlags.Skybox;
                 ApplySpawnOffset(worldId);
                 wardrobe.Apply(TravelState.OnSurface);
+                worldGrab.SetEnabled(TravelState.OnSurface);
                 SpawnReturnUi();
                 SpawnPoiSystem(worldId);
                 return true;
@@ -127,7 +130,7 @@ namespace Wayfinder.Unity
             if (loadFailed)
             {
                 _machine.AbortWarp();
-                Debug.LogError($"[TravelManager] Scene '{world.SceneName}' failed to load — is it in Build Settings? Warp aborted.");
+                Debug.LogError($"[TravelManager] Scene '{world.SceneName}' failed to load â€” is it in Build Settings? Warp aborted.");
                 yield break;
             }
 
@@ -153,12 +156,13 @@ namespace Wayfinder.Unity
                     if (unload[0] == null) { unloadFailed = true; return true; }
                 }
                 if (!unload[0].isDone) return false;
-                // The rig keeps its surface coordinates otherwise — the player
+                // The rig keeps its surface coordinates otherwise â€” the player
                 // would materialize kilometres from the Bridge geometry.
                 xrOrigin.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-                // Swap gloves at full bright, behind the wash — never a visible
+                // Swap gloves at full bright, behind the wash â€” never a visible
                 // material pop on the player's own hands.
                 wardrobe.Apply(TravelState.OnBridge);
+                worldGrab.SetEnabled(TravelState.OnBridge);
                 bridgeVisualsRoot.SetActive(true);
                 return true;
             }));
@@ -197,16 +201,16 @@ namespace Wayfinder.Unity
             var package = FindPackage(worldId);
             if (package == null || package.PoiData == null)
             {
-                Debug.LogWarning($"[TravelManager] no POI data on WorldPackage '{worldId}' — site has no discoveries.");
+                Debug.LogWarning($"[TravelManager] no POI data on WorldPackage '{worldId}' â€” site has no discoveries.");
                 return;
             }
             var terrain = UnityEngine.Object.FindFirstObjectByType<Terrain>();
             if (terrain == null)
             {
-                Debug.LogWarning($"[TravelManager] no terrain in '{worldId}' — POI markers skipped.");
+                Debug.LogWarning($"[TravelManager] no terrain in '{worldId}' â€” POI markers skipped.");
                 return;
             }
-            // POI failures must never brick travel — this runs inside the warp
+            // POI failures must never brick travel â€” this runs inside the warp
             // fade callback, where an uncaught exception freezes the player at
             // full bright forever.
             try
@@ -217,7 +221,7 @@ namespace Wayfinder.Unity
             }
             catch (System.Exception e)
             {
-                Debug.LogError($"[TravelManager] POI system failed for '{worldId}' — travelling on without discoveries. {e.Message}");
+                Debug.LogError($"[TravelManager] POI system failed for '{worldId}' â€” travelling on without discoveries. {e.Message}");
                 if (_poiSystem != null) { Destroy(_poiSystem.gameObject); _poiSystem = null; }
             }
         }
@@ -236,7 +240,7 @@ namespace Wayfinder.Unity
             var canvas = _returnUi.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.WorldSpace;
             var rect = (RectTransform)_returnUi.transform;
-            // Parented to the rig so it travels with every teleport — the way
+            // Parented to the rig so it travels with every teleport â€” the way
             // home must never be left behind on the far side of the site.
             _returnUi.transform.SetParent(xrOrigin.transform, true);
             // Anchored to the player's HEAD (not the rig base): the rig root
@@ -247,7 +251,7 @@ namespace Wayfinder.Unity
             Quaternion baseYaw = Quaternion.Euler(0, head.eulerAngles.y, 0);
             Vector3 localOffset = new Vector3(0.6f, 0f, 1.3f);
             Vector3 pos = basePos + baseYaw * localOffset;
-            // On sloped terrain the offset can bury the button — lift it above
+            // On sloped terrain the offset can bury the button â€” lift it above
             // any ground beneath it.
             if (Physics.Raycast(pos + Vector3.up * 3f, Vector3.down, out var hit, 6f))
                 pos.y = Mathf.Max(pos.y, hit.point.y + 0.8f);

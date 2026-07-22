@@ -1164,6 +1164,7 @@ GameObject:
   - component: {fileID: 1076990916}
   - component: {fileID: 1076990915}
   - component: {fileID: 1076990918}
+  - component: {fileID: 1076990919}
   m_Layer: 0
   m_Name: TravelManager
   m_TagString: Untagged
@@ -1189,6 +1190,7 @@ MonoBehaviour:
   bridgeVisualsRoot: {fileID: 1426803461}
   xrOrigin: {fileID: 5451940462623210040}
   wardrobe: {fileID: 1076990918}
+  worldGrab: {fileID: 1076990919}
   locomotionRoot: {fileID: 2038703563597502239}
 --- !u!114 &1076990916
 MonoBehaviour:
@@ -1238,6 +1240,23 @@ MonoBehaviour:
   - {fileID: 1157413973097340268}
   - {fileID: 4799977999134243486}
   - {fileID: 8827131760016993627}
+--- !u!114 &1076990919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076990914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0deb4f6806484648a908f81f3b28adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Wayfinder.Unity::Wayfinder.Unity.WorldGrabController
+  leftGrab: {fileID: 5172161540275569301}
+  rightGrab: {fileID: 7158584644960352098}
+  twoHandedGrab: {fileID: 4414315361813167101}
+  singleHandGrabRoot: {fileID: 7708978663428547506}
+  moveFactor: 1.6
 --- !u!1 &1248848579
 GameObject:
   m_ObjectHideFlags: 0
@@ -6540,6 +6559,7 @@ GameObject:
   - component: {fileID: 4256183943723012496}
   - component: {fileID: 564288240473070543}
   - component: {fileID: 4414315361813167100}
+  - component: {fileID: 4414315361813167101}
   m_Layer: 2
   m_Name: Locomotion
   m_TagString: Untagged
@@ -10800,6 +10820,34 @@ MonoBehaviour:
   m_BodyPositionEvaluatorObject: {fileID: 0}
   m_ConstrainedBodyManipulatorObject: {fileID: 0}
   m_UseCharacterControllerIfExists: 1
+--- !u!114 &4414315361813167101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038703563597502239}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 760ff70c1c91bdd45907d0ff0cdcaf7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Locomotion.Movement.TwoHandedGrabMoveProvider
+  m_Mediator: {fileID: 564288240473070543}
+  m_TransformationPriority: 0
+  m_EnableFreeXMovement: 1
+  m_EnableFreeYMovement: 0
+  m_EnableFreeZMovement: 1
+  m_GravityApplicationMode: 0
+  m_UseGravity: 1
+  m_LeftGrabMoveProvider: {fileID: 5172161540275569301}
+  m_RightGrabMoveProvider: {fileID: 7158584644960352098}
+  m_OverrideSharedSettingsOnInit: 1
+  m_MoveFactor: 1.6
+  m_RequireTwoHandsForTranslation: 0
+  m_EnableRotation: 0
+  m_EnableScaling: 0
+  m_MinimumScale: 0.2
+  m_MaximumScale: 100
 --- !u!4 &4414733036951489643
 Transform:
   m_ObjectHideFlags: 0
@@ -12508,9 +12556,9 @@ MonoBehaviour:
   m_EnableFreeZMovement: 1
   m_GravityApplicationMode: 0
   m_UseGravity: 1
-  m_ControllerTransform: {fileID: 6625576131338093188}
+  m_ControllerTransform: {fileID: 250115104359661798}
   m_EnableMoveWhileSelecting: 0
-  m_MoveFactor: 1
+  m_MoveFactor: 1.6
   m_GrabMoveInput:
     m_InputSourceMode: 2
     m_InputActionPerformed:
@@ -14057,34 +14105,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5890658298832363043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7708978663428547506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 760ff70c1c91bdd45907d0ff0cdcaf7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Mediator: {fileID: 564288240473070543}
-  m_TransformationPriority: 0
-  m_EnableFreeXMovement: 1
-  m_EnableFreeYMovement: 0
-  m_EnableFreeZMovement: 1
-  m_GravityApplicationMode: 0
-  m_UseGravity: 1
-  m_LeftGrabMoveProvider: {fileID: 5172161540275569301}
-  m_RightGrabMoveProvider: {fileID: 7158584644960352098}
-  m_OverrideSharedSettingsOnInit: 1
-  m_MoveFactor: 1
-  m_RequireTwoHandsForTranslation: 0
-  m_EnableRotation: 1
-  m_EnableScaling: 0
-  m_MinimumScale: 0.2
-  m_MaximumScale: 5
 --- !u!4 &5896156991187742033
 Transform:
   m_ObjectHideFlags: 0
@@ -17145,9 +17165,9 @@ MonoBehaviour:
   m_EnableFreeZMovement: 1
   m_GravityApplicationMode: 0
   m_UseGravity: 1
-  m_ControllerTransform: {fileID: 6625576131715596901}
+  m_ControllerTransform: {fileID: 394510202599481189}
   m_EnableMoveWhileSelecting: 0
-  m_MoveFactor: 1
+  m_MoveFactor: 1.6
   m_GrabMoveInput:
     m_InputSourceMode: 2
     m_InputActionPerformed:
@@ -18071,7 +18091,6 @@ GameObject:
   - component: {fileID: 8044974649552244704}
   - component: {fileID: 5172161540275569301}
   - component: {fileID: 7158584644960352098}
-  - component: {fileID: 5890658298832363043}
   m_Layer: 2
   m_Name: Grab Move
   m_TagString: Untagged

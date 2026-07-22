@@ -149,6 +149,43 @@ namespace Wayfinder.Unity.Tests
         }
 
         [Test]
+        public void World_Grab_Is_Wired_And_Comfort_Locked()
+        {
+            // Maps-immersive drag: providers present, but never rotation or
+            // scaling from the gesture (comfort rule).
+            var scene = OpenBridge();
+            Wayfinder.Unity.WorldGrabController grab = null;
+            foreach (var root in scene.GetRootGameObjects())
+            {
+                grab = root.GetComponentInChildren<Wayfinder.Unity.WorldGrabController>(true);
+                if (grab != null) break;
+            }
+            Assert.IsNotNull(grab, "no WorldGrabController in the Bridge scene");
+            var so = new SerializedObject(grab);
+            Assert.IsNotNull(so.FindProperty("leftGrab").objectReferenceValue, "left grab provider missing");
+            Assert.IsNotNull(so.FindProperty("rightGrab").objectReferenceValue, "right grab provider missing");
+            Assert.IsNotNull(so.FindProperty("twoHandedGrab").objectReferenceValue, "two-handed provider missing");
+
+            Assert.IsNotNull(so.FindProperty("singleHandGrabRoot").objectReferenceValue, "single-hand grab root missing");
+
+            // Every grab provider in the scene must be comfort-locked, and there
+            // must be exactly ONE two-handed coordinator (a stray Starter-Assets
+            // one with rotation on is a comfort landmine).
+            int twoHandedCount = 0;
+            foreach (var root in scene.GetRootGameObjects())
+            {
+                foreach (var two in root.GetComponentsInChildren<
+                    UnityEngine.XR.Interaction.Toolkit.Locomotion.Movement.TwoHandedGrabMoveProvider>(true))
+                {
+                    twoHandedCount++;
+                    Assert.IsFalse(two.enableRotation, two.name + " grab rotates the world (comfort)");
+                    Assert.IsFalse(two.enableScaling, two.name + " grab scales the world (comfort)");
+                }
+            }
+            Assert.AreEqual(1, twoHandedCount, "expected exactly one TwoHandedGrabMoveProvider");
+        }
+
+        [Test]
         public void Player_Hands_Are_Dressed_By_The_Suit_Wardrobe()
         {
             // Embodiment direction: the player must see their tracked hands in

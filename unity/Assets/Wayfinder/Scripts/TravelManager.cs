@@ -21,6 +21,7 @@ namespace Wayfinder.Unity
         [SerializeField] private global::Unity.XR.CoreUtils.XROrigin xrOrigin;
         [SerializeField] private SuitWardrobe wardrobe;
         [SerializeField] private WorldGrabController worldGrab;
+        [SerializeField] private FieldLogPanel fieldLogPanel;
         [Tooltip("The rig's locomotion root â€” disabled during warp transitions so a queued teleport/turn can never apply across the rig reset.")]
         [SerializeField] private GameObject locomotionRoot;
 
@@ -50,6 +51,14 @@ namespace Wayfinder.Unity
 
             _machine = new TravelStateMachine();
             _registry = catalog.BuildRegistry();
+        }
+
+        void Start()
+        {
+            // fieldLogPanel is optional — the Bridge shows it, but the loop
+            // works without it. Painted in Start (not Awake) so the panel's own
+            // Awake has definitely built its totals first.
+            if (fieldLogPanel != null) fieldLogPanel.Refresh(_fieldLog);
         }
 
         void OnEnable()
@@ -181,6 +190,7 @@ namespace Wayfinder.Unity
 
             xrOrigin.Camera.clearFlags = CameraClearFlags.SolidColor;
             bridgeVisualsRoot.SetActive(true);
+            if (fieldLogPanel != null) fieldLogPanel.Refresh(_fieldLog);
             _loadedSceneName = null;
             _machine.CompleteReturn();
         }

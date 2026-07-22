@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97b80da4aa060ae43b19bf6355eb52c4, type: 3}
+  m_Name: moon-shackleton_set
+  m_EditorClassIdentifier: Wayfinder.Unity::Wayfinder.Unity.Scatter.ScatterArchetypeSet
+  siteId: moon-shackleton
+  archetypes:
+  - lods:
+    - {fileID: 4300000, guid: 836ee2f4992cad945a94aff9051dde4d, type: 2}
+    - {fileID: 4300000, guid: 8e671871737a9d44a95c2c4e0574404c, type: 2}
+    - {fileID: 4300000, guid: d259f36d27d3fb3478a646863f9a5288, type: 2}
+    minSlopeDeg: 0
+    maxSlopeDeg: 28
+    minWorldY: -100000
+    maxWorldY: 100000
+    requireWallBase: 0
+    clearRadius: 3
+    medianScale: 0.97999996
+    scaleSigma: 0.5
+    colliderRadius: 0.8
+    tint: {r: 0.42, g: 0.42, b: 0.45, a: 1}
+  - lods:
+    - {fileID: 4300000, guid: a9473b39af7ef2d4cbe8e202c81e7f94, type: 2}
+    - {fileID: 4300000, guid: 6429fb9a3ff08e74d8748267fd4d622c, type: 2}
+    - {fileID: 4300000, guid: 333b9baeb1ae5084286a1a9759704efa, type: 2}
+    minSlopeDeg: 0
+    maxSlopeDeg: 28
+    minWorldY: -100000
+    maxWorldY: 100000
+    requireWallBase: 0
+    clearRadius: 3
+    medianScale: 1.148
+    scaleSigma: 0.5
+    colliderRadius: 0.8
+    tint: {r: 0.42, g: 0.42, b: 0.45, a: 1}
+  - lods:
+    - {fileID: 4300000, guid: 95922b079d4fce248b8433651dd7f105, type: 2}
+    - {fileID: 4300000, guid: 69fb133c444cc29499d1791af0d8dc71, type: 2}
+    - {fileID: 4300000, guid: c1fb28dd0460d03498b603cd1eeff86c, type: 2}
+    minSlopeDeg: 0
+    maxSlopeDeg: 28
+    minWorldY: -100000
+    maxWorldY: 100000
+    requireWallBase: 0
+    clearRadius: 3
+    medianScale: 1.316
+    scaleSigma: 0.5
+    colliderRadius: 0.8
+    tint: {r: 0.42, g: 0.42, b: 0.45, a: 1}
+  - lods:
+    - {fileID: 4300000, guid: e1f1917bb770c9347acd4aacb4da8de7, type: 2}
+    - {fileID: 4300000, guid: 91864040896310044bc7a2cfaac16140, type: 2}
+    - {fileID: 4300000, guid: df1a06af7fa525543a7740d29240b218, type: 2}
+    minSlopeDeg: 0
+    maxSlopeDeg: 28
+    minWorldY: -100000
+    maxWorldY: 100000
+    requireWallBase: 0
+    clearRadius: 3
+    medianScale: 1.484
+    scaleSigma: 0.5
+    colliderRadius: 0.8
+    tint: {r: 0.42, g: 0.42, b: 0.45, a: 1}
+  - lods:
+    - {fileID: 4300000, guid: aecc364055c4dad4f942fe6700e923e5, type: 2}
+    - {fileID: 4300000, guid: 57bc66f21bb47b54d894973e07b05486, type: 2}
+    - {fileID: 4300000, guid: 6c69a5104e5c98c4884c4a3232bf5b26, type: 2}
+    minSlopeDeg: 0
+    maxSlopeDeg: 28
+    minWorldY: -100000
+    maxWorldY: 100000
+    requireWallBase: 0
+    clearRadius: 3
+    medianScale: 1.652
+    scaleSigma: 0.5
+    colliderRadius: 0.8
+    tint: {r: 0.42, g: 0.42, b: 0.45, a: 1}
+  - lods:
+    - {fileID: 4300000, guid: 1b49d78b37f44554b877fffb2e5e0b59, type: 2}
+    - {fileID: 4300000, guid: 4239c52c2c55175458261ff021601816, type: 2}
+    - {fileID: 4300000, guid: 5b4c10aaef4d4a745bea655a6901acfa, type: 2}
+    minSlopeDeg: 0
+    maxSlopeDeg: 28
+    minWorldY: -100000
+    maxWorldY: 100000
+    requireWallBase: 0
+    clearRadius: 3
+    medianScale: 1.8199999
+    scaleSigma: 0.5
+    colliderRadius: 0.8
+    tint: {r: 0.42, g: 0.42, b: 0.45, a: 1}
+  material: {fileID: 2100000, guid: 83924dbfeeaad594ab4ffda54f206818, type: 2}
+  lod0Distance: 28
+  lod1Distance: 75
+  scatterRadius: 120
+  runtimeVisibleCap: 800
+  scatterBudgetScale: 1

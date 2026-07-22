@@ -21,12 +21,9 @@ namespace Wayfinder.Unity.Scatter
         // Fully preallocated draw buffers, one per (archetype, LOD). Nothing
         // is allocated in LateUpdate.
         Matrix4x4[,][] _mtx;   // [arch, lod] -> Matrix4x4[BatchMax]
-        Vector4[,][] _tint;
-        float[,][] _fade;
         int[,] _count;
-        MaterialPropertyBlock _mpb;
-        static readonly int ID_Tint = Shader.PropertyToID("_Tint");
-        static readonly int ID_Fade = Shader.PropertyToID("_Fade");
+        RenderParams[,] _rp;   // per (arch,lod); its matProps carries the geology tint
+        static readonly int ID_BaseColor = Shader.PropertyToID("_BaseColor");
         int _archCount;
 
         void Awake()
@@ -37,17 +34,30 @@ namespace Wayfinder.Unity.Scatter
             _archCount = set.Archetypes != null ? set.Archetypes.Length : 0;
 
             _mtx = new Matrix4x4[_archCount, 3][];
-            _tint = new Vector4[_archCount, 3][];
-            _fade = new float[_archCount, 3][];
+            _rp = new RenderParams[_archCount, 3];
+            // Cull bounds from the BAKED field extent, not transform.position —
+            // the field can sit kilometres from origin (Shackleton rim), and an
+            // origin-centred box would cull the whole draw away.
+            var bounds = field.WorldBounds;
             for (int a = 0; a < _archCount; a++)
+            {
+                // One geology tint per archetype, delivered as a per-batch
+                // _BaseColor uniform on the RenderParams' matProps.
+                var mpb = new MaterialPropertyBlock();
+                mpb.SetColor(ID_BaseColor, set.Archetypes[a].Tint);
                 for (int l = 0; l < 3; l++)
                 {
                     _mtx[a, l] = new Matrix4x4[BatchMax];
-                    _tint[a, l] = new Vector4[BatchMax];
-                    _fade[a, l] = new float[BatchMax];
+                    _rp[a, l] = new RenderParams(set.Material)
+                    {
+                        matProps = mpb,
+                        shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off,
+                        receiveShadows = false,
+                        worldBounds = bounds,
+                    };
                 }
+            }
             _count = new int[_archCount, 3];
-            _mpb = new MaterialPropertyBlock();
         }
 
         void OnEnable()
@@ -73,7 +83,6 @@ namespace Wayfinder.Unity.Scatter
             var rot = field.Rotations;
             var scl = field.Scales;
             var arch = field.ArchetypeIndex;
-            var tints = field.Tints;
             int n = field.Count;
             int emitted = 0;
 
@@ -91,10 +100,6 @@ namespace Wayfinder.Unity.Scatter
                 int slot = _count[a, lod];
                 if (slot >= BatchMax) continue; // batch full; picked up next frame
                 _mtx[a, lod][slot] = Matrix4x4.TRS(pos[i], rot[i], Vector3.one * scl[i]);
-                var t = tints[i];
-                _tint[a, lod][slot].x = t.r; _tint[a, lod][slot].y = t.g;
-                _tint[a, lod][slot].z = t.b; _tint[a, lod][slot].w = t.a;
-                _fade[a, lod][slot] = 1f; // steady-state opaque preserves early-Z (F5)
                 _count[a, lod] = slot + 1;
                 emitted++;
             }
@@ -109,15 +114,11 @@ namespace Wayfinder.Unity.Scatter
                     var mesh = archetype.Lod(l);
                     if (mesh == null) continue;
 
-                    _mpb.Clear();
-                    // SetVectorArray/SetFloatArray upload the whole array; the
-                    // draw reads `cnt` instances. Buffers are preallocated to
-                    // BatchMax so this is allocation-free.
-                    _mpb.SetVectorArray(ID_Tint, _tint[a, l]);
-                    _mpb.SetFloatArray(ID_Fade, _fade[a, l]);
-
-                    Graphics.DrawMeshInstanced(mesh, 0, set.Material, _mtx[a, l], cnt, _mpb,
-                        UnityEngine.Rendering.ShadowCastingMode.Off, false);
+                    // RenderMeshInstanced: the URP/SRP-integrated instanced draw
+                    // (legacy DrawMeshInstanced isn't reliably drawn by URP). The
+                    // per-batch geology tint rides RenderParams.matProps (set in
+                    // Awake); hard LOD switch, no per-instance data (F5 opaque).
+                    Graphics.RenderMeshInstanced(_rp[a, l], mesh, 0, _mtx[a, l], cnt);
                 }
             }
         }

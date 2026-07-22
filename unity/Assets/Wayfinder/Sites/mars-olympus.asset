@@ -28,3 +28,4 @@ MonoBehaviour:
   surgeTint: {r: 1, g: 1, b: 1, a: 1}
   poiData: {fileID: 4900000, guid: 6acd2d7d6071f72439288b0a4e6f1bcf, type: 3}
   terrain: {fileID: 15600000, guid: 59adc2499d4293e459452ce07df65229, type: 2}
+  surfaceAmbience: {fileID: 8300000, guid: 6d01a324c0bb9a54d8a3eeec070adb85, type: 3}

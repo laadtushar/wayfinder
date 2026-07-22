@@ -22,6 +22,7 @@ namespace Wayfinder.Unity
         [SerializeField] private SuitWardrobe wardrobe;
         [SerializeField] private WorldGrabController worldGrab;
         [SerializeField] private FieldLogPanel fieldLogPanel;
+        [SerializeField] private SuitAudio suitAudio;
         [Tooltip("The rig's locomotion root â€” disabled during warp transitions so a queued teleport/turn can never apply across the rig reset.")]
         [SerializeField] private GameObject locomotionRoot;
 
@@ -99,6 +100,9 @@ namespace Wayfinder.Unity
             }
 
             locomotionRoot.SetActive(false);
+            // Fall silent under the bright wash — the warp is a quiet beat, then
+            // the destination's beds fade up at arrival.
+            if (suitAudio != null) suitAudio.Apply(TravelState.WarpingToSurface, false, null);
             var load = new AsyncOperation[1];
             bool loadFailed = false;
 
@@ -134,12 +138,15 @@ namespace Wayfinder.Unity
                 if (arrivedPackage != null)
                 {
                     WorldAtmospherics.Apply(arrivedPackage);
+                    if (suitAudio != null)
+                        suitAudio.Apply(TravelState.OnSurface, arrivedPackage.HazeEnabled, arrivedPackage.SurfaceAmbience);
                 }
                 else
                 {
                     // Never silently keep the previous world's haze.
                     Debug.LogError($"[TravelManager] no WorldPackage for '{worldId}' — atmospherics fall back to vacuum.");
                     WorldAtmospherics.ApplyVacuum();
+                    if (suitAudio != null) suitAudio.Apply(TravelState.OnSurface, false, null);
                 }
                 ApplySpawnOffset(worldId);
                 wardrobe.Apply(TravelState.OnSurface);
@@ -164,6 +171,7 @@ namespace Wayfinder.Unity
         IEnumerator WarpToBridge()
         {
             locomotionRoot.SetActive(false);
+            if (suitAudio != null) suitAudio.Apply(TravelState.WarpingToBridge, false, null);
             var unload = new AsyncOperation[1];
             bool unloadFailed = false;
 
@@ -186,6 +194,7 @@ namespace Wayfinder.Unity
                 // material pop on the player's own hands.
                 wardrobe.Apply(TravelState.OnBridge);
                 worldGrab.SetEnabled(TravelState.OnBridge);
+                if (suitAudio != null) suitAudio.Apply(TravelState.OnBridge, false, null);
                 bridgeVisualsRoot.SetActive(true);
                 return true;
             }));

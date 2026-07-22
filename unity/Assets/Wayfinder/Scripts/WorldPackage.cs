@@ -66,9 +66,12 @@ namespace Wayfinder.Unity
         [SerializeField] private TextAsset poiData;
         [Tooltip("Terrain for the site — assigned when the Phase 2 terrain import lands.")]
         [SerializeField] private TerrainData terrain;
+        [Tooltip("Looping surface ambience (wind) — null on airless worlds. Atmosphere presence reuses HazeEnabled.")]
+        [SerializeField] private AudioClip surfaceAmbience;
 
         public TextAsset PoiData => poiData;
         public TerrainData Terrain => terrain;
+        public AudioClip SurfaceAmbience => surfaceAmbience;
 
         /// The engine-free view of this package. Throws (loudly, by design)
         /// when the asset is half-authored — a blank scene name would

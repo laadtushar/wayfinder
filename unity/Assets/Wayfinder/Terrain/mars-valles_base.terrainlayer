@@ -7,10 +7,10 @@ TerrainLayer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mars-valles_base
-  m_DiffuseTexture: {fileID: 2800000, guid: 29c6b3f8d44795641babbab0b88ab63c, type: 2}
+  m_DiffuseTexture: {fileID: 2800000, guid: d3fb2b9294d05044480db07daf661d2a, type: 3}
   m_NormalMapTexture: {fileID: 0}
   m_MaskMapTexture: {fileID: 0}
-  m_TileSize: {x: 1000, y: 1000}
+  m_TileSize: {x: 3600, y: 19500}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0

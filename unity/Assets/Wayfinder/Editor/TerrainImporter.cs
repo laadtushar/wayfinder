@@ -71,7 +71,7 @@ namespace Wayfinder.Unity.EditorTools
             data.heightmapResolution = resolution;
             data.size = new Vector3(width, heightRange, length);
             data.SetHeights(0, 0, heights);
-            data.terrainLayers = new[] { GetOrCreateBaseLayer(siteId, baseColor) };
+            data.terrainLayers = new[] { GetOrCreateBaseLayer(siteId, baseColor, width, length) };
             if (isNew) AssetDatabase.CreateAsset(data, assetPath);
             else EditorUtility.SetDirty(data);
 
@@ -115,9 +115,14 @@ namespace Wayfinder.Unity.EditorTools
             if (terrainMat == null)
             {
                 terrainMat = new Material(Shader.Find("Universal Render Pipeline/Terrain/Lit"));
-                terrainMat.color = baseColor;
                 AssetDatabase.CreateAsset(terrainMat, matPath);
             }
+            // Real imagery carries its own color — a tinted material would
+            // double-apply it. Tint only the solid-color fallback.
+            bool hasAlbedo = AssetDatabase.LoadAssetAtPath<Texture2D>(
+                "Assets/Wayfinder/Terrain/" + siteId + "_albedo.png") != null;
+            terrainMat.color = hasAlbedo ? Color.white : baseColor;
+            EditorUtility.SetDirty(terrainMat);
             terrain.materialTemplate = terrainMat;
 
             // The whole site surface is walkable: teleport ray interactors
@@ -144,30 +149,56 @@ namespace Wayfinder.Unity.EditorTools
                 UnityEditor.SceneManagement.EditorSceneManager.RestoreSceneManagerSetup(savedSetup);
         }
 
-        /// A terrain with no layers renders URP's checkerboard fallback. Until
-        /// the real orbital-imagery drape lands (later ticket), each site gets
-        /// one solid-color layer with a huge tile size so no tiling reads.
-        static TerrainLayer GetOrCreateBaseLayer(string siteId, Color color)
+        /// A terrain with no layers renders URP's checkerboard fallback.
+        /// Preferred diffuse: the site's REAL orbital imagery
+        /// (<site>_albedo.png, clipped to the exact DEM window — see
+        /// data-sources.md), tiled exactly once across the full extent.
+        /// Fallback when no imagery exists yet: a solid-color layer.
+        static TerrainLayer GetOrCreateBaseLayer(string siteId, Color color, float width, float length)
         {
-            string layerPath = "Assets/Wayfinder/Terrain/" + siteId + "_base.terrainlayer";
-            var existing = AssetDatabase.LoadAssetAtPath<TerrainLayer>(layerPath);
-            if (existing != null) return existing;
-
-            var tex = new Texture2D(4, 4, TextureFormat.RGBA32, false);
-            var pixels = new Color[16];
-            for (int i = 0; i < 16; i++) pixels[i] = color;
-            tex.SetPixels(pixels);
-            tex.Apply();
             if (!AssetDatabase.IsValidFolder("Assets/Wayfinder/Terrain"))
                 AssetDatabase.CreateFolder("Assets/Wayfinder", "Terrain");
-            AssetDatabase.CreateAsset(tex, "Assets/Wayfinder/Terrain/" + siteId + "_base_tex.asset");
-
-            var layer = new TerrainLayer
+            string layerPath = "Assets/Wayfinder/Terrain/" + siteId + "_base.terrainlayer";
+            var layer = AssetDatabase.LoadAssetAtPath<TerrainLayer>(layerPath);
+            if (layer == null)
             {
-                diffuseTexture = tex,
-                tileSize = new Vector2(1000f, 1000f)
-            };
-            AssetDatabase.CreateAsset(layer, layerPath);
+                layer = new TerrainLayer();
+                AssetDatabase.CreateAsset(layer, layerPath);
+            }
+
+            string albedoPath = "Assets/Wayfinder/Terrain/" + siteId + "_albedo.png";
+            var albedo = AssetDatabase.LoadAssetAtPath<Texture2D>(albedoPath);
+            if (albedo != null)
+            {
+                // GDAL wrote north-up rows; Unity terrain UVs run south->north.
+                // The importer flips heights; the texture must flip too — done
+                // via the TextureImporter (flipGreenChannel is normal-map only,
+                // so bake the vertical flip at import): simplest correct move
+                // is sampling flip via tileOffset — Unity has none for V-flip,
+                // so the png is imported as-is and flipped on disk by the
+                // imagery pipeline instead (clip_imagery writes north-up; the
+                // pipeline's Unity delivery step flips vertically).
+                layer.diffuseTexture = albedo;
+                layer.tileSize = new Vector2(width, length);
+                layer.tileOffset = Vector2.zero;
+            }
+            else
+            {
+                string texPath = "Assets/Wayfinder/Terrain/" + siteId + "_base_tex.asset";
+                var tex = AssetDatabase.LoadAssetAtPath<Texture2D>(texPath);
+                if (tex == null)
+                {
+                    tex = new Texture2D(4, 4, TextureFormat.RGBA32, false);
+                    var pixels = new Color[16];
+                    for (int i = 0; i < 16; i++) pixels[i] = color;
+                    tex.SetPixels(pixels);
+                    tex.Apply();
+                    AssetDatabase.CreateAsset(tex, texPath);
+                }
+                layer.diffuseTexture = tex;
+                layer.tileSize = new Vector2(1000f, 1000f);
+            }
+            EditorUtility.SetDirty(layer);
             return layer;
         }
 

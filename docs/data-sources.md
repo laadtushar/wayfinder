@@ -1,5 +1,28 @@
 # Terrain data sources and processing audit
 
+> **Imagery drape (added 2026-07-22, Windows/GDAL 3.12.2):** each terrain now
+> wears real co-registered orbital imagery, clipped to the exact windows below
+> and delivered as `unity/Assets/Wayfinder/Terrain/<site>_albedo.png`
+> (2048², 2–98% stretch, vertically flipped to match Unity's south-origin
+> heights, Mars panchromatic sources colorized with the site `baseColor`):
+>
+> - **mars-olympus:** HRSC nadir channel `h0037_0000_nd4.img` (12.5 m/px, same
+>   orbit/dataset/credit as the DTM), warped to the identical aeqd grid.
+> - **mars-valles:** HiRISE orthoimage `ESP_046764_1660_RED_A_01_ORTHO.JP2`
+>   (25 cm/px, same product page/credit as the DTM), warped to the identical
+>   omerc strip. Source SRS passed explicitly (`+proj=eqc +lat_ts=-10
+>   +lon_0=300.46 +R=3395582.027`) — the JP2's named Mars datum breaks GDAL's
+>   transform silently.
+> - **moon-shackleton:** the official LOLA hillshade product
+>   `ldem_87s_5mpp_hillshade.tif` (same grid/credit/citation as the DEM) —
+>   on an airless world surface brightness is geometry, so the mission's own
+>   hillshade is the honest albedo until real polar imagery is added.
+>
+> Pipeline: `scratchpad clip_imagery.py` pattern — `gdal.Warp` from `/vsicurl`
+> with the windows/projections below, 2–98% histogram stretch to byte PNG.
+> Windows note: GDAL wheels' bundled curl could not reach DNS; hosts are
+> system-resolved and passed as IP + `Host:` header (`GDAL_HTTP_UNSAFESSL`).
+
 Every heightmap in `assets/terrain/` derives from real planetary elevation data. This file records the exact source product, the commands run, and the honesty notes per site. Processing ran on macOS with GDAL 3.13.1 on 2026-07-21. Raw source rasters are NOT in the repo (multi-hundred-MB); everything here is reproducible from the URLs + commands.
 
 Output contract (all three sites): 2049x2049, 16-bit unsigned, **big-endian** RAW, exactly 8,396,802 bytes, elevation scaled min→0, max→65535. Unity import: Terrain > Import Raw, bit depth 16, byte order Mac, then set Width/Length/Height from the site's `meta.json`.

@@ -91,6 +91,25 @@ namespace Wayfinder.Unity.Tests
             Assert.AreEqual(TerrainAssetPath, AssetDatabase.GetAssetPath(pkg.Terrain));
         }
 
+        [TestCase("mars-olympus")]
+        [TestCase("mars-valles")]
+        [TestCase("moon-shackleton")]
+        public void Terrain_Wears_Its_Real_Orbital_Imagery(string siteId)
+        {
+            // Realism contract: every site's terrain layer must carry the
+            // clipped orbital photograph (see data-sources.md), tiled exactly
+            // once across the full metric extent — never the solid fallback.
+            var layer = AssetDatabase.LoadAssetAtPath<TerrainLayer>(
+                "Assets/Wayfinder/Terrain/" + siteId + "_base.terrainlayer");
+            Assert.IsNotNull(layer.diffuseTexture, siteId + " layer has no diffuse");
+            Assert.AreEqual(siteId + "_albedo", layer.diffuseTexture.name,
+                siteId + " not wearing its orbital imagery");
+            var data = AssetDatabase.LoadAssetAtPath<TerrainData>(
+                "Assets/Wayfinder/Terrain/" + siteId + ".asset");
+            Assert.AreEqual(data.size.x, layer.tileSize.x, 1f, siteId + " imagery tiles horizontally");
+            Assert.AreEqual(data.size.z, layer.tileSize.y, 1f, siteId + " imagery tiles vertically");
+        }
+
         [Test]
         public void Shackleton_Spawns_On_The_Rim_Not_The_Shadowed_Floor()
         {

@@ -111,6 +111,9 @@ namespace Wayfinder.Unity
                 // return UI inside the covered period too, so its construction
                 // cost never lands on a visible frame.
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName(world.SceneName));
+                // Surfaces render their sky (stars / Mars gradient); the sealed
+                // Bridge clears to black.
+                xrOrigin.Camera.clearFlags = CameraClearFlags.Skybox;
                 ApplySpawnOffset(worldId);
                 SpawnReturnUi();
                 SpawnPoiSystem(worldId);
@@ -166,6 +169,7 @@ namespace Wayfinder.Unity
                 yield break;
             }
 
+            xrOrigin.Camera.clearFlags = CameraClearFlags.SolidColor;
             bridgeVisualsRoot.SetActive(true);
             _loadedSceneName = null;
             _machine.CompleteReturn();

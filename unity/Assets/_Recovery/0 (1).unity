@@ -934,7 +934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Wayfinder.Unity::Wayfinder.Unity.PerfProbe
   menu: {fileID: 1469158088}
   delaySeconds: 8
-  siteId: moon-shackleton
+  siteId: mars-olympus
 --- !u!4 &823199080
 Transform:
   m_ObjectHideFlags: 0

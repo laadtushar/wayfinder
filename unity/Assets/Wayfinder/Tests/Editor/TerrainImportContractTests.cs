@@ -110,6 +110,35 @@ namespace Wayfinder.Unity.Tests
             Assert.AreEqual(data.size.z, layer.tileSize.y, 1f, siteId + " imagery tiles vertically");
         }
 
+        [TestCase("Assets/Scenes/Site_mars-olympus.unity")]
+        [TestCase("Assets/Scenes/Site_mars-valles.unity")]
+        [TestCase("Assets/Scenes/Site_moon-shackleton.unity")]
+        public void Every_Site_Renders_A_Real_Sky(string scenePath)
+        {
+            var savedSetup = UnityEditor.SceneManagement.EditorSceneManager.GetSceneManagerSetup();
+            try
+            {
+                UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scenePath,
+                    UnityEditor.SceneManagement.OpenSceneMode.Single);
+                Assert.IsNotNull(RenderSettings.skybox, scenePath + " has no skybox");
+                if (scenePath.Contains("shackleton"))
+                {
+                    Assert.IsNotNull(GameObject.Find("Earth"),
+                        "Shackleton has no Earth over the rim — the earth-on-horizon POI describes it");
+                    Assert.AreEqual("StarSky", RenderSettings.skybox.name);
+                }
+                else
+                {
+                    Assert.AreEqual("MarsSky", RenderSettings.skybox.name);
+                }
+            }
+            finally
+            {
+                if (savedSetup != null && savedSetup.Length > 0)
+                    UnityEditor.SceneManagement.EditorSceneManager.RestoreSceneManagerSetup(savedSetup);
+            }
+        }
+
         [Test]
         public void Shackleton_Spawns_On_The_Rim_Not_The_Shadowed_Floor()
         {

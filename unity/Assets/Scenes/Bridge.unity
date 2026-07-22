@@ -1163,6 +1163,7 @@ GameObject:
   - component: {fileID: 1076990917}
   - component: {fileID: 1076990916}
   - component: {fileID: 1076990915}
+  - component: {fileID: 1076990918}
   m_Layer: 0
   m_Name: TravelManager
   m_TagString: Untagged
@@ -1187,6 +1188,7 @@ MonoBehaviour:
   warpFade: {fileID: 1076990916}
   bridgeVisualsRoot: {fileID: 1426803461}
   xrOrigin: {fileID: 5451940462623210040}
+  wardrobe: {fileID: 1076990918}
   locomotionRoot: {fileID: 2038703563597502239}
 --- !u!114 &1076990916
 MonoBehaviour:
@@ -1217,6 +1219,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1076990918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076990914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a8c0a6d482aa241adb8ee21a27e156, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Wayfinder.Unity::Wayfinder.Unity.SuitWardrobe
+  bridgeGloveMaterial: {fileID: 2100000, guid: 0ba668df75eef444cb72ec1a2e838cd1, type: 2}
+  surfaceGloveMaterial: {fileID: 2100000, guid: f240c1f40375cc94a812e483a84c6769, type: 2}
+  handRenderers:
+  - {fileID: 7007457116377930022}
+  - {fileID: 1157413973097340268}
+  - {fileID: 4799977999134243486}
+  - {fileID: 8827131760016993627}
 --- !u!1 &1248848579
 GameObject:
   m_ObjectHideFlags: 0

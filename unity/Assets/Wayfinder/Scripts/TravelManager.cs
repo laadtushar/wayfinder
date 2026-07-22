@@ -19,6 +19,7 @@ namespace Wayfinder.Unity
         [Tooltip("Everything that is the Bridge interior — hidden while on a surface. The XR rig must NOT be under this root.")]
         [SerializeField] private GameObject bridgeVisualsRoot;
         [SerializeField] private global::Unity.XR.CoreUtils.XROrigin xrOrigin;
+        [SerializeField] private SuitWardrobe wardrobe;
         [Tooltip("The rig's locomotion root — disabled during warp transitions so a queued teleport/turn can never apply across the rig reset.")]
         [SerializeField] private GameObject locomotionRoot;
 
@@ -43,6 +44,7 @@ namespace Wayfinder.Unity
             if (bridgeVisualsRoot == null) throw new System.InvalidOperationException($"{name}: no bridge visuals root assigned.");
             if (xrOrigin == null) throw new System.InvalidOperationException($"{name}: no XROrigin assigned.");
             if (locomotionRoot == null) throw new System.InvalidOperationException($"{name}: no locomotion root assigned.");
+            if (wardrobe == null) throw new System.InvalidOperationException($"{name}: no SuitWardrobe assigned.");
 
             _machine = new TravelStateMachine();
             _registry = catalog.BuildRegistry();
@@ -115,6 +117,7 @@ namespace Wayfinder.Unity
                 // Bridge clears to black.
                 xrOrigin.Camera.clearFlags = CameraClearFlags.Skybox;
                 ApplySpawnOffset(worldId);
+                wardrobe.Apply(TravelState.OnSurface);
                 SpawnReturnUi();
                 SpawnPoiSystem(worldId);
                 return true;
@@ -153,6 +156,9 @@ namespace Wayfinder.Unity
                 // The rig keeps its surface coordinates otherwise — the player
                 // would materialize kilometres from the Bridge geometry.
                 xrOrigin.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                // Swap gloves at full bright, behind the wash — never a visible
+                // material pop on the player's own hands.
+                wardrobe.Apply(TravelState.OnBridge);
                 bridgeVisualsRoot.SetActive(true);
                 return true;
             }));

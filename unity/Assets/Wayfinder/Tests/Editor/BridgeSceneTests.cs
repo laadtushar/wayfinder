@@ -149,6 +149,29 @@ namespace Wayfinder.Unity.Tests
         }
 
         [Test]
+        public void Player_Hands_Are_Dressed_By_The_Suit_Wardrobe()
+        {
+            // Embodiment direction: the player must see their tracked hands in
+            // suit gloves, different per context (jumpsuit vs EVA).
+            var scene = OpenBridge();
+            Wayfinder.Unity.SuitWardrobe wardrobe = null;
+            foreach (var root in scene.GetRootGameObjects())
+            {
+                wardrobe = root.GetComponentInChildren<Wayfinder.Unity.SuitWardrobe>(true);
+                if (wardrobe != null) break;
+            }
+            Assert.IsNotNull(wardrobe, "no SuitWardrobe in the Bridge scene");
+            var so = new SerializedObject(wardrobe);
+            Assert.IsNotNull(so.FindProperty("bridgeGloveMaterial").objectReferenceValue, "bridge glove material missing");
+            Assert.IsNotNull(so.FindProperty("surfaceGloveMaterial").objectReferenceValue, "surface glove material missing");
+            var renderers = so.FindProperty("handRenderers");
+            Assert.GreaterOrEqual(renderers.arraySize, 2, "both hands must be wired");
+            for (int i = 0; i < renderers.arraySize; i++)
+                Assert.IsNotNull(renderers.GetArrayElementAtIndex(i).objectReferenceValue,
+                    "hand renderer slot " + i + " is null");
+        }
+
+        [Test]
         public void Bridge_Has_A_Flat_Floor_At_Ground_Level_Under_The_Player()
         {
             var scene = OpenBridge();

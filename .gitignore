@@ -29,3 +29,6 @@ graphify-out/
 # Unity-MCP execute_code Roslyn support DLLs (machine-local editor tooling,
 # must never ship in a player build — marked Editor-only via PluginImporter)
 unity/Assets/Plugins/Roslyn/
+
+# Unity crash-recovery scene backups
+unity/Assets/_Recovery/

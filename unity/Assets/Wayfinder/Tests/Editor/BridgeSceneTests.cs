@@ -186,6 +186,30 @@ namespace Wayfinder.Unity.Tests
         }
 
         [Test]
+        public void Bridge_Kit_Is_Assembled_With_The_Trim_Material()
+        {
+            // #22: the greybox octagon is replaced by the procedural kit — the
+            // paneled hull under BridgeVisuals/BridgeKit wears the shared trim
+            // material, and the kit meshes exist on disk.
+            for (int i = 0; i < 8; i++)
+                Assert.IsNotNull(
+                    UnityEditor.AssetDatabase.LoadAssetAtPath<Mesh>("Assets/Wayfinder/Meshes/Bridge/Bridge_WallPanel.asset"),
+                    "wall panel kit mesh missing");
+            var trim = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>(
+                "Assets/Wayfinder/Materials/Hull_Trim.mat");
+            Assert.IsNotNull(trim, "Hull_Trim material missing");
+            Assert.AreEqual("Wayfinder/TrimLit", trim.shader.name, "hull not on the trim shader");
+
+            var scene = OpenBridge();
+            var kit = GameObject.Find("BridgeKit");
+            Assert.IsNotNull(kit, "no assembled BridgeKit under the scene");
+            bool anyTrim = false;
+            foreach (var r in kit.GetComponentsInChildren<MeshRenderer>(true))
+                if (r.sharedMaterial == trim) { anyTrim = true; break; }
+            Assert.IsTrue(anyTrim, "no kit piece wears the trim material");
+        }
+
+        [Test]
         public void Player_Hands_Are_Dressed_By_The_Suit_Wardrobe()
         {
             // Embodiment direction: the player must see their tracked hands in

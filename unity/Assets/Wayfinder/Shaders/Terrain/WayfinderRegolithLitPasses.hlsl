@@ -14,6 +14,7 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/GBufferOutput.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
+#include "WayfinderAtmos.hlsl"
 
 struct Attributes
 {
@@ -59,6 +60,8 @@ struct Varyings
 #ifdef USE_APV_PROBE_OCCLUSION
     float4 probeOcclusion           : TEXCOORD10;
 #endif
+
+    half wfFog                      : TEXCOORD11; // Wayfinder analytic haze factor
 
     float4 clipPos                  : SV_POSITION;
     UNITY_VERTEX_OUTPUT_STEREO
@@ -370,6 +373,7 @@ Varyings SplatmapVert(Attributes v)
     #endif
 
     o.positionWS = Attributes.positionWS;
+    o.wfFog = WayfinderFogFactor(Attributes.positionWS);
     o.clipPos = Attributes.positionCS;
 
     #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
@@ -522,7 +526,12 @@ void SplatmapFragment(
 
     half4 color = UniversalFragmentPBR(inputData, albedo, metallic, /* specular */ half3(0.0h, 0.0h, 0.0h), smoothness, occlusion, /* emission */ half3(0, 0, 0), alpha);
 
-    SplatmapFinalColor(color, inputData.fogCoord);
+    // Wayfinder atmospherics replaces SplatmapFinalColor's MixFog on the
+    // forward path: surge BEFORE fog (haze physically attenuates the
+    // hotspot), keep TerrainLit's alpha premultiply.
+    color.rgb = WayfinderSurge(color.rgb, IN.positionWS);
+    color.rgb *= color.a;
+    color.rgb = WayfinderApplyFog(color.rgb, IN.wfFog);
 
     outColor = half4(color.rgb, 1.0h);
 

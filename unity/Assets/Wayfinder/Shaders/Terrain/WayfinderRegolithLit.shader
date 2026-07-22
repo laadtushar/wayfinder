@@ -359,7 +359,10 @@ Shader "Wayfinder/Terrain/RegolithLit"
         UsePass "Hidden/Nature/Terrain/Utilities/PICKING"
     }
     Dependency "AddPassShader" = "Hidden/Universal Render Pipeline/Terrain/Lit (Add Pass)"
-    Dependency "BaseMapShader" = "Hidden/Universal Render Pipeline/Terrain/Lit (Base Pass)"
+    // Forked: past basemapDistance the terrain draws through THIS shader —
+    // the stock one has no atmospherics, so the far half of a 20 km site
+    // would pop out of the haze/surge across a hard line.
+    Dependency "BaseMapShader" = "Hidden/Wayfinder/Terrain/RegolithLit (Base Pass)"
     Dependency "BaseMapGenShader" = "Hidden/Universal Render Pipeline/Terrain/Lit (Basemap Gen)"
 
     CustomEditor "UnityEditor.Rendering.Universal.TerrainLitShaderGUI"

@@ -127,6 +127,20 @@ namespace Wayfinder.Unity
                 // Surfaces render their sky (stars / Mars gradient); the sealed
                 // Bridge clears to black.
                 xrOrigin.Camera.clearFlags = CameraClearFlags.Skybox;
+                // INVARIANT: atmospherics apply for EVERY world, unconditionally
+                // — shader globals persist across scene unloads, so a world
+                // that skipped this would inherit the previous world's haze.
+                var arrivedPackage = FindPackage(worldId);
+                if (arrivedPackage != null)
+                {
+                    WorldAtmospherics.Apply(arrivedPackage);
+                }
+                else
+                {
+                    // Never silently keep the previous world's haze.
+                    Debug.LogError($"[TravelManager] no WorldPackage for '{worldId}' — atmospherics fall back to vacuum.");
+                    WorldAtmospherics.ApplyVacuum();
+                }
                 ApplySpawnOffset(worldId);
                 wardrobe.Apply(TravelState.OnSurface);
                 worldGrab.SetEnabled(TravelState.OnSurface);
@@ -238,8 +252,10 @@ namespace Wayfinder.Unity
 
         WorldPackage FindPackage(string worldId)
         {
+            // Id, not ToDefinition().Id: a half-authored package in the
+            // catalog must not throw while scanning for a DIFFERENT world.
             foreach (var package in catalog.Packages)
-                if (package != null && package.ToDefinition().Id == worldId) return package;
+                if (package != null && package.Id == worldId) return package;
             return null;
         }
 

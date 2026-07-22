@@ -150,6 +150,45 @@ namespace Wayfinder.Unity.Tests
                 siteId + " must stay at exactly one terrain layer (detail is not a layer)");
         }
 
+        [TestCase("mars-olympus")]
+        [TestCase("mars-valles")]
+        [TestCase("moon-shackleton")]
+        public void Every_Site_Has_Physically_Honest_Atmospherics(string siteId)
+        {
+            // Mars sites carry dust haze (Beer–Lambert density in the real
+            // 2-3 km-visibility band); the Moon is vacuum (haze OFF, zero
+            // cost) with the LRO/Apollo opposition surge instead.
+            var pkg = AssetDatabase.LoadAssetAtPath<WorldPackage>("Assets/Wayfinder/Sites/" + siteId + ".asset");
+            Assert.IsNotNull(pkg, siteId + " package missing");
+            if (siteId.StartsWith("mars"))
+            {
+                Assert.IsTrue(pkg.HazeEnabled, siteId + " Mars must have dust haze");
+                Assert.Greater(pkg.HazeDistanceDensity, 0.0002f, siteId + " haze density implausibly thin");
+                Assert.Less(pkg.HazeDistanceDensity, 0.001f, siteId + " haze density implausibly thick");
+            }
+            else
+            {
+                Assert.IsFalse(pkg.HazeEnabled, siteId + " the Moon has no atmosphere");
+                Assert.Greater(pkg.SurgeStrength, 0.3f, siteId + " lunar opposition surge missing");
+            }
+
+            // Scene fog must be OFF — the shader fork replaces MixFog; both
+            // on = double fog.
+            var savedSetup = UnityEditor.SceneManagement.EditorSceneManager.GetSceneManagerSetup();
+            try
+            {
+                UnityEditor.SceneManagement.EditorSceneManager.OpenScene(
+                    "Assets/Scenes/Site_" + siteId + ".unity",
+                    UnityEditor.SceneManagement.OpenSceneMode.Single);
+                Assert.IsFalse(RenderSettings.fog, siteId + " scene fog on — double-fogs the fork");
+            }
+            finally
+            {
+                if (savedSetup != null && savedSetup.Length > 0)
+                    UnityEditor.SceneManagement.EditorSceneManager.RestoreSceneManagerSetup(savedSetup);
+            }
+        }
+
         [TestCase("Assets/Scenes/Site_mars-olympus.unity")]
         [TestCase("Assets/Scenes/Site_mars-valles.unity")]
         [TestCase("Assets/Scenes/Site_moon-shackleton.unity")]

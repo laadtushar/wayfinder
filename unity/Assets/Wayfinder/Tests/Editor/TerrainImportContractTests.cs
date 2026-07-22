@@ -110,6 +110,46 @@ namespace Wayfinder.Unity.Tests
             Assert.AreEqual(data.size.z, layer.tileSize.y, 1f, siteId + " imagery tiles vertically");
         }
 
+        [TestCase("mars-olympus", "mars_basalt")]
+        [TestCase("mars-valles", "mars_basalt")]
+        [TestCase("moon-shackleton", "moon_anorthosite")]
+        public void Terrain_Material_Carries_NearField_Regolith_Detail(string siteId, string profile)
+        {
+            // Ultra-realism contract (spec: docs/research/2026-07-22-ultrareal-
+            // specs.md): the terrain material runs the forked RegolithLit
+            // shader with the detail keyword on, its profile textures wired,
+            // fade values from meta.json — and the terrain still uses exactly
+            // ONE layer (detail is a fragment fork, not a layer).
+            var mat = AssetDatabase.LoadAssetAtPath<Material>(
+                "Assets/Wayfinder/Materials/Terrain_" + siteId + ".mat");
+            Assert.IsNotNull(mat, siteId + " terrain material missing");
+            Assert.AreEqual("Wayfinder/Terrain/RegolithLit", mat.shader.name,
+                siteId + " not on the regolith fork");
+            Assert.IsTrue(mat.IsKeywordEnabled("_REGOLITH_DETAIL"), siteId + " detail keyword off");
+            Assert.IsNotNull(mat.GetTexture("_DetailAlbedo"), siteId + " no detail albedo");
+            Assert.AreEqual(profile + "_albedo", mat.GetTexture("_DetailAlbedo").name,
+                siteId + " wrong regolith profile");
+            Assert.IsNotNull(mat.GetTexture("_DetailNormal"), siteId + " no detail normal");
+            Assert.IsNotNull(mat.GetTexture("_MacroNoise"), siteId + " no macro noise");
+            Assert.Greater(mat.GetFloat("_FadeEnd"), mat.GetFloat("_FadeStart"),
+                siteId + " fade band inverted");
+            // Without this keyword the fragment's normalTS is discarded and the
+            // detail normal silently no-ops (reviewer blocker #1).
+            Assert.IsTrue(mat.IsKeywordEnabled("_TERRAIN_INSTANCED_PERPIXEL_NORMAL"),
+                siteId + " per-pixel normal keyword off — detail normal dead");
+
+            // Import-settings contract: a Default/sRGB normal map unpacks tilted.
+            var normalImporter = (TextureImporter)AssetImporter.GetAtPath(
+                AssetDatabase.GetAssetPath(mat.GetTexture("_DetailNormal")));
+            Assert.AreEqual(TextureImporterType.NormalMap, normalImporter.textureType,
+                siteId + " detail normal not imported as NormalMap");
+
+            var data = AssetDatabase.LoadAssetAtPath<TerrainData>(
+                "Assets/Wayfinder/Terrain/" + siteId + ".asset");
+            Assert.AreEqual(1, data.terrainLayers.Length,
+                siteId + " must stay at exactly one terrain layer (detail is not a layer)");
+        }
+
         [TestCase("Assets/Scenes/Site_mars-olympus.unity")]
         [TestCase("Assets/Scenes/Site_mars-valles.unity")]
         [TestCase("Assets/Scenes/Site_moon-shackleton.unity")]

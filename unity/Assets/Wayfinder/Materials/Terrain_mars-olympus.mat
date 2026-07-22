@@ -8,10 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Terrain_mars-olympus
-  m_Shader: {fileID: 4800000, guid: 69c1f799e772cb6438f56c23efccb782, type: 3}
+  m_Shader: {fileID: 4800000, guid: 652c5bfac59068f498319fa51dc300c1, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _REGOLITH_DETAIL
+  - _TERRAIN_INSTANCED_PERPIXEL_NORMAL
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -25,6 +27,18 @@ Material:
     m_TexEnvs:
     - _Control:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedo:
+        m_Texture: {fileID: 2800000, guid: b6f0850e08117964d8696f16c2637f7e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormal:
+        m_Texture: {fileID: 2800000, guid: 95b53a957c0f89942bd36a33be5332d9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MacroNoise:
+        m_Texture: {fileID: 2800000, guid: 20d3e025d45cd5e4a836979de17a1186, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -85,20 +99,29 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _DetailNormalScale: 0.9
+    - _DetailStrength: 1
+    - _DetailTileMeters: 0.75
     - _EnableHeightBlend: 0
     - _EnableInstancedPerPixelNormal: 1
+    - _FadeEnd: 22
+    - _FadeStart: 6
     - _HeightTransition: 0
+    - _MacroContrast: 0.18
+    - _MacroTileMeters: 11
     - _Metallic0: 0
     - _Metallic1: 0
     - _Metallic2: 0
     - _Metallic3: 0
     - _NumLayersCount: 1
+    - _RegolithDetail: 1
     - _Smoothness0: 0.5
     - _Smoothness1: 0.5
     - _Smoothness2: 0.5
     - _Smoothness3: 0.5
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DetailUVOrigin: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &6240309253145721343

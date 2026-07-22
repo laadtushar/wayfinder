@@ -60,6 +60,22 @@ namespace Wayfinder.Unity.EditorTools
 
             Color baseColor = ColorField(metaJson, "baseColor");
 
+            // Preflight regolith prerequisites BEFORE any scene mutation — a
+            // throw mid-WireIntoScene would strand a half-wired dirty scene.
+            string preflightProfile = OptionalStringField(metaJson, "regolithProfile");
+            if (!string.IsNullOrEmpty(preflightProfile))
+            {
+                if (Shader.Find("Wayfinder/Terrain/RegolithLit") == null)
+                    throw new System.InvalidOperationException(
+                        siteId + ": meta.json names regolithProfile '" + preflightProfile + "' but Wayfinder/Terrain/RegolithLit is missing.");
+                string rdir = "Assets/Wayfinder/Terrain/Regolith/";
+                if (AssetDatabase.LoadAssetAtPath<Texture2D>(rdir + preflightProfile + "_albedo.png") == null ||
+                    AssetDatabase.LoadAssetAtPath<Texture2D>(rdir + preflightProfile + "_normal.png") == null ||
+                    AssetDatabase.LoadAssetAtPath<Texture2D>(rdir + "macro_noise.png") == null)
+                    throw new System.InvalidOperationException(
+                        siteId + ": regolith textures for profile '" + preflightProfile + "' missing — run tools/gen_regolith.py --all.");
+            }
+
             if (!AssetDatabase.IsValidFolder("Assets/Wayfinder/Terrain"))
                 AssetDatabase.CreateFolder("Assets/Wayfinder", "Terrain");
             string assetPath = "Assets/Wayfinder/Terrain/" + siteId + ".asset";
@@ -75,13 +91,13 @@ namespace Wayfinder.Unity.EditorTools
             if (isNew) AssetDatabase.CreateAsset(data, assetPath);
             else EditorUtility.SetDirty(data);
 
-            WireIntoScene(siteId, data, width, length, baseColor);
+            WireIntoScene(siteId, data, width, length, baseColor, metaJson);
             WireIntoPackage(siteId, data);
             AssetDatabase.SaveAssets();
             Debug.Log($"[TerrainImporter] {siteId}: {resolution}x{resolution}, {width}x{heightRange}x{length} m imported.");
         }
 
-        static void WireIntoScene(string siteId, TerrainData data, float width, float length, Color baseColor)
+        static void WireIntoScene(string siteId, TerrainData data, float width, float length, Color baseColor, string metaJson)
         {
             var savedSetup = UnityEditor.SceneManagement.EditorSceneManager.GetSceneManagerSetup();
             var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(
@@ -117,6 +133,9 @@ namespace Wayfinder.Unity.EditorTools
                 terrainMat = new Material(Shader.Find("Universal Render Pipeline/Terrain/Lit"));
                 AssetDatabase.CreateAsset(terrainMat, matPath);
             }
+            // Everything below is asserted on EVERY import (not just creation)
+            // so existing materials pick up shader/regolith changes on re-run.
+            ApplyRegolithDetail(terrainMat, metaJson, siteId);
             // Real imagery carries its own color — a tinted material would
             // double-apply it. Tint only the solid-color fallback.
             bool hasAlbedo = AssetDatabase.LoadAssetAtPath<Texture2D>(
@@ -214,6 +233,83 @@ namespace Wayfinder.Unity.EditorTools
                     "WorldPackage has no serialized 'terrain' field — renamed without updating the importer (and [FormerlySerializedAs])?");
             prop.objectReferenceValue = data;
             so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        /// Near-field regolith detail (spec: docs/research/2026-07-22-
+        /// ultrareal-specs.md). No regolithProfile in meta.json = stock
+        /// TerrainLit, keyword off, zero cost. With a profile: swap to the
+        /// forked shader and wire the detail textures + fade values — all
+        /// data-driven, re-asserted every import.
+        static void ApplyRegolithDetail(Material terrainMat, string metaJson, string siteId)
+        {
+            string profile = OptionalStringField(metaJson, "regolithProfile");
+            if (string.IsNullOrEmpty(profile))
+            {
+                // Full revert, no residue: stock shader, keyword off, texture
+                // slots nulled so dead regolith PNGs never ride into a build.
+                var stock = Shader.Find("Universal Render Pipeline/Terrain/Lit");
+                if (stock == null)
+                    throw new System.InvalidOperationException(siteId + ": URP Terrain/Lit shader missing?");
+                terrainMat.shader = stock;
+                terrainMat.DisableKeyword("_REGOLITH_DETAIL");
+                terrainMat.SetFloat("_RegolithDetail", 0f);
+                terrainMat.SetTexture("_DetailAlbedo", null);
+                terrainMat.SetTexture("_DetailNormal", null);
+                terrainMat.SetTexture("_MacroNoise", null);
+                return;
+            }
+
+            var regolithShader = Shader.Find("Wayfinder/Terrain/RegolithLit");
+            if (regolithShader == null)
+                throw new System.InvalidOperationException(
+                    siteId + ": meta.json names regolithProfile '" + profile + "' but Wayfinder/Terrain/RegolithLit is missing.");
+            terrainMat.shader = regolithShader;
+
+            string dir = "Assets/Wayfinder/Terrain/Regolith/";
+            var albedo = AssetDatabase.LoadAssetAtPath<Texture2D>(dir + profile + "_albedo.png");
+            var normal = AssetDatabase.LoadAssetAtPath<Texture2D>(dir + profile + "_normal.png");
+            var macro = AssetDatabase.LoadAssetAtPath<Texture2D>(dir + "macro_noise.png");
+            if (albedo == null || normal == null || macro == null)
+                throw new System.InvalidOperationException(
+                    siteId + ": regolith textures for profile '" + profile + "' missing — run tools/gen_regolith.py --all.");
+
+            terrainMat.EnableKeyword("_REGOLITH_DETAIL");
+            // Without per-pixel normal the fragment's normalTS is DISCARDED and
+            // the detail normal is a silent no-op (terrain drawInstanced=true
+            // makes this keyword valid; TerrainLitShaderGUI normally sets it,
+            // but programmatic materials never run that GUI).
+            terrainMat.EnableKeyword("_TERRAIN_INSTANCED_PERPIXEL_NORMAL");
+            terrainMat.SetFloat("_EnableInstancedPerPixelNormal", 1f);
+            terrainMat.SetFloat("_RegolithDetail", 1f);
+            terrainMat.SetTexture("_DetailAlbedo", albedo);
+            terrainMat.SetTexture("_DetailNormal", normal);
+            terrainMat.SetTexture("_MacroNoise", macro);
+            // Recenter detail UVs on the site's spawn point: at ~10 km from
+            // origin fp32 UV precision is ~1 texel and the near-field detail
+            // crawls with head motion (Shackleton spawns on the rim, far out).
+            var pkgForOrigin = AssetDatabase.LoadAssetAtPath<WorldPackage>("Assets/Wayfinder/Sites/" + siteId + ".asset");
+            Vector2 spawn = pkgForOrigin != null ? pkgForOrigin.SpawnOffset : Vector2.zero;
+            terrainMat.SetVector("_DetailUVOrigin", new Vector4(spawn.x, spawn.y, 0f, 0f));
+
+            terrainMat.SetFloat("_DetailTileMeters", OptionalFloatField(metaJson, "detailTileMeters", 0.75f));
+            terrainMat.SetFloat("_MacroTileMeters", OptionalFloatField(metaJson, "macroTileMeters", 11f));
+            terrainMat.SetFloat("_FadeStart", OptionalFloatField(metaJson, "detailFadeStart", 6f));
+            terrainMat.SetFloat("_FadeEnd", OptionalFloatField(metaJson, "detailFadeEnd", 22f));
+            terrainMat.SetFloat("_DetailStrength", OptionalFloatField(metaJson, "detailStrength", 1f));
+        }
+
+        static string OptionalStringField(string json, string field)
+        {
+            var m = System.Text.RegularExpressions.Regex.Match(json, "\"" + field + "\"\\s*:\\s*\"([^\"]*)\"");
+            return m.Success ? m.Groups[1].Value : null;
+        }
+
+        static float OptionalFloatField(string json, string field, float fallback)
+        {
+            var m = System.Text.RegularExpressions.Regex.Match(json, "\"" + field + "\"\\s*:\\s*([0-9.]+)");
+            return m.Success
+                ? float.Parse(m.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture)
+                : fallback;
         }
 
         static int IntField(string json, string field) => (int)FloatField(json, field);

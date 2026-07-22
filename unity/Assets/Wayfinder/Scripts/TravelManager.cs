@@ -23,6 +23,8 @@ namespace Wayfinder.Unity
         [SerializeField] private WorldGrabController worldGrab;
         [SerializeField] private FieldLogPanel fieldLogPanel;
         [SerializeField] private SuitAudio suitAudio;
+        [SerializeField] private BootPrints bootPrints;
+        [SerializeField] private PalmCompass palmCompass;
         [Tooltip("The rig's locomotion root â€” disabled during warp transitions so a queued teleport/turn can never apply across the rig reset.")]
         [SerializeField] private GameObject locomotionRoot;
 
@@ -195,6 +197,8 @@ namespace Wayfinder.Unity
                 wardrobe.Apply(TravelState.OnBridge);
                 worldGrab.SetEnabled(TravelState.OnBridge);
                 if (suitAudio != null) suitAudio.Apply(TravelState.OnBridge, false, null);
+                if (bootPrints != null) bootPrints.SetActive(false);
+                if (palmCompass != null) palmCompass.Disarm();
                 bridgeVisualsRoot.SetActive(true);
                 return true;
             }));
@@ -251,6 +255,16 @@ namespace Wayfinder.Unity
                 var go = new GameObject("PoiSystem");
                 _poiSystem = go.AddComponent<PoiSystem>();
                 _poiSystem.Build(PoiSet.Parse(package.PoiData.text), terrain, _fieldLog, xrOrigin.Camera.transform);
+                // Presence instruments: boot-print trail on, palm compass armed
+                // with this site's POIs pointing at the nearest undiscovered one.
+                if (bootPrints != null) bootPrints.SetActive(true);
+                if (palmCompass != null)
+                {
+                    var pos = new System.Collections.Generic.List<Vector3>();
+                    var ids = new System.Collections.Generic.List<string>();
+                    _poiSystem.CollectPoiTargets(pos, ids);
+                    palmCompass.Arm(pos, ids, _fieldLog);
+                }
             }
             catch (System.Exception e)
             {

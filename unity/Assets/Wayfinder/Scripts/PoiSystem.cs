@@ -34,6 +34,18 @@ namespace Wayfinder.Unity
         public int MarkerCount => _markers.Count;
         public int RevealedCount { get; private set; }
 
+        /// World positions + ids of every placed POI, for the palm compass to
+        /// point at the nearest undiscovered one. Fills the passed lists.
+        public void CollectPoiTargets(List<Vector3> positions, List<string> ids)
+        {
+            positions.Clear(); ids.Clear();
+            foreach (var m in _markers)
+            {
+                positions.Add(m.Root.position);
+                ids.Add(m.Poi.id);
+            }
+        }
+
         public void Build(PoiSet set, Terrain terrain, FieldLog log, Transform head)
         {
             _log = log;

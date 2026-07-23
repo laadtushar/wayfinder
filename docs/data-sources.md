@@ -138,4 +138,31 @@ peer-reviewed Science — Mangold et al. 2021 delta, Farley et al. 2022 igneous
 floor, Seitah/Rochette samples) — see unity/Assets/Wayfinder/POI/mars-jezero.json.
 Replace the DEM with a real HiRISE/CTX DTM when a tile is available.
 
+## Bridge nav readout — world stats (#54)
+
+The bridge holo readout (`WorldStatsReadout`, driven by the engine-free
+`Wayfinder.Core.WorldFactSheet`) shows each hovered world's real physical
+stats. Sources, per field:
+
+- **Surface gravity** — NASA/NSSDCA planetary fact sheets: Moon 1.62 m/s²,
+  Mars 3.72 m/s². Matches the `WorldPackage.surfaceGravity` authored per site
+  (the readout cross-checks the two and warns on mismatch).
+- **Solar day** — Moon synodic day 29.53 Earth days; Mars sol 24 h 39 m
+  (24.66 h). NASA fact sheets.
+- **Distance** — Moon 384,400 km mean from Earth (NASA); Mars 1.52 AU from the
+  Sun (227.9 M km, NASA Mars fact sheet).
+- **Mean surface temperature** — representative real values, not live
+  measurements, and flagged as such in the fact notes:
+  - Moon (Sea of Tranquillity, equatorial): ~ -20 °C mean, +120 / -130 °C
+    day-night swing (NASA).
+  - Moon (Shackleton, south pole): permanently shadowed crater floor near
+    -230 °C — among the coldest places measured in the solar system (LRO
+    Diviner; Paige et al. 2010, Science 330, 479).
+  - Mars global mean ~ -63 °C (NASA Mars fact sheet). Per-site approximations:
+    Jezero crater floor -55 °C (-125 to +20 across a sol); Olympus Mons ~22 km
+    summit ~ -80 °C (thin, cold air); Valles Marineris canyon floor ~ -50 °C
+    (deeper, warmer). **Honesty:** the per-site Martian temperatures are
+    illustrative approximations from altitude/latitude, not measured site
+    means.
+
 **Earth in the sky (#37):** `EarthSky` object in `Site_moon-tranquillity.unity`, textured with `Assets/Wayfinder/Sky/earth_epic.png` (a full-disc sunlit Earth image, NASA DSCOVR/EPIC style, public domain; pre-existing repo asset — the exact EPIC frame/date is `[unverified]`). Placed at its **real fixed position** from Tranquility Base: the Moon is tidally locked, so from (0.674N, 23.473E) the sub-Earth point (0,0) sits ~23.5deg from zenith => **elevation ~66.5deg, azimuth ~268deg** (nearly due west, a hair south), **angular size ~2deg** (about 4x the Moon as seen from Earth). A double-sided unlit disc at 850 m (inside the 1000 m runtime far clip), oriented to face the player; no billboard script (parallax across the 2 m play space is ~0.1deg). Honesty: shown ~**full** (EPIC full-disc texture) rather than the exact gibbous phase Earth showed at the Apollo 11 epoch. Deliberately **NOT** added to moon-shackleton: from the lunar south pole Earth sits on/below the horizon (invisible from the crater floor), so placing it there would be physically wrong.

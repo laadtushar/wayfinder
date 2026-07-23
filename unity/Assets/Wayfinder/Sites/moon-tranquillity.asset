@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: moon-tranquillity
   m_EditorClassIdentifier: Wayfinder.Unity::Wayfinder.Unity.WorldPackage
   id: moon-tranquillity
-  displayName: "Moon \xE2\u20AC\u201D Tranquility Base (Apollo 11)"
+  displayName: "Moon \u2014 Tranquility Base (Apollo 11)"
   sceneName: Site_moon-tranquillity
   surfaceGravity: 1.62
   spawnOffset: {x: 22, y: 28}

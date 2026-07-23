@@ -32,3 +32,6 @@ unity/Assets/Plugins/Roslyn/
 
 # Unity crash-recovery scene backups
 unity/Assets/_Recovery/
+
+# Headless bake logs
+bake*.log

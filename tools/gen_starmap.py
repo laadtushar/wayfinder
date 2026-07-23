@@ -61,6 +61,23 @@ STARS = [
 
 W, H = 4096, 2048
 
+# Real asterism figures — standard star-to-star connections, every endpoint a
+# catalogued star already in STARS[]. Faint lines only (read when sought).
+ASTERISMS = [
+    # Orion: shoulders, belt, feet
+    ("Betelgeuse", "Bellatrix"), ("Betelgeuse", "Alnitak"), ("Bellatrix", "Mintaka"),
+    ("Alnitak", "Alnilam"), ("Alnilam", "Mintaka"), ("Alnitak", "Saiph"), ("Mintaka", "Rigel"),
+    # Ursa Major / the Big Dipper: bowl + handle
+    ("Dubhe", "Merak"), ("Merak", "Phecda"), ("Phecda", "Megrez"), ("Megrez", "Dubhe"),
+    ("Megrez", "Alioth"), ("Alioth", "Mizar"), ("Mizar", "Alkaid"),
+    # Cassiopeia (the W)
+    ("Caph", "Schedar"), ("Schedar", "GammaCas"), ("GammaCas", "Ruchbah"),
+    # Crux (Southern Cross — the two arms we have stars for)
+    ("Acrux", "Gacrux"), ("Mimosa", "Gacrux"),
+    # Scorpius tail toward the stinger
+    ("Antares", "Sargas"), ("Sargas", "Shaula"),
+]
+
 
 def bv_to_rgb(bv):
     """Approximate a star's RGB tint from its B-V colour index."""
@@ -134,9 +151,45 @@ def add_milky_way(img):
         img[..., c] += intensity * tint[c]
 
 
+def add_constellations(img):
+    """Bake faint asterism lines between the catalogued stars. Kept very dim and
+    blue-white so they read only when looked for and never dominate the stars;
+    wraps across the RA seam via the shorter path."""
+    pos = {name: (ra, dec) for name, ra, dec, mag, bv in STARS}
+    col = (0.55, 0.70, 1.00)
+    amp = 0.28
+    # ~3-4 px soft kernel so the thin lines survive skybox minification without
+    # dominating the stars.
+    kernel = []
+    for dx in range(-2, 3):
+        for dy in range(-2, 3):
+            r = (dx * dx + dy * dy) ** 0.5
+            if r <= 2.2:
+                kernel.append((dx, dy, max(0.0, 1.0 - r / 2.4)))
+    for a, b in ASTERISMS:
+        if a not in pos or b not in pos:
+            continue
+        x0, y0 = radec_to_xy(*pos[a])
+        x1, y1 = radec_to_xy(*pos[b])
+        if abs(x1 - x0) > W / 2:                       # take the shorter way round
+            x1 += -W if x1 > x0 else W
+        steps = int(max(abs(x1 - x0), abs(y1 - y0))) + 1
+        for i in range(steps + 1):
+            f = i / steps
+            xi = int(round(x0 + (x1 - x0) * f)) % W
+            yi = int(round(y0 + (y1 - y0) * f))
+            for dx, dy, wt in kernel:
+                xj, yj = (xi + dx) % W, yi + dy
+                if 0 <= yj < H:
+                    img[yj, xj, 0] = min(1.0, img[yj, xj, 0] + amp * col[0] * wt)
+                    img[yj, xj, 1] = min(1.0, img[yj, xj, 1] + amp * col[1] * wt)
+                    img[yj, xj, 2] = min(1.0, img[yj, xj, 2] + amp * col[2] * wt)
+
+
 def main():
     img = np.zeros((H, W, 3), np.float64)
     add_milky_way(img)
+    add_constellations(img)
 
     # Faint, NON-catalogued procedural dust for density (flagged; deterministic).
     rng = np.random.default_rng(42)

@@ -113,7 +113,12 @@ narrow gaussian in galactic latitude with a broad bulge lobe toward the galactic
 centre in Sagittarius (RA 266.4, Dec -28.9), mottled by smooth value-noise for
 clumps + dark rifts. It is procedural (not a photographic panorama) but
 correctly oriented relative to the constellations, and kept faint so it never
-washes out the catalogued stars.
+washes out the catalogued stars. **Constellation lines (#49):** faint blue-white
+asterism figures are baked between the catalogued stars for Orion, Ursa Major
+(the Big Dipper), Cassiopeia, Crux, and Scorpius. The star positions are real
+(catalogued); the line lists are the standard real star-to-star asterism
+connections (which star joins which) — every endpoint is a star already in the
+generator's list. Kept dim so they read only when sought.
 
 ## mars-jezero (Jezero Crater / Perseverance) — #45
 

@@ -24,6 +24,7 @@ namespace Wayfinder.Unity.Scatter
         int[,] _count;
         RenderParams[,] _rp;   // per (arch,lod); its matProps carries the geology tint
         static readonly int ID_BaseColor = Shader.PropertyToID("_BaseColor");
+        static readonly int ID_GroundY = Shader.PropertyToID("_GroundY");
         int _archCount;
 
         void Awake()
@@ -45,6 +46,11 @@ namespace Wayfinder.Unity.Scatter
                 // _BaseColor uniform on the RenderParams' matProps.
                 var mpb = new MaterialPropertyBlock();
                 mpb.SetColor(ID_BaseColor, set.Archetypes[a].Tint);
+                // Object-space Y where this archetype emerges from the regolith:
+                // the baker embeds by colliderRadius * scale * [0.15..0.30], and
+                // object space is scale-invariant, so the visible waterline sits
+                // at ~colliderRadius * 0.22. The rock shader darkens just above it.
+                mpb.SetFloat(ID_GroundY, set.Archetypes[a].ColliderRadius * 0.22f);
                 for (int l = 0; l < 3; l++)
                 {
                     _mtx[a, l] = new Matrix4x4[BatchMax];

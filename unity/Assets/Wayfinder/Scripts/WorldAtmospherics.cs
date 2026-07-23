@@ -29,6 +29,10 @@ namespace Wayfinder.Unity
         {
             Shader.SetGlobalFloat(ID_Enable, 0f);
             Shader.SetGlobalFloat(ID_SurgeStr, 0f);
+            // Neutral grey so the rock dust-skirt (which reads _WFFogColor as the
+            // ground tint) never inherits a previous world's colour on a
+            // package-less world.
+            Shader.SetGlobalColor(ID_FogColor, new Color(0.5f, 0.5f, 0.5f, 1f));
         }
 
         public static void Apply(WorldPackage w)

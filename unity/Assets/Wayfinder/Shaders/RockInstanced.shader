@@ -71,6 +71,7 @@ Shader "Wayfinder/RockInstanced"
 
         CBUFFER_START(UnityPerMaterial)
             half4 _BaseColor;
+            half  _GroundY;   // object-space Y where this archetype emerges from the regolith (per-batch)
         CBUFFER_END
 
         // MPB instancing cbuffer (F3). DrawMeshInstanced/RenderMeshInstanced +
@@ -137,6 +138,7 @@ Shader "Wayfinder/RockInstanced"
                 float4 positionCS : SV_POSITION;
                 float3 positionWS : TEXCOORD0; // for the derivative flat normal
                 half4  aoFog      : TEXCOORD1; // rgb: baked AO, a: Wayfinder haze factor
+                half   baseY      : TEXCOORD2; // object-space Y — contact-shadow / dust-skirt at the base
                 UNITY_VERTEX_INPUT_INSTANCE_ID
                 UNITY_VERTEX_OUTPUT_STEREO
             };
@@ -153,6 +155,7 @@ Shader "Wayfinder/RockInstanced"
                 o.positionWS = positionWS;
                 o.aoFog.rgb  = (half3)v.color.rgb;
                 o.aoFog.a    = WayfinderFogFactor(positionWS); // per-vertex haze
+                o.baseY      = (half)v.positionOS.y;           // rock-local height (bottom is lowest)
                 return o;
             }
 
@@ -188,9 +191,27 @@ Shader "Wayfinder/RockInstanced"
                 // shade (the fog color doubles as the sky ambient); the floor
                 // keeps airless worlds from going fully black too.
                 half3 ao = lerp((half3)0.55, (half3)1.0, i.aoFog.rgb);
+
+                // Contact shadow: the rock's base is occluded by the regolith it
+                // sits in. The VISIBLE waterline is at object-space Y ~= _GroundY
+                // (the emergence line — everything below is embedded and z-hidden
+                // by the terrain). Darken a band just ABOVE that line, fading up,
+                // + downward-facing undersides, so the rock reads as grounded.
+                half emerge = i.baseY - _GroundY;                           // <0 buried (occluded), >0 visible
+                half baseBand = saturate(1.0h - emerge * 5.0h);            // 1 at the waterline -> 0 by ~0.2 above
+                half underside = saturate(-nWS.y);                          // faces pointing into the ground
+                half contact = saturate(baseBand * (0.6h + 0.4h * underside));
+                ao *= (half3)lerp(1.0h, 0.45h, contact);                    // occlude ambient at the contact
+
+                // Dust skirt: fine regolith piles warm-light against the base —
+                // lerp the tint toward the sky-lit ground color right at the rim.
+                half skirt = saturate(baseBand - 0.4h) * 0.6h;
+                half3 dust = max((half3)_WFFogColor.rgb, (half3)0.2) * 0.9h;
+                half3 tinted = lerp(tint, dust, skirt);
+
                 half3 skyFill = max((half3)_WFFogColor.rgb * 0.65h, (half3)0.14);
                 half3 lit = mainLight.color * ndl + max(amb, skyFill);
-                half3 col = tint * ao * lit;
+                half3 col = tinted * ao * lit;
 
                 col = WayfinderApplyFog(col, i.aoFog.a);                 // dissolve into the horizon haze
                 return half4(col, 1.0h);

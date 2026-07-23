@@ -29,7 +29,15 @@ namespace Wayfinder.Core.Companion
             {
                 sb.Append("The vessel is currently docked at the bridge between worlds; ")
                   .Append("no surface is loaded. If asked about a specific place, invite ")
-                  .Append("the traveler to choose a destination on the viewscreen and warp there.\n\n");
+                  .Append("the traveler to choose a destination on the viewscreen and warp there.\n");
+                if (context != null && context.Expedition.Count > 0)
+                {
+                    sb.Append("Expedition log so far (worlds and discoveries):\n");
+                    foreach (var w in context.Expedition)
+                        sb.Append("- ").Append(w.WorldName).Append(": ")
+                          .Append(w.Discovered).Append(" of ").Append(w.Total).Append(" logged\n");
+                }
+                sb.Append('\n');
             }
             else
             {

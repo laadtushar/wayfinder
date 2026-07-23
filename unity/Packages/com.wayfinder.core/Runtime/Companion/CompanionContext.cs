@@ -24,6 +24,22 @@ namespace Wayfinder.Core.Companion
         }
     }
 
+    /// One world's discovery tally, for the bridge "expedition so far" overview
+    /// (what the companion reports when docked between worlds).
+    public class CompanionWorldTally
+    {
+        public string WorldName { get; }
+        public int Discovered { get; }
+        public int Total { get; }
+
+        public CompanionWorldTally(string worldName, int discovered, int total)
+        {
+            WorldName = worldName;
+            Discovered = discovered;
+            Total = total;
+        }
+    }
+
     /// Everything the bridge companion is allowed to know at one moment,
     /// assembled from the real World Package + POI records + the field log.
     /// Engine-free and immutable so it is trivially testable and can be handed
@@ -39,17 +55,24 @@ namespace Wayfinder.Core.Companion
         public int DiscoveredCount { get; }
         public int TotalCount { get; }
 
+        /// Cross-world expedition tally — populated when docked at the bridge so
+        /// the companion can answer "what have I found?" across every world.
+        /// Empty on a surface (the per-POI Pois list carries that detail).
+        public IReadOnlyList<CompanionWorldTally> Expedition { get; }
+
         public bool AtBridge => string.IsNullOrEmpty(WorldId);
 
         public CompanionContext(
             string worldId, string worldName, float surfaceGravity, bool onSurface,
-            IReadOnlyList<CompanionPoi> pois)
+            IReadOnlyList<CompanionPoi> pois,
+            IReadOnlyList<CompanionWorldTally> expedition = null)
         {
             WorldId = worldId;
             WorldName = worldName;
             SurfaceGravity = surfaceGravity;
             OnSurface = onSurface;
             Pois = pois ?? System.Array.Empty<CompanionPoi>();
+            Expedition = expedition ?? System.Array.Empty<CompanionWorldTally>();
             TotalCount = Pois.Count;
             int discovered = 0;
             for (int i = 0; i < Pois.Count; i++)

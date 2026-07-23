@@ -31,17 +31,39 @@ namespace Wayfinder.Core.Companion
             return Task.FromResult(Answer(context, question));
         }
 
+        const string DockedPrompt =
+            "We're docked at the bridge between worlds. Choose a destination on the " +
+            "viewscreen and I'll tell you about it once we've warped in.";
+
         static string Answer(CompanionContext context, string question)
         {
-            if (context == null || context.AtBridge)
-                return "We're docked at the bridge between worlds. Choose a destination " +
-                       "on the viewscreen and I'll tell you about it once we've warped in.";
+            if (context == null) return DockedPrompt;
+            if (context.AtBridge)
+                return context.Expedition.Count > 0 ? ExpeditionSummary(context) : DockedPrompt;
 
             var match = BestDiscoveredMatch(context, question);
             if (match != null)
                 return match.Fact;
 
             return Overview(context);
+        }
+
+        /// Cross-world "expedition so far" for the docked companion.
+        static string ExpeditionSummary(CompanionContext c)
+        {
+            int found = 0, total = 0;
+            foreach (var w in c.Expedition) { found += w.Discovered; total += w.Total; }
+            if (found == 0)
+                return "Your expedition log is empty — pick a destination on the viewscreen " +
+                       "and let's make the first discovery.";
+
+            var sb = new StringBuilder();
+            sb.Append("Your expedition so far: ").Append(found).Append(" of ").Append(total)
+              .Append(" points of interest logged across ").Append(c.Expedition.Count)
+              .Append(c.Expedition.Count == 1 ? " world." : " worlds.");
+            foreach (var w in c.Expedition)
+                sb.Append(' ').Append(w.WorldName).Append(' ').Append(w.Discovered).Append('/').Append(w.Total).Append('.');
+            return sb.ToString();
         }
 
         /// Score each logged POI by how many of its title words (minus stopwords)

@@ -15,6 +15,8 @@ namespace Wayfinder.Unity.Companion
     public sealed class BridgeCompanion : MonoBehaviour
     {
         [SerializeField] private TravelManager travel;
+        [Tooltip("For the docked 'expedition so far' summary (per-world discovery tallies).")]
+        [SerializeField] private WorldCatalog catalog;
 
         [Header("Gemini backend (optional — see docs/companion-setup.md)")]
         [Tooltip("Gemini flash model id. [unverified] confirm against your Firebase console's available models.")]
@@ -54,7 +56,7 @@ namespace Wayfinder.Unity.Companion
         {
             var world = travel.CurrentWorld;                 // null on the bridge
             if (world == null)
-                return new CompanionContext(null, "the bridge", 0f, false, null);
+                return new CompanionContext(null, "the bridge", 0f, false, null, BuildExpedition());
 
             var pois = new List<CompanionPoi>();
             var package = travel.CurrentPackage;
@@ -75,6 +77,38 @@ namespace Wayfinder.Unity.Companion
 
             bool onSurface = travel.State == TravelState.OnSurface;
             return new CompanionContext(world.Id, world.DisplayName, world.SurfaceGravity, onSurface, pois);
+        }
+
+        /// Cross-world discovery tally for the docked companion, computed from the
+        /// catalog's POI counts + the session field log (reuses the tested
+        /// FieldLogProgress prefix accounting). Empty if no catalog is wired.
+        System.Collections.Generic.List<CompanionWorldTally> BuildExpedition()
+        {
+            var list = new System.Collections.Generic.List<CompanionWorldTally>();
+            if (catalog == null) return list;
+
+            var order = new System.Collections.Generic.List<string>();
+            var totals = new System.Collections.Generic.Dictionary<string, int>();
+            var names = new System.Collections.Generic.Dictionary<string, string>();
+            foreach (var pkg in catalog.Packages)
+            {
+                if (pkg == null) continue;
+                var def = pkg.ToDefinition();
+                order.Add(def.Id);
+                names[def.Id] = def.DisplayName;
+                int count = 0;
+                if (pkg.PoiData != null)
+                {
+                    try { count = PoiSet.Parse(pkg.PoiData.text).pois.Count; }
+                    catch (System.Exception e) { Debug.LogWarning($"[Companion] POI count failed for '{def.Id}': {e.Message}"); }
+                }
+                totals[def.Id] = count;
+            }
+
+            foreach (var w in FieldLogProgress.PerWorld(travel.FieldLog.DiscoveredIds, order, totals))
+                list.Add(new CompanionWorldTally(
+                    names.TryGetValue(w.WorldId, out var n) ? n : w.WorldId, w.Discovered, w.Total));
+            return list;
         }
     }
 }

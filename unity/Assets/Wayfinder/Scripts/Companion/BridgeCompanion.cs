@@ -24,6 +24,10 @@ namespace Wayfinder.Unity.Companion
         [Tooltip("App Check debug token for the editor / a device without Play Integrity. Leave empty in production.")]
         [SerializeField] private string appCheckDebugToken = "";
 
+        [Header("Sky naming — 'what am I looking at?'")]
+        [Tooltip("The head/eye camera the gaze is read from. Falls back to Camera.main.")]
+        [SerializeField] private Camera headCamera;
+
         readonly StubCompanionProvider _stub = new StubCompanionProvider();
         CompanionService _service;
 
@@ -49,7 +53,84 @@ namespace Wayfinder.Unity.Companion
         /// Ask the companion a question, grounded in the current world + field log.
         public Task<string> AskAsync(string question, CancellationToken cancellationToken = default)
         {
+            // "What am I looking at?" is answered locally from the head's gaze —
+            // it needs the live camera direction, not a text backend. Always
+            // grounded, always offline.
+            if (IsSkyQuestion(question))
+                return Task.FromResult(AnswerSky());
             return _service.AskAsync(BuildContext(), question, cancellationToken);
+        }
+
+        /// True for a gaze/sky-identification question ("what am I looking at?",
+        /// "name that constellation", "what's that in the sky?").
+        internal static bool IsSkyQuestion(string q)
+        {
+            if (string.IsNullOrEmpty(q)) return false;
+            q = q.ToLowerInvariant();
+            return q.Contains("looking at")
+                || q.Contains("what's that") || q.Contains("whats that") || q.Contains("what is that")
+                || q.Contains("name that") || q.Contains("constellation")
+                || (q.Contains("what") && q.Contains("sky"));
+        }
+
+        /// Names the nearest bright sky feature to where the head is pointed: a
+        /// constellation (airless worlds only — a daytime haze washes stars out),
+        /// the Sun, or Earth where it hangs. Directions come from the live scene
+        /// (the star map's fixed RA/Dec, the sun light, the Earth disc); the
+        /// nearest-by-angle pick is the engine-free, unit-tested SkyGuide.
+        string AnswerSky()
+        {
+            if (travel.State != TravelState.OnSurface)
+                return "We're aboard the bridge — warp down to a surface and I'll read the sky with you.";
+
+            var cam = headCamera != null ? headCamera : Camera.main;
+            if (cam == null)
+                return "I can't tell where you're looking right now.";
+            Vector3 f = cam.transform.forward;
+            var gaze = new SkyVec(f.x, f.y, f.z);
+
+            var package = travel.CurrentPackage;
+            bool airless = package == null || !package.HazeEnabled;
+
+            var features = new List<SkyFeature>();
+            if (airless)
+                foreach (var c in SkyGuide.Constellations) features.Add(c);
+
+            // The Sun — the direction its light arrives FROM.
+            var sun = RenderSettings.sun != null ? RenderSettings.sun : FindDirectionalLight();
+            if (sun != null)
+            {
+                Vector3 s = -sun.transform.forward;
+                string sunFact = airless
+                    ? "That's the Sun — the same star as home, but with no air to scatter its light it burns in a black daytime sky, and every shadow is knife-sharp."
+                    : "That's the Sun — smaller and paler than from Earth, dimmed to a wan butterscotch disc by the dust always hanging in the Martian air.";
+                features.Add(new SkyFeature("the Sun", sunFact, new SkyVec(s.x, s.y, s.z)));
+            }
+
+            // Earth — only where it actually hangs in the sky (the disc object the
+            // surface scene places; e.g. fixed high over Tranquillity).
+            var earthGo = GameObject.Find("EarthSky");
+            if (earthGo != null)
+            {
+                Vector3 e = earthGo.transform.position - cam.transform.position;
+                features.Add(new SkyFeature("Earth",
+                    "That's Earth — the whole of home hanging in the black, small enough to hide behind your thumb. Everyone who ever lived, save a couple dozen, is on that one blue dot.",
+                    new SkyVec(e.x, e.y, e.z)));
+            }
+
+            var hit = SkyGuide.NearestFeature(features, gaze, 24f);
+            if (hit != null) return hit.Fact;
+
+            return airless
+                ? "Just open black sky and scattered stars that way — nothing named in your line of sight. Sweep around and I'll call out what I know."
+                : "The daytime sky here is a dusty butterscotch — the stars are drowned out until dusk. Look for the Sun, small and pale through the haze.";
+        }
+
+        static Light FindDirectionalLight()
+        {
+            foreach (var l in FindObjectsByType<Light>(FindObjectsSortMode.None))
+                if (l.type == LightType.Directional) return l;
+            return null;
         }
 
         CompanionContext BuildContext()

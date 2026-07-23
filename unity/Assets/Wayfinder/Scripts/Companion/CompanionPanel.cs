@@ -22,9 +22,10 @@ namespace Wayfinder.Unity.Companion
         // (label shown on the button, question sent to the companion)
         static readonly (string label, string question)[] Prompts =
         {
-            ("Where am I?",        "where am I?"),
-            ("What have I found?", "what have I found?"),
-            ("What's out there?",  "what is still out there?"),
+            ("Where am I?",         "where am I?"),
+            ("What have I found?",  "what have I found?"),
+            ("What's out there?",   "what is still out there?"),
+            ("What am I seeing?",   "what am I looking at?"),
         };
 
         const float PanelW = 1.4f, PanelH = 0.9f;

@@ -35,3 +35,6 @@ unity/Assets/_Recovery/
 
 # Headless bake logs
 bake*.log
+
+# Scratch verification captures (frame grabs from the MCP bridge)
+captures/

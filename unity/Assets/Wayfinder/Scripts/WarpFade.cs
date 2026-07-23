@@ -27,9 +27,14 @@ namespace Wayfinder.Unity
         [SerializeField] private Color flashColor = new Color(0.70f, 0.85f, 1.00f);
         [Tooltip("Tint at peak / during the hold — a clean bright wash.")]
         [SerializeField] private Color peakColor = new Color(1.00f, 1.00f, 1.00f);
+        [Header("Audio")]
+        [Tooltip("Warp SFX — sub-bass swell + arrival chime (tools/gen_warp_audio.py).")]
+        [SerializeField] private AudioClip warpClip;
+        [Range(0f, 1f)][SerializeField] private float warpVolume = 0.6f;
 
         static readonly int ColorId = Shader.PropertyToID("_BaseColor");
         MaterialPropertyBlock _block;
+        AudioSource _audio;
 
         public bool IsFullyBright { get; private set; }
 
@@ -40,6 +45,14 @@ namespace Wayfinder.Unity
             _block = new MaterialPropertyBlock();
             SetColor(peakColor, 0f);
             fadeQuad.gameObject.SetActive(false);
+
+            // 2D (non-positional) warp SFX source on the rig — heard clearly
+            // regardless of head pose.
+            _audio = GetComponent<AudioSource>();
+            if (_audio == null) _audio = gameObject.AddComponent<AudioSource>();
+            _audio.playOnAwake = false;
+            _audio.loop = false;
+            _audio.spatialBlend = 0f;
         }
 
         /// Flash to full bright, hold (at least minHold, and until the caller's
@@ -47,6 +60,7 @@ namespace Wayfinder.Unity
         public IEnumerator FadeAcross(System.Func<bool> workIsDone)
         {
             fadeQuad.gameObject.SetActive(true);
+            if (warpClip != null && _audio != null) _audio.PlayOneShot(warpClip, warpVolume);
 
             // Fast eased flash up (ease-out cubic: quick rise, gentle settle),
             // colour warping from energy-blue toward the clean peak wash.

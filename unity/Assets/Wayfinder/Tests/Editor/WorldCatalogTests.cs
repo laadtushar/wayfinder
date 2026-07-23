@@ -21,12 +21,13 @@ namespace Wayfinder.Unity.Tests
 
             WorldRegistry registry = catalog.BuildRegistry();
 
-            // Four worlds shipped (the fourth, Apollo 11, proves worlds-as-data).
-            Assert.AreEqual(4, registry.All.Count);
+            // Five worlds shipped (the fifth, Jezero, again proves worlds-as-data).
+            Assert.AreEqual(5, registry.All.Count);
             Assert.IsNotNull(registry.GetById("mars-olympus"));
             Assert.IsNotNull(registry.GetById("mars-valles"));
             Assert.IsNotNull(registry.GetById("moon-shackleton"));
             Assert.IsNotNull(registry.GetById("moon-tranquillity"));
+            Assert.IsNotNull(registry.GetById("mars-jezero"));
         }
 
         [Test]
@@ -50,6 +51,7 @@ namespace Wayfinder.Unity.Tests
             Assert.AreEqual(3.72f, registry.GetById("mars-valles").SurfaceGravity, 0.001f);
             Assert.AreEqual(1.62f, registry.GetById("moon-shackleton").SurfaceGravity, 0.001f);
             Assert.AreEqual(1.62f, registry.GetById("moon-tranquillity").SurfaceGravity, 0.001f);
+            Assert.AreEqual(3.72f, registry.GetById("mars-jezero").SurfaceGravity, 0.001f);
         }
 
         [Test]

@@ -1,0 +1,85 @@
+{
+  "siteId": "mars-jezero",
+  "pois": [
+    {
+      "id": "mars-jezero/octavia-e-butler-landing",
+      "positionX": 0,
+      "positionZ": 0,
+      "title": "Octavia E. Butler Landing — the touchdown",
+      "fact": "You are standing on the patch of Jezero's crater floor where NASA's Perseverance rover touched down on 18 February 2021, after its 'seven minutes of terror' descent. On 5 March 2021 the mission named the spot 'Octavia E. Butler Landing' for the pioneering science-fiction author, nearly 15 years to the week after her death. The rock beneath your boots belongs to the 'Máaz' crater-floor unit — which returned samples later revealed to be volcanic, not lake-bed sediment.",
+      "source": "https://science.nasa.gov/resource/welcome-to-octavia-e-butler-landing/",
+      "secondarySource": "https://en.wikipedia.org/wiki/Octavia_E._Butler_Landing",
+      "placementHint": "The spawn point, on the Máaz crater-floor unit."
+    },
+    {
+      "id": "mars-jezero/wright-brothers-field",
+      "positionX": 15,
+      "positionZ": -55,
+      "title": "Wright Brothers Field — first flight off Earth",
+      "fact": "This flat strip of crater floor became the first airfield on another planet. On 19 April 2021 the 1.8-kg Ingenuity helicopter rose about 3 m into the thin Martian air, hovered roughly 30 seconds and set back down — humanity's first powered, controlled flight on another world. NASA named the site 'Wright Brothers Field'; tucked under Ingenuity was a postage-stamp-sized swatch of fabric from the 1903 Wright Flyer. Ingenuity flew 72 times over nearly three years before a hard landing damaged its blades in January 2024.",
+      "source": "https://www.nasa.gov/news-release/nasas-ingenuity-mars-helicopter-succeeds-in-historic-first-flight/",
+      "secondarySource": "https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/",
+      "placementHint": "Flat floor just south of the landing site."
+    },
+    {
+      "id": "mars-jezero/jezero-delta-front",
+      "positionX": -250,
+      "positionZ": 130,
+      "title": "The western delta front",
+      "fact": "Rising to the west-northwest is the escarpment of the Jezero delta — a fossil river delta built more than 3.5 billion years ago where an ancient river spilled into a crater lake and dropped its sediment. This layered fan is the whole reason Perseverance came to Jezero: on Earth, river deltas are superb at trapping and preserving signs of past life. In 2021 the rover's cameras confirmed from the ground that these are true delta deposits laid down in standing water.",
+      "source": "https://www.science.org/doi/10.1126/science.abl4051",
+      "secondarySource": "https://www.space.com/mars-rover-perseverance-confirms-lake-delta-jezero-crater",
+      "placementHint": "At the toe of the raised delta scarp, WNW of the landing site."
+    },
+    {
+      "id": "mars-jezero/kodiak-butte",
+      "positionX": -215,
+      "positionZ": 35,
+      "title": "Kodiak butte — the lake's proof",
+      "fact": "That isolated, flat-topped butte standing apart from the main delta scarp is 'Kodiak,' an erosional remnant of the delta's southern edge. Its cliff face shows the tell-tale geometry of a real delta: near-horizontal 'topset' beds passing downward into steeply inclined 'foreset' beds — sediment cascading down a delta front into a lake. Read as proof (Mangold et al., Science 2021) that a long-lived lake up to about 20 m deep once filled Jezero, with coarse boulder beds higher up recording later flash floods.",
+      "source": "https://www.science.org/doi/10.1126/science.abl4051",
+      "secondarySource": "https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2023JE008205",
+      "placementHint": "On the isolated flat-topped butte SW of the main delta front."
+    },
+    {
+      "id": "mars-jezero/rochette-first-core",
+      "positionX": -55,
+      "positionZ": -95,
+      "title": "Rochette — the first cored rock",
+      "fact": "On the 'Citadelle' ridge of the crater floor, Perseverance drilled its first successful rock cores in early September 2021 — the holes 'Montdenier' (1 Sept) and 'Montagnac' (7 Sept) into a rock nicknamed 'Rochette.' Each pencil-thick core was sealed in an ultra-clean titanium tube, the first samples of another planet ever packaged for return to Earth. Rochette is an aqueously altered igneous rock — evidence that groundwater once moved through this volcanic floor.",
+      "source": "https://www.nasa.gov/image-article/perseverances-journey-first-successful-sample-collection/",
+      "secondarySource": "https://www.science.org/doi/10.1126/science.abo2196",
+      "placementHint": "On a low floor ridge south-southwest of the landing site."
+    },
+    {
+      "id": "mars-jezero/wildcat-ridge-organics",
+      "positionX": -270,
+      "positionZ": 165,
+      "title": "Wildcat Ridge — organics in the mud",
+      "fact": "Here in the delta, on 20 July 2022, Perseverance abraded a metre-wide rock called 'Wildcat Ridge' — fine mud and sand that settled in an evaporating salty lake billions of years ago. Its SHERLOC instrument registered the most abundant organic-molecule signals of the mission to date, spatially tied to sulfate minerals. Organics can form without life, so this is not proof of biology — but it is exactly the kind of lakebed sample scientists most want back on Earth.",
+      "source": "https://www.nasa.gov/news-release/nasas-perseverance-rover-investigates-geologically-rich-mars-terrain/",
+      "secondarySource": "https://www.science.org/doi/10.1126/science.abl4051",
+      "placementHint": "On the delta front proper, up-section from the delta toe."
+    },
+    {
+      "id": "mars-jezero/seitah-olivine",
+      "positionX": -150,
+      "positionZ": 80,
+      "title": "Séítah — magma-born, not lake-born",
+      "fact": "You're crossing 'Séítah' (Navajo for 'amidst the sand') — a rough band of wind-carved ridges and dunes of some of the oldest rock Perseverance has touched. Instrument data and returned-sample analysis showed Séítah is an olivine-rich cumulate: crystals that settled out of a slowly cooling body of magma. That was a genuine surprise — much of Jezero's floor, expected to be lake sediment, turned out to be igneous rock, giving geologists mineral clocks to date the crater.",
+      "source": "https://www.science.org/doi/10.1126/science.abo2756",
+      "secondarySource": "https://www.science.org/doi/10.1126/science.abo2196",
+      "placementHint": "In the rough olivine ridge-and-dune unit between the floor and the delta."
+    },
+    {
+      "id": "mars-jezero/neretva-vallis-inlet",
+      "positionX": -335,
+      "positionZ": 220,
+      "title": "Neretva Vallis — where the river entered",
+      "fact": "Look northwest, past the delta, to the notch where the ground falls away through the crater wall: that is Neretva Vallis, the inlet valley where an ancient river breached Jezero's western rim and fed the crater lake until roughly 3.8 billion years ago. The sediment that river carried built the delta behind you. Jezero was an 'open-basin' lake — Neretva Vallis flowing in on the west, an outlet valley draining out to the east.",
+      "source": "https://www.esa.int/Science_Exploration/Space_Science/Mars_Express/Jezero_crater_through_the_eyes_of_Mars_Express",
+      "secondarySource": "https://www.science.org/doi/10.1126/science.abl4051",
+      "placementHint": "Far NW, past the delta, at the notch in the western crater wall."
+    }
+  ]
+}

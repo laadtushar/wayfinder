@@ -114,6 +114,7 @@ namespace Wayfinder.Unity.Tests
         [TestCase("mars-valles", "mars_basalt")]
         [TestCase("moon-shackleton", "moon_anorthosite")]
         [TestCase("moon-tranquillity", "moon_mare_basalt")]
+        [TestCase("mars-jezero", "mars_basalt")]
         public void Terrain_Material_Carries_NearField_Regolith_Detail(string siteId, string profile)
         {
             // Ultra-realism contract (spec: docs/research/2026-07-22-ultrareal-
@@ -155,6 +156,7 @@ namespace Wayfinder.Unity.Tests
         [TestCase("mars-valles")]
         [TestCase("moon-shackleton")]
         [TestCase("moon-tranquillity")]
+        [TestCase("mars-jezero")]
         public void Every_Site_Has_Physically_Honest_Atmospherics(string siteId)
         {
             // Mars sites carry dust haze (Beer–Lambert density in the real
@@ -194,6 +196,7 @@ namespace Wayfinder.Unity.Tests
         [TestCase("Assets/Scenes/Site_mars-olympus.unity")]
         [TestCase("Assets/Scenes/Site_mars-valles.unity")]
         [TestCase("Assets/Scenes/Site_moon-shackleton.unity")]
+        [TestCase("Assets/Scenes/Site_mars-jezero.unity")]
         public void Every_Site_Renders_A_Real_Sky(string scenePath)
         {
             var savedSetup = UnityEditor.SceneManagement.EditorSceneManager.GetSceneManagerSetup();

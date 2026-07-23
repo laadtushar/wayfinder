@@ -115,4 +115,22 @@ clumps + dark rifts. It is procedural (not a photographic panorama) but
 correctly oriented relative to the constellations, and kept faint so it never
 washes out the catalogued stars.
 
+## mars-jezero (Jezero Crater / Perseverance) — #45
+
+Terrain: PROCEDURALLY SYNTHESIZED (tools/gen_jezero_dem.py), pending a real
+HiRISE/CTX Jezero DTM (network downloads blocked in this environment). Faithful
+in CHARACTER, not exact topography: a gently-undulating ancient lakebed crater
+floor, the western sedimentary DELTA FRONT rising behind a stepped scarp with
+foreset-bed terracing, the isolated flat-topped KODIAK butte at the delta's
+southwestern toe, a rougher olivine-rich SEITAH unit of wind-carved ridges, and
+a sparse eroded Mars crater field. 4x4 km window centred on the Octavia E.
+Butler Landing site (18.4447N, 77.4508E); real feature DIRECTIONS preserved
+(delta WNW, Kodiak SW of it, Seitah between, Neretva Vallis NW) with distances
+compressed to a walkable scene. Elevation band ~ -2600 m below the Mars areoid.
+Regolith: mars_basalt profile; matte layer (SmoothnessSource ConstantOnly).
+Surface gravity 3.72. POI facts sourced (NASA Mars 2020 / JPL, ESA Mars Express,
+peer-reviewed Science — Mangold et al. 2021 delta, Farley et al. 2022 igneous
+floor, Seitah/Rochette samples) — see unity/Assets/Wayfinder/POI/mars-jezero.json.
+Replace the DEM with a real HiRISE/CTX DTM when a tile is available.
+
 **Earth in the sky (#37):** `EarthSky` object in `Site_moon-tranquillity.unity`, textured with `Assets/Wayfinder/Sky/earth_epic.png` (a full-disc sunlit Earth image, NASA DSCOVR/EPIC style, public domain; pre-existing repo asset — the exact EPIC frame/date is `[unverified]`). Placed at its **real fixed position** from Tranquility Base: the Moon is tidally locked, so from (0.674N, 23.473E) the sub-Earth point (0,0) sits ~23.5deg from zenith => **elevation ~66.5deg, azimuth ~268deg** (nearly due west, a hair south), **angular size ~2deg** (about 4x the Moon as seen from Earth). A double-sided unlit disc at 850 m (inside the 1000 m runtime far clip), oriented to face the player; no billboard script (parallax across the 2 m play space is ~0.1deg). Honesty: shown ~**full** (EPIC full-disc texture) rather than the exact gibbous phase Earth showed at the Apollo 11 epoch. Deliberately **NOT** added to moon-shackleton: from the lunar south pole Earth sits on/below the horizon (invisible from the crater floor), so placing it there would be physically wrong.

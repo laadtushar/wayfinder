@@ -1,0 +1,23 @@
+{
+  "siteId": "mars-jezero",
+  "displayName": "Mars \u2014 Jezero Crater (Perseverance)",
+  "heightmapResolution": 2049,
+  "widthMeters": 4000.0,
+  "lengthMeters": 4000.0,
+  "minElevationMeters": -2600,
+  "maxElevationMeters": -2466,
+  "heightRangeMeters": 134,
+  "surfaceGravity": 3.72,
+  "sourceProduct": "PROCEDURALLY SYNTHESIZED (pending a real HiRISE/CTX Jezero DTM) \u2014 ancient lakebed crater floor + western delta-front scarp with foreset terracing + isolated Kodiak butte + rough olivine-rich Seitah unit + sparse eroded Mars crater field. Faithful in CHARACTER, not exact topography; feature DIRECTIONS are real (delta NW, Kodiak SW of it, Seitah between).",
+  "sourceResolutionMPerPx": 1.95,
+  "byteOrder": "big-endian",
+  "baseColor": "#8B5A3C",
+  "credit": "Synthesized for Wayfinder (tools/gen_jezero_dem.py). Feature layout per NASA Mars 2020 / USGS Jezero maps; replace with a real HiRISE/CTX DTM when a tile is available.",
+  "notes": "4x4 km window centred on the Octavia E. Butler Landing site (18.4447N, 77.4508E), Jezero Crater. Real distances (delta ~2 km NW) compressed to a walkable scene; directions preserved. Elevation band ~ -2600 m below the Mars areoid.",
+  "regolithProfile": "mars_basalt",
+  "detailTileMeters": 0.75,
+  "macroTileMeters": 11.0,
+  "detailFadeStart": 6.0,
+  "detailFadeEnd": 22.0,
+  "detailStrength": 1.0
+}

@@ -3,18 +3,32 @@ using UnityEngine;
 
 namespace Wayfinder.Unity
 {
-    /// The warp visual: a brief bright wash on a camera-locked quad.
-    /// Deliberately a flat fade — never a forward-acceleration tunnel
-    /// (comfort rule, DESIGN.md). The quad is assigned in the scene and
-    /// covers the full FOV at its distance.
+    /// The warp visual: a brief bright wash on a camera-locked quad. A fast
+    /// eased flash to full bright (tinted with warp energy), a short hold that
+    /// also spans the additive scene load, then a slower graceful resolve as the
+    /// destination fades up out of the light. Deliberately a FLAT full-screen
+    /// fade — never a forward-acceleration tunnel, star-streaks, or any camera
+    /// rotation (comfort rule, DESIGN.md/CLAUDE.md): all the drama is in the
+    /// brightness curve and colour, none of it in motion, so there is zero
+    /// vection. Full coverage at peak hides the scene swap; the minimum hold
+    /// guarantees the flash always reads even when the load is instant.
     public sealed class WarpFade : MonoBehaviour
     {
         [SerializeField] private Renderer fadeQuad;
-        [Tooltip("Seconds for each half of the fade (up to full bright, then back down).")]
-        [SerializeField] private float halfDurationSeconds = 0.45f;
+        [Header("Timing (seconds)")]
+        [Tooltip("Fast flash up to full bright.")]
+        [SerializeField] private float flashUpSeconds = 0.30f;
+        [Tooltip("Minimum time held at full bright, even if the load finished instantly.")]
+        [SerializeField] private float minHoldSeconds = 0.16f;
+        [Tooltip("Slow graceful resolve as the world fades up out of the light.")]
+        [SerializeField] private float resolveDownSeconds = 0.75f;
+        [Header("Colour")]
+        [Tooltip("Tint at the start of the flash — the ship's warp energy.")]
+        [SerializeField] private Color flashColor = new Color(0.70f, 0.85f, 1.00f);
+        [Tooltip("Tint at peak / during the hold — a clean bright wash.")]
+        [SerializeField] private Color peakColor = new Color(1.00f, 1.00f, 1.00f);
 
         static readonly int ColorId = Shader.PropertyToID("_BaseColor");
-
         MaterialPropertyBlock _block;
 
         public bool IsFullyBright { get; private set; }
@@ -24,55 +38,68 @@ namespace Wayfinder.Unity
             if (fadeQuad == null)
                 throw new System.InvalidOperationException($"{name}: WarpFade has no fade quad assigned.");
             _block = new MaterialPropertyBlock();
-            SetAlpha(0f);
+            SetColor(peakColor, 0f);
             fadeQuad.gameObject.SetActive(false);
         }
 
-        /// Fades to full bright, holds until the caller's work signals done
-        /// (via the returned handle), then fades back out.
+        /// Flash to full bright, hold (at least minHold, and until the caller's
+        /// work signals done), then resolve back out.
         public IEnumerator FadeAcross(System.Func<bool> workIsDone)
         {
             fadeQuad.gameObject.SetActive(true);
-            for (float t = 0; t < halfDurationSeconds; t += Time.deltaTime)
+
+            // Fast eased flash up (ease-out cubic: quick rise, gentle settle),
+            // colour warping from energy-blue toward the clean peak wash.
+            for (float t = 0; t < flashUpSeconds; t += Time.deltaTime)
             {
-                SetAlpha(t / halfDurationSeconds);
+                float x = Mathf.Clamp01(t / flashUpSeconds);
+                float a = 1f - Mathf.Pow(1f - x, 3f);          // easeOutCubic
+                SetColor(Color.Lerp(flashColor, peakColor, x), a);
                 yield return null;
             }
-            SetAlpha(1f);
+            SetColor(peakColor, 1f);
             IsFullyBright = true;
 
-            // An exception in the work callback must never strand the player at
-            // full bright with a dead coroutine — treat it as "done", log, and
-            // let the fade come back down (the caller's failure paths handle
-            // state rollback).
+            // Hold at full bright for at least minHold AND until the work (the
+            // additive scene load) is done — so the world is ready as the light
+            // clears (no black gap, no half-loaded pop). An exception in the
+            // callback must never strand the player at full bright.
+            float held = 0f;
             while (true)
             {
-                bool done;
-                try { done = workIsDone(); }
-                catch (System.Exception e)
+                bool done = held >= minHoldSeconds;
+                if (done)
                 {
-                    Debug.LogException(e);
-                    Debug.LogError("[WarpFade] work callback threw — completing the fade to avoid a full-bright lock.");
-                    done = true;
+                    try { done = workIsDone(); }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogException(e);
+                        Debug.LogError("[WarpFade] work callback threw — completing the fade to avoid a full-bright lock.");
+                        done = true;
+                    }
                 }
                 if (done) break;
+                held += Time.deltaTime;
                 yield return null;
             }
 
             IsFullyBright = false;
-            for (float t = 0; t < halfDurationSeconds; t += Time.deltaTime)
+            // Slow graceful resolve (ease-in-out sine) — the world blooms up.
+            for (float t = 0; t < resolveDownSeconds; t += Time.deltaTime)
             {
-                SetAlpha(1f - t / halfDurationSeconds);
+                float x = Mathf.Clamp01(t / resolveDownSeconds);
+                float a = 1f - (-(Mathf.Cos(Mathf.PI * x) - 1f) / 2f);  // 1 - easeInOutSine
+                SetColor(peakColor, a);
                 yield return null;
             }
-            SetAlpha(0f);
+            SetColor(peakColor, 0f);
             fadeQuad.gameObject.SetActive(false);
         }
 
-        void SetAlpha(float a)
+        void SetColor(Color rgb, float a)
         {
             fadeQuad.GetPropertyBlock(_block);
-            _block.SetColor(ColorId, new Color(1f, 1f, 1f, a));
+            _block.SetColor(ColorId, new Color(rgb.r, rgb.g, rgb.b, a));
             fadeQuad.SetPropertyBlock(_block);
         }
     }

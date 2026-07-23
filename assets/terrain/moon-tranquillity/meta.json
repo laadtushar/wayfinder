@@ -1,0 +1,23 @@
+{
+  "siteId": "moon-tranquillity",
+  "displayName": "Moon \u2014 Tranquility Base (Apollo 11, Mare Tranquillitatis)",
+  "heightmapResolution": 2049,
+  "widthMeters": 20000.0,
+  "lengthMeters": 20000.0,
+  "minElevationMeters": -2000,
+  "maxElevationMeters": -1810,
+  "heightRangeMeters": 190,
+  "surfaceGravity": 1.62,
+  "sourceProduct": "PROCEDURALLY SYNTHESIZED (pending real LOLA/SLDEM2015 tile) \u2014 flat high-Ti mare basalt plain + impact-crater field with cumulative production function N(>D) proportional to D^-2 and fresh simple-crater bowl/rim/ejecta profiles; Little West (~33 m) and West (~180 m) craters at their real Apollo 11 EVA relative positions",
+  "sourceResolutionMPerPx": 9.77,
+  "byteOrder": "big-endian",
+  "baseColor": "#383A3D",
+  "credit": "Synthesized for Wayfinder (tools/gen_mare_dem.py). Crater positions/character per Apollo 11 Preliminary Science Report (NASA SP-214) and LROC observations; replace with LOLA/SLDEM2015 when a tile is available.",
+  "notes": "20x20 km window centred on the Apollo 11 LM Eagle descent stage (0.674N, 23.473E), Mare Tranquillitatis. Mare basalt is dark, high-titanium, low-relief. Elevation band ~ -2000 m below the lunar datum. This DEM is faithful in CHARACTER (flat plain + realistic crater size-frequency), not exact topography.",
+  "regolithProfile": "moon_mare_basalt",
+  "detailTileMeters": 0.75,
+  "macroTileMeters": 11.0,
+  "detailFadeStart": 6.0,
+  "detailFadeEnd": 22.0,
+  "detailStrength": 1.0
+}

@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Site_moon-shackleton.unity
     guid: 6dc350762f9f4754c8bff940343f5b9e
+  - enabled: 1
+    path: Assets/Scenes/Site_moon-tranquillity.unity
+    guid: 98bdf6f5fed007742b683df7c58dc07a
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 7fdba815e72be63458feb1d2aa44631c, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: dedf24648d9e46645879024c2e11cd3a, type: 2}

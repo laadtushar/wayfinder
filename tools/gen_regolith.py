@@ -44,6 +44,15 @@ PROFILES = {
         craterlets=140,
         micro_contrast=0.55, normal_strength=1.0,
     ),
+    # Mare Tranquillitatis high-Ti basalt: DARKER + faintly cool vs the bright
+    # highlands anorthosite (Apollo 11 samples 7-13 wt% TiO2, ilmenite-rich).
+    "moon_mare_basalt": dict(
+        base_rgb=(0.105, 0.105, 0.11),
+        octaves=5, spectral_slope=1.7,
+        clast_count=520, clast_rounded=False, clast_radius=(2, 8),
+        craterlets=120,
+        micro_contrast=0.5, normal_strength=1.0,
+    ),
 }
 
 

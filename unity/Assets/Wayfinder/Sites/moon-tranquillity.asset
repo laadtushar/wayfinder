@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33a0c1612f225cc458d5f24ff8790eb4, type: 3}
+  m_Name: moon-tranquillity
+  m_EditorClassIdentifier: Wayfinder.Unity::Wayfinder.Unity.WorldPackage
+  id: moon-tranquillity
+  displayName: "Moon \xE2\u20AC\u201D Tranquility Base (Apollo 11)"
+  sceneName: Site_moon-tranquillity
+  surfaceGravity: 1.62
+  spawnOffset: {x: 22, y: 28}
+  hazeEnabled: 0
+  hazeColor: {r: 0.23, g: 0.23, b: 0.24, a: 1}
+  hazeDistanceDensity: 0.0004
+  hazeHeightFalloff: 0.0015
+  hazeGroundY: 0
+  hazeHeightStrength: 0.85
+  surgeStrength: 0.6
+  surgeSharpness: 48
+  surgeTint: {r: 1, g: 1, b: 1, a: 1}
+  poiData: {fileID: 4900000, guid: 69f7652a6a8895e4493299b8b921f5b5, type: 3}
+  terrain: {fileID: 15600000, guid: e4cca0bb6ccf05c46be21d9c93780037, type: 2}
+  surfaceAmbience: {fileID: 0}

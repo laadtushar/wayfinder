@@ -113,6 +113,7 @@ namespace Wayfinder.Unity.Tests
         [TestCase("mars-olympus", "mars_basalt")]
         [TestCase("mars-valles", "mars_basalt")]
         [TestCase("moon-shackleton", "moon_anorthosite")]
+        [TestCase("moon-tranquillity", "moon_mare_basalt")]
         public void Terrain_Material_Carries_NearField_Regolith_Detail(string siteId, string profile)
         {
             // Ultra-realism contract (spec: docs/research/2026-07-22-ultrareal-
@@ -153,6 +154,7 @@ namespace Wayfinder.Unity.Tests
         [TestCase("mars-olympus")]
         [TestCase("mars-valles")]
         [TestCase("moon-shackleton")]
+        [TestCase("moon-tranquillity")]
         public void Every_Site_Has_Physically_Honest_Atmospherics(string siteId)
         {
             // Mars sites carry dust haze (Beer–Lambert density in the real

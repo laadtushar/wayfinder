@@ -1,0 +1,81 @@
+{
+  "siteId": "moon-tranquillity",
+  "pois": [
+    {
+      "id": "moon-tranquillity/tranquility-base",
+      "positionX": 0,
+      "positionZ": 3,
+      "title": "The Part of Eagle That Stayed",
+      "fact": "You are standing at Tranquility Base, 0.674 degrees north, 23.473 degrees east, where the Lunar Module Eagle set down on 20 July 1969. Only the upper ascent stage flew home; the four-legged descent stage, the ladder Armstrong climbed down, and the tools the crew left behind are still here. In 2009 the Lunar Reconnaissance Orbiter photographed this exact spot from orbit and resolved the descent stage and the long shadow it throws across the plain.",
+      "source": "https://www.lroc.asu.edu/images/1115",
+      "placementHint": "The spawn point. Marker sits at the descent-stage footpad; player arrives facing it."
+    },
+    {
+      "id": "moon-tranquillity/lunar-plaque",
+      "positionX": 0,
+      "positionZ": 8,
+      "title": "We Came in Peace",
+      "fact": "Bolted to the ladder strut on the leg in front of you is a stainless-steel plaque showing Earth's two hemispheres and the words: 'Here men from the planet Earth first set foot upon the Moon, July 1969 A.D. We came in peace for all mankind.' It carries the signatures of Armstrong, Aldrin, Collins and President Nixon. Because the descent stage never left, the plaque is still attached, exactly here.",
+      "source": "https://science.nasa.gov/resource/apollo-11-plaque/",
+      "placementHint": "At the foot of the ladder, on the north-facing landing-gear strut, a few metres from the base marker."
+    },
+    {
+      "id": "moon-tranquillity/us-flag",
+      "positionX": -4,
+      "positionZ": 7,
+      "title": "The Flag That Fell",
+      "fact": "The first flag raised on the Moon stood here, about 8 metres from the centre of the LM. It was too close: Buzz Aldrin, watching from the window, saw the ascent engine's blast knock it flat at the instant of liftoff, so it stood upright for less than a day. Lunar Reconnaissance Orbiter images show no flag shadow at Apollo 11, so it is presumably still lying on the surface, its colours long since bleached white by unfiltered sunlight. Every later crew planted their flag much farther out to avoid the same fate.",
+      "source": "https://www.lroc.asu.edu/images/537",
+      "placementHint": "About 8 m from the LM, roughly north-northwest toward the old TV-camera position. Lay it flat, or show it fallen."
+    },
+    {
+      "id": "moon-tranquillity/passive-seismic",
+      "positionX": 4,
+      "positionZ": -16,
+      "title": "The First Ears on the Moon",
+      "fact": "About 17 metres south of the LM, Aldrin set down the first working seismometer on another world. In its short life it felt the astronauts' own footfalls, the ticking of the LM cooling in shadow, and genuine moonquakes, proving the Moon is not a dead, silent ball. It ran on solar power and overheated badly in the lunar day, falling silent after only about three weeks.",
+      "source": "https://www.lpi.usra.edu/lunar/documents/NASA-SP-214.pdf",
+      "placementHint": "Roughly 17 m south of the descent stage, beside the retroreflector; a small gold-foil-wrapped box on the regolith."
+    },
+    {
+      "id": "moon-tranquillity/laser-retroreflector",
+      "positionX": -4,
+      "positionZ": -17,
+      "title": "Still Answering, 50 Years On",
+      "fact": "A few steps from the seismometer, Aldrin aimed a 46-centimetre panel of 100 fused-silica corner-cube prisms back at Earth. It is the only Apollo 11 experiment still returning data today: observatories fire laser pulses at this very panel and time the roughly 2.5-second round trip, pinning the Earth-Moon distance to the millimetre. Half a century of those measurements show the Moon drifting away at 3.8 centimetres a year and provide some of the sharpest tests of Einstein's theory of gravity.",
+      "source": "https://www.jpl.nasa.gov/news/the-apollo-experiment-that-keeps-on-giving/",
+      "secondarySource": "https://en.wikipedia.org/wiki/Laser_Ranging_Retroreflector",
+      "placementHint": "About 18 m south of the LM, next to the seismometer; a flat white panel tilted up toward Earth's fixed spot in the sky."
+    },
+    {
+      "id": "moon-tranquillity/little-west-crater",
+      "positionX": 58,
+      "positionZ": -6,
+      "title": "As Far As Anyone Walked",
+      "fact": "This sharp 30-metre crater, about 60 metres east of the LM, marks the farthest either astronaut travelled from Eagle. Near the end of the two-and-a-half-hour moonwalk Armstrong jogged over here alone, off the plan, and shot a panorama from the rim, the one moment he got a real sense of depth and distance on the flat, airless plain. When the Lunar Reconnaissance Orbiter imaged the site in 2009, his actual bootprint trail out to this rim was still visible.",
+      "source": "https://www.planetary.org/articles/apollo-11-little-west-crater",
+      "secondarySource": "https://www.lroc.asu.edu/images/1115",
+      "placementHint": "About 60 m east; place the marker on the southwest rim (Armstrong's farthest point), looking back toward the LM."
+    },
+    {
+      "id": "moon-tranquillity/west-crater",
+      "positionX": 540,
+      "positionZ": 15,
+      "title": "The Crater That Almost Ended It",
+      "fact": "This blocky crater, roughly 180 metres across and about half a kilometre east, is where Apollo 11 nearly came to grief. The autopilot was steering Eagle straight down into the field of car-sized boulders flung out around its rim, so Armstrong took manual control and flew on, skimming past the rocks to touch down on the smooth plain beyond, with only about thirty seconds of landing propellant left when Houston called it. Those boulders are ejecta, bedrock blasted up by the impact, the kind of deep sample later missions came back to collect.",
+      "source": "https://airandspace.si.edu/explore/stories/apollo-11-moon-landing",
+      "secondarySource": "https://en.wikipedia.org/wiki/West_(lunar_crater)",
+      "placementHint": "About 500 m east, on the ground track of the final approach. Ring the crater with a boulder field on its western rim."
+    },
+    {
+      "id": "moon-tranquillity/mare-basalt-plain",
+      "positionX": -650,
+      "positionZ": -780,
+      "title": "Standing on Frozen Lava",
+      "fact": "The dark ground underfoot is frozen lava. Between roughly 3.6 and 3.9 billion years ago, runny basalt flooded this basin and set into a nearly flat plain; the rocks the crew carried home are unusually rich in titanium, up to about 12 percent, which is part of why Mare Tranquillitatis is one of the darker 'seas' on the Moon. Dating those samples was the first hard proof that the lunar maria are ancient volcanic floods, not dried-up oceans or beds of dust.",
+      "source": "http://www.psrd.hawaii.edu/July19/Apollo11-discoveries.html",
+      "secondarySource": "https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/96JE02436",
+      "placementHint": "Out on open mare, ~1 km southwest of the LM, away from all artifacts. A 'you are here' geology marker on bare basalt."
+    }
+  ]
+}

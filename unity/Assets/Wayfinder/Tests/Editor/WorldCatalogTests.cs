@@ -14,17 +14,19 @@ namespace Wayfinder.Unity.Tests
         const string CatalogPath = "Assets/Wayfinder/Sites/WorldCatalog.asset";
 
         [Test]
-        public void Catalog_Asset_Exists_And_Builds_Registry_With_All_Three_Sites()
+        public void Catalog_Asset_Exists_And_Builds_Registry_With_The_Shipped_Sites()
         {
             var catalog = AssetDatabase.LoadAssetAtPath<WorldCatalog>(CatalogPath);
             Assert.IsNotNull(catalog, "WorldCatalog.asset missing at " + CatalogPath);
 
             WorldRegistry registry = catalog.BuildRegistry();
 
-            Assert.AreEqual(3, registry.All.Count);
+            // Four worlds shipped (the fourth, Apollo 11, proves worlds-as-data).
+            Assert.AreEqual(4, registry.All.Count);
             Assert.IsNotNull(registry.GetById("mars-olympus"));
             Assert.IsNotNull(registry.GetById("mars-valles"));
             Assert.IsNotNull(registry.GetById("moon-shackleton"));
+            Assert.IsNotNull(registry.GetById("moon-tranquillity"));
         }
 
         [Test]
@@ -47,6 +49,7 @@ namespace Wayfinder.Unity.Tests
             Assert.AreEqual(3.72f, registry.GetById("mars-olympus").SurfaceGravity, 0.001f);
             Assert.AreEqual(3.72f, registry.GetById("mars-valles").SurfaceGravity, 0.001f);
             Assert.AreEqual(1.62f, registry.GetById("moon-shackleton").SurfaceGravity, 0.001f);
+            Assert.AreEqual(1.62f, registry.GetById("moon-tranquillity").SurfaceGravity, 0.001f);
         }
 
         [Test]

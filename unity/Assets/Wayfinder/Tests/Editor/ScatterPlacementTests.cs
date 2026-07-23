@@ -98,6 +98,41 @@ namespace Wayfinder.Unity.Tests
         }
 
         [Test]
+        public void Fourth_World_Tranquillity_Is_A_Complete_Data_Package()
+        {
+            // Worlds-as-data: the fourth site (Apollo 11) is a full World
+            // Package registered in the catalog, with real gravity, 8 sourced
+            // POIs, and a scene — added with NO travel/locomotion/discovery code.
+            var pkg = UnityEditor.AssetDatabase.LoadAssetAtPath<Wayfinder.Unity.WorldPackage>(
+                "Assets/Wayfinder/Sites/moon-tranquillity.asset");
+            Assert.IsNotNull(pkg, "moon-tranquillity package missing");
+            var def = pkg.ToDefinition();
+            Assert.AreEqual("moon-tranquillity", def.Id);
+            Assert.AreEqual(1.62f, def.SurfaceGravity, 0.001f, "real lunar gravity");
+            Assert.AreEqual("Site_moon-tranquillity", def.SceneName);
+            Assert.IsNotNull(pkg.PoiData, "no POI data wired");
+
+            var set = Wayfinder.Unity.PoiSet.Parse(pkg.PoiData.text);
+            Assert.AreEqual("moon-tranquillity", set.siteId);
+            Assert.AreEqual(8, set.pois.Count, "8 authored Apollo 11 POIs");
+            foreach (var p in set.pois)
+            {
+                Assert.IsFalse(string.IsNullOrEmpty(p.title), p.id + " missing title");
+                Assert.IsFalse(string.IsNullOrEmpty(p.fact), p.id + " missing fact");
+                Assert.IsFalse(string.IsNullOrEmpty(p.source), p.id + " missing source citation");
+            }
+
+            // Registered in the catalog (so it reaches the viewscreen).
+            var catalog = UnityEditor.AssetDatabase.LoadAssetAtPath<Wayfinder.Unity.WorldCatalog>(
+                "Assets/Wayfinder/Sites/WorldCatalog.asset");
+            bool inCatalog = false;
+            foreach (var p in catalog.Packages) if (p == pkg) inCatalog = true;
+            Assert.IsTrue(inCatalog, "fourth world not registered in the catalog");
+            // The catalog still builds a valid registry (no dup ids).
+            Assert.DoesNotThrow(() => catalog.BuildRegistry());
+        }
+
+        [Test]
         public void Accept_Rejects_Inside_The_Feature_Clear_Radius()
         {
             var rule = TalusRule();
@@ -123,6 +158,7 @@ namespace Wayfinder.Unity.Tests
         [TestCase("mars-olympus", 1200)]
         [TestCase("mars-valles", 2500)]
         [TestCase("moon-shackleton", 800)]
+        [TestCase("moon-tranquillity", 800)]
         public void Site_Has_A_Baked_Scatter_Field_Within_Cap(string siteId, int cap)
         {
             var field = UnityEditor.AssetDatabase.LoadAssetAtPath<ScatterFieldData>(

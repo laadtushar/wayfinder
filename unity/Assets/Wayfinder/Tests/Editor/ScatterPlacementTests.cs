@@ -120,6 +120,54 @@ namespace Wayfinder.Unity.Tests
             Assert.Greater(bigNear, smallNear, "big rocks outrank small ones");
         }
 
+        [TestCase("mars-olympus", 1200)]
+        [TestCase("mars-valles", 2500)]
+        [TestCase("moon-shackleton", 800)]
+        public void Site_Has_A_Baked_Scatter_Field_Within_Cap(string siteId, int cap)
+        {
+            var field = UnityEditor.AssetDatabase.LoadAssetAtPath<ScatterFieldData>(
+                "Assets/Wayfinder/Scatter/ScatterField_" + siteId + ".asset");
+            Assert.IsNotNull(field, siteId + " has no baked scatter field");
+            Assert.Greater(field.Count, 0, siteId + " scatter field is empty");
+            Assert.LessOrEqual(field.Count, cap, siteId + " scatter exceeds its cap");
+            Assert.AreEqual(field.Count, field.Rotations.Length, siteId + " SoA arrays desynced");
+            Assert.AreEqual(field.Count, field.Scales.Length, siteId + " SoA arrays desynced");
+
+            var set = UnityEditor.AssetDatabase.LoadAssetAtPath<ScatterArchetypeSet>(
+                "Assets/Wayfinder/Scatter/" + siteId + "_set.asset");
+            Assert.IsNotNull(set, siteId + " has no archetype set");
+            Assert.IsNotNull(set.Material, siteId + " set has no rock material");
+            Assert.AreEqual("Wayfinder/RockInstanced", set.Material.shader.name, siteId + " wrong rock shader");
+        }
+
+        [TestCase("Assets/Scenes/Site_mars-olympus.unity")]
+        [TestCase("Assets/Scenes/Site_mars-valles.unity")]
+        [TestCase("Assets/Scenes/Site_moon-shackleton.unity")]
+        public void Site_Scene_Has_A_Wired_Scatter_Renderer(string scenePath)
+        {
+            var saved = UnityEditor.SceneManagement.EditorSceneManager.GetSceneManagerSetup();
+            try
+            {
+                var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(
+                    scenePath, UnityEditor.SceneManagement.OpenSceneMode.Single);
+                ScatterRenderer rend = null;
+                foreach (var root in scene.GetRootGameObjects())
+                {
+                    rend = root.GetComponentInChildren<ScatterRenderer>(true);
+                    if (rend != null) break;
+                }
+                Assert.IsNotNull(rend, scenePath + " has no ScatterRenderer");
+                var so = new UnityEditor.SerializedObject(rend);
+                Assert.IsNotNull(so.FindProperty("field").objectReferenceValue, scenePath + " renderer field unwired");
+                Assert.IsNotNull(so.FindProperty("set").objectReferenceValue, scenePath + " renderer set unwired");
+            }
+            finally
+            {
+                if (saved != null && saved.Length > 0)
+                    UnityEditor.SceneManagement.EditorSceneManager.RestoreSceneManagerSetup(saved);
+            }
+        }
+
         [Test]
         public void LogNormalScale_Is_Monotonic_And_Positive()
         {

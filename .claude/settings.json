@@ -33,8 +33,13 @@
     ]
   },
   "permissions": {
-    "defaultMode": "dontAsk",
+    "defaultMode": "bypassPermissions",
     "allow": [
+      "Bash",
+      "PowerShell",
+      "Read",
+      "Grep",
+      "Glob",
       "Bash(*)",
       "PowerShell(*)",
       "Edit",

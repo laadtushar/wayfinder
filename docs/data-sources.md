@@ -106,6 +106,13 @@ the whole sky. A faint, low-brightness procedural dust of ~4000 dim points is
 added purely for visual density and is **NOT catalogued** — flagged in the
 generator. To regenerate from the full catalogue, drop a BSC/Hipparcos CSV next
 to the script and extend its `load()` (see the header). The old procedural-noise
-6-sided star textures are superseded.
+6-sided star textures are superseded. **Milky Way (#44):** a faint diffuse
+galactic band is baked into the same equirect, computed per-pixel from the real
+equatorial->galactic transform (J2000 north galactic pole 192.86/27.13) as a
+narrow gaussian in galactic latitude with a broad bulge lobe toward the galactic
+centre in Sagittarius (RA 266.4, Dec -28.9), mottled by smooth value-noise for
+clumps + dark rifts. It is procedural (not a photographic panorama) but
+correctly oriented relative to the constellations, and kept faint so it never
+washes out the catalogued stars.
 
 **Earth in the sky (#37):** `EarthSky` object in `Site_moon-tranquillity.unity`, textured with `Assets/Wayfinder/Sky/earth_epic.png` (a full-disc sunlit Earth image, NASA DSCOVR/EPIC style, public domain; pre-existing repo asset — the exact EPIC frame/date is `[unverified]`). Placed at its **real fixed position** from Tranquility Base: the Moon is tidally locked, so from (0.674N, 23.473E) the sub-Earth point (0,0) sits ~23.5deg from zenith => **elevation ~66.5deg, azimuth ~268deg** (nearly due west, a hair south), **angular size ~2deg** (about 4x the Moon as seen from Earth). A double-sided unlit disc at 850 m (inside the 1000 m runtime far clip), oriented to face the player; no billboard script (parallax across the 2 m play space is ~0.1deg). Honesty: shown ~**full** (EPIC full-disc texture) rather than the exact gibbous phase Earth showed at the Apollo 11 epoch. Deliberately **NOT** added to moon-shackleton: from the lunar south pole Earth sits on/below the horizon (invisible from the crater floor), so placing it there would be physically wrong.

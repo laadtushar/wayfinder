@@ -97,8 +97,46 @@ def radec_to_xy(ra_h, dec_deg):
     return int(u * W) % W, int(np.clip(v, 0, 1) * (H - 1))
 
 
+def add_milky_way(img):
+    """Faint diffuse galactic band, correctly oriented. For each equirect pixel
+    (RA, Dec) compute galactic latitude b (equatorial->galactic rotation, J2000)
+    and the angular distance to the galactic centre in Sagittarius; brightness is
+    a narrow gaussian in |b| with a broad bulge lobe toward the centre, mottled by
+    smooth value-noise so it clumps and has a dark rift. Faint and warm-white so
+    it never washes out the catalogued stars."""
+    from PIL import Image
+    ys, xs = np.mgrid[0:H, 0:W]
+    ra = (xs / W) * 2.0 * np.pi
+    dec = (np.pi / 2.0) - (ys / (H - 1)) * np.pi
+    a_ngp, d_ngp = np.radians(192.8595), np.radians(27.1283)   # north galactic pole (J2000)
+    sinb = np.clip(np.sin(dec) * np.sin(d_ngp)
+                   + np.cos(dec) * np.cos(d_ngp) * np.cos(ra - a_ngp), -1, 1)
+    b = np.arcsin(sinb)
+    band = np.exp(-(b * b) / (2.0 * np.radians(10.0) ** 2))
+    # bulge toward the galactic centre (RA 266.405, Dec -28.936)
+    ac, dc = np.radians(266.405), np.radians(-28.936)
+    cosang = np.clip(np.sin(dec) * np.sin(dc)
+                     + np.cos(dec) * np.cos(dc) * np.cos(ra - ac), -1, 1)
+    bulge = np.exp(-(np.arccos(cosang) ** 2) / (2.0 * np.radians(26.0) ** 2))
+    # smooth value-noise mottle (coarse random grids upsampled + summed)
+    rng = np.random.default_rng(7)
+    mottle = np.zeros((H, W))
+    for gh, gw, amp in [(12, 24, 0.6), (28, 56, 0.3), (64, 128, 0.16), (160, 320, 0.09)]:
+        g = (rng.uniform(0, 1, (gh, gw)) * 255).astype(np.uint8)
+        mottle += np.asarray(Image.fromarray(g).resize((W, H), Image.BICUBIC)) / 255.0 * amp
+    mottle /= mottle.max()
+    intensity = band * (0.45 + 0.9 * bulge) * (0.45 + 0.55 * mottle) * 0.13
+    # fine dither breaks 8-bit contour banding in the very faint gradient
+    intensity += rng.uniform(-0.004, 0.004, (H, W)) * (band > 0.015)
+    intensity = np.clip(intensity, 0.0, 1.0)
+    tint = (1.0, 0.98, 0.93)
+    for c in range(3):
+        img[..., c] += intensity * tint[c]
+
+
 def main():
     img = np.zeros((H, W, 3), np.float64)
+    add_milky_way(img)
 
     # Faint, NON-catalogued procedural dust for density (flagged; deterministic).
     rng = np.random.default_rng(42)

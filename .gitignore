@@ -4,12 +4,16 @@
 # Large raw source data (keep processing recipes in docs/, not the multi-GB rasters)
 data/raw/
 
+# APK / player build output at the repo root (device-deploy artifacts)
+/Builds/
+
 # --- Unity (applies once the unity/ project is added) ---
 unity/[Ll]ibrary/
 unity/[Tt]emp/
 unity/[Oo]bj/
 unity/[Bb]uild/
 unity/[Bb]uilds/
+unity/.utmp/
 unity/[Ll]ogs/
 unity/[Uu]ser[Ss]ettings/
 unity/[Mm]emoryCaptures/

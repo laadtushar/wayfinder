@@ -5,20 +5,30 @@ using Wayfinder.Core;
 
 namespace Wayfinder.Unity
 {
-    /// Spawns beacon markers for a site's POIs and reveals them on approach:
-    /// first approach calls FieldLog.Discover (discover-once — the log is the
-    /// single source of truth) and celebrates; later approaches just show the
-    /// fact again. Built by TravelManager on arrival, destroyed on return.
+    /// Spawns holographic waypoint beacons for a site's POIs and reveals them on
+    /// approach: first approach calls FieldLog.Discover (discover-once — the log
+    /// is the single source of truth) and celebrates; later approaches just show
+    /// the fact again. Built by TravelManager on arrival, destroyed on return.
+    ///
+    /// Each beacon is a thin cyan HDR light column over a soft ground pool
+    /// (additive, reads as a projection, not solid geometry). An undiscovered
+    /// beacon stands tall and swells brighter as you look at it (gaze weighting
+    /// from the engine-free, unit-tested Wayfinder.Core.PoiBeacons); a discovered
+    /// one collapses to a short, dim marker — the sky is read, the pin is logged.
     public sealed class PoiSystem : MonoBehaviour
     {
         const float RevealRadiusMeters = 6f;
+        const float MaxGazeAngleDeg = 34f;
 
-        static readonly Color UndiscoveredColor = new Color(0.25f, 0.55f, 0.95f);
-        static readonly Color DiscoveredColor = new Color(0.95f, 0.75f, 0.25f);
+        // Holographic cyan; the per-beacon HDR intensity rides on top (property
+        // block), scaled up so URP Bloom picks the columns out of the dark.
+        static readonly Color BeaconCyan = new Color(0.35f, 0.85f, 1.05f);
+        const float GlowScale = 2.6f;
 
         FieldLog _log;
         Transform _head;
         readonly List<Marker> _markers = new List<Marker>();
+        Material _beaconMat;
         static MaterialPropertyBlock _block;
         static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
 
@@ -26,7 +36,9 @@ namespace Wayfinder.Unity
         {
             public PoiEntry Poi;
             public Transform Root;
-            public Renderer Beacon;
+            public Transform Column;     // the light shaft — rescaled on discovery
+            public Renderer ColumnRenderer;
+            public Renderer PoolRenderer; // the ground glow
             public GameObject FactPanel;
             public bool Revealed;
         }
@@ -64,12 +76,16 @@ namespace Wayfinder.Unity
                         $"POI '{poi.id}' at ({poi.positionX}, {poi.positionZ}) is outside the ±({halfX}, {halfZ}) site extents.");
                 var marker = CreateMarker(poi, terrain);
                 // The log is the single source of truth: a POI discovered on an
-                // earlier visit arrives already revealed and gold.
+                // earlier visit arrives already revealed, collapsed and dim.
                 if (log.HasDiscovered(poi.id))
                 {
                     marker.Revealed = true;
                     RevealedCount++;
-                    SetBeaconColor(marker.Beacon, DiscoveredColor);
+                    ApplyDiscovered(marker, true);
+                }
+                else
+                {
+                    ApplyDiscovered(marker, false);
                 }
                 _markers.Add(marker);
             }
@@ -79,11 +95,15 @@ namespace Wayfinder.Unity
         {
             if (_head == null) return;
             Vector3 headPos = _head.position;
+            Vector3 fwd = _head.forward;
             for (int i = 0; i < _markers.Count; i++)
             {
                 var marker = _markers[i];
                 Vector3 delta = marker.Root.position - headPos;
                 delta.y = 0;
+
+                // Reveal on approach (unchanged behaviour: the field log is the
+                // truth, discover-once, fact panel shown within the radius).
                 bool near = delta.sqrMagnitude < RevealRadiusMeters * RevealRadiusMeters;
                 if (near && !marker.FactPanel.activeSelf)
                 {
@@ -92,10 +112,8 @@ namespace Wayfinder.Unity
                     {
                         marker.Revealed = true;
                         RevealedCount++;
-                        // Discover returns true only the first time ever —
-                        // the celebration hook for later polish.
                         bool fresh = _log.Discover(marker.Poi.id);
-                        SetBeaconColor(marker.Beacon, DiscoveredColor);
+                        ApplyDiscovered(marker, true);
                         if (fresh)
                             Debug.Log($"[PoiSystem] discovered {marker.Poi.id}");
                     }
@@ -104,7 +122,44 @@ namespace Wayfinder.Unity
                 {
                     marker.FactPanel.SetActive(false);
                 }
+
+                // Gaze swell: an undiscovered beacon brightens as the head turns
+                // toward it. Discovered beacons ignore gaze (they idle dim).
+                if (!marker.Revealed)
+                {
+                    float gaze = PoiBeacons.GazeWeight(delta.x, delta.z, fwd.x, fwd.z, MaxGazeAngleDeg);
+                    SetIntensity(marker, PoiBeacons.Intensity(false, gaze));
+                }
             }
+        }
+
+        // Column height + a baseline intensity for the discovered/undiscovered
+        // state; the per-frame gaze swell (undiscovered only) rides over this.
+        void ApplyDiscovered(Marker marker, bool discovered)
+        {
+            float h = PoiBeacons.Height(discovered);
+            var s = marker.Column.localScale;
+            marker.Column.localScale = new Vector3(s.x, h * 0.5f, s.z);
+            marker.Column.localPosition = new Vector3(0f, h * 0.5f, 0f);
+            SetIntensity(marker, PoiBeacons.Intensity(discovered, 0f));
+        }
+
+        void SetIntensity(Marker marker, float intensity)
+        {
+            Color c = BeaconCyan * (intensity * GlowScale);
+            SetColor(marker.ColumnRenderer, c);
+            SetColor(marker.PoolRenderer, c * 0.6f);   // the pool is a softer echo
+        }
+
+        static void SetColor(Renderer renderer, Color color)
+        {
+            // Property block, not .material: no per-marker material allocation
+            // and no instance leak in edit mode (the contract test builds markers
+            // without entering play mode).
+            _block ??= new MaterialPropertyBlock();
+            renderer.GetPropertyBlock(_block);
+            _block.SetColor(BaseColorId, color);
+            renderer.SetPropertyBlock(_block);
         }
 
         Marker CreateMarker(PoiEntry poi, Terrain terrain)
@@ -116,31 +171,65 @@ namespace Wayfinder.Unity
             root.transform.SetParent(transform, false);
             root.transform.position = world;
 
-            var beacon = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            beacon.name = "Beacon";
-            beacon.transform.SetParent(root.transform, false);
-            beacon.transform.localPosition = new Vector3(0, 1.25f, 0);
-            beacon.transform.localScale = new Vector3(0.25f, 1.25f, 0.25f);
-            var collider = beacon.GetComponent<Collider>();
-            if (Application.isPlaying) Destroy(collider); else DestroyImmediate(collider);
-            var renderer = beacon.GetComponent<Renderer>();
-            SetBeaconColor(renderer, UndiscoveredColor);
-            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            // Light column (height set later by ApplyDiscovered).
+            var column = MakePrimitive(PrimitiveType.Cylinder, "Column", root.transform,
+                new Vector3(0f, 2f, 0f), new Vector3(0.1f, 2f, 0.1f));
+
+            // Ground pool — a thin glowing disc at the base.
+            var pool = MakePrimitive(PrimitiveType.Cylinder, "Pool", root.transform,
+                new Vector3(0f, 0.02f, 0f), new Vector3(1.1f, 0.008f, 1.1f));
 
             var panel = BuildFactPanel(poi, root.transform, _head);
             panel.SetActive(false);
 
-            return new Marker { Poi = poi, Root = root.transform, Beacon = renderer, FactPanel = panel };
+            return new Marker
+            {
+                Poi = poi,
+                Root = root.transform,
+                Column = column.transform,
+                ColumnRenderer = column.GetComponent<Renderer>(),
+                PoolRenderer = pool.GetComponent<Renderer>(),
+                FactPanel = panel,
+            };
         }
 
-        static void SetBeaconColor(Renderer renderer, Color color)
+        GameObject MakePrimitive(PrimitiveType type, string name, Transform parent, Vector3 localPos, Vector3 localScale)
         {
-            // Property block, not .material: no instance leak in edit mode
-            // (tests) and no per-marker material allocation in play mode.
-            _block ??= new MaterialPropertyBlock();
-            renderer.GetPropertyBlock(_block);
-            _block.SetColor(BaseColorId, color);
-            renderer.SetPropertyBlock(_block);
+            var go = GameObject.CreatePrimitive(type);
+            go.name = name;
+            go.transform.SetParent(parent, false);
+            go.transform.localPosition = localPos;
+            go.transform.localScale = localScale;
+            var collider = go.GetComponent<Collider>();
+            if (Application.isPlaying) Destroy(collider); else DestroyImmediate(collider);
+            var r = go.GetComponent<Renderer>();
+            r.sharedMaterial = BeaconMaterial();
+            r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            r.receiveShadows = false;
+            return go;
+        }
+
+        // One shared additive-unlit material for every beacon (per-beacon colour
+        // rides on a property block). Created at runtime because PoiSystem is
+        // spawned by TravelManager, not authored in a scene.
+        Material BeaconMaterial()
+        {
+            if (_beaconMat != null) return _beaconMat;
+            _beaconMat = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
+            _beaconMat.SetFloat("_Surface", 1f);                                   // transparent
+            _beaconMat.SetFloat("_SrcBlend", (float)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            _beaconMat.SetFloat("_DstBlend", (float)UnityEngine.Rendering.BlendMode.One); // soft additive
+            _beaconMat.SetFloat("_ZWrite", 0f);
+            _beaconMat.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            _beaconMat.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+            _beaconMat.SetColor(BaseColorId, BeaconCyan);
+            return _beaconMat;
+        }
+
+        void OnDestroy()
+        {
+            if (_beaconMat == null) return;
+            if (Application.isPlaying) Destroy(_beaconMat); else DestroyImmediate(_beaconMat);
         }
 
         static GameObject BuildFactPanel(PoiEntry poi, Transform parent, Transform head)

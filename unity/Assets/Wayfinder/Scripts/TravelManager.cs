@@ -39,7 +39,10 @@ namespace Wayfinder.Unity
         /// session (persistence is a later ticket).
         public FieldLog FieldLog => _fieldLog;
 
-        public TravelState State => _machine.State;
+        // Null-safe: State can be queried before this component's Awake creates
+        // the machine (Awake order across components isn't guaranteed), e.g. by
+        // CompanionVisibilityGate. Default to the bridge until the machine exists.
+        public TravelState State => _machine != null ? _machine.State : TravelState.OnBridge;
 
         /// The world currently being visited or warped to, or null on the
         /// bridge. The bridge companion reads this to ground its answers.

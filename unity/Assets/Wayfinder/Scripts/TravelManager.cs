@@ -41,6 +41,28 @@ namespace Wayfinder.Unity
 
         public TravelState State => _machine.State;
 
+        /// The world currently being visited or warped to, or null on the
+        /// bridge. The bridge companion reads this to ground its answers.
+        public WorldDefinition CurrentWorld
+        {
+            get
+            {
+                var id = _machine?.DestinationWorldId;
+                return id != null ? _registry?.GetById(id) : null;
+            }
+        }
+
+        /// The full package (POI data, terrain, audio) for the current world,
+        /// or null on the bridge. The companion reads PoiData from here.
+        public WorldPackage CurrentPackage
+        {
+            get
+            {
+                var id = _machine?.DestinationWorldId;
+                return id != null ? FindPackage(id) : null;
+            }
+        }
+
         void Awake()
         {
             if (catalog == null) throw new System.InvalidOperationException($"{name}: no WorldCatalog assigned.");

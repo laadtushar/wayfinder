@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Wayfinder.Core;
 
@@ -20,6 +21,12 @@ namespace Wayfinder.Unity
 
         /// Raised with the selected world id. TravelManager subscribes.
         public event Action<string> WorldSelected;
+
+        /// Raised with a world id when the pointer/ray hovers an entry (before
+        /// any click). The bridge holo-globe previews the hovered destination.
+        public event Action<string> WorldHovered;
+
+        internal void ReportHover(string worldId) => WorldHovered?.Invoke(worldId);
 
         public string SelectedWorldId { get; private set; }
 
@@ -86,6 +93,7 @@ namespace Wayfinder.Unity
             var go = new GameObject("Destination_" + world.Id,
                 typeof(RectTransform), typeof(Image), typeof(Button), typeof(WorldIdHolder));
             go.transform.SetParent(entryContainer, false);
+            go.AddComponent<DestinationEntryHover>().Init(this, world.Id);
 
             var rect = (RectTransform)go.transform;
             // The canvas is in world space at 1 unit = 1 m; sizeDelta is metres.
@@ -134,5 +142,24 @@ namespace Wayfinder.Unity
     public sealed class WorldIdHolder : MonoBehaviour
     {
         public string WorldId { get; set; }
+    }
+
+    /// Reports pointer/ray hover on a destination entry back to the menu, so the
+    /// bridge holo-globe can preview the hovered world before any click.
+    public sealed class DestinationEntryHover : MonoBehaviour, IPointerEnterHandler
+    {
+        DestinationMenu _menu;
+        string _worldId;
+
+        public void Init(DestinationMenu menu, string worldId)
+        {
+            _menu = menu;
+            _worldId = worldId;
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (_menu != null) _menu.ReportHover(_worldId);
+        }
     }
 }
